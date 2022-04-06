@@ -20,20 +20,6 @@ struct LoginView: View {
             ZStack {
                 LinearGradient(colors: [Color.white], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
                 
-                
-                //            VStack {
-                //                Image(systemName: "chevron.up")
-                //                    .resizable()
-                //                    .scaledToFit()
-                //                    .frame(width: 50)
-                //                    .font(.system(.headline, design: .rounded).weight(.thin))
-                //                    .shadow(color: .black, radius: 3, x: 0, y: 7)
-                //                    .background()
-                //                    .padding(.top, 5)
-                //
-                //                Spacer()
-                //            }
-                
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
                         
@@ -58,7 +44,7 @@ struct LoginView: View {
                         
                     }
                     NavigationLink {
-                        SplitView()
+                        MainView()
                     } label: {
                         HStack {
                             Text("Login")
