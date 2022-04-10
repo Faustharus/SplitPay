@@ -22,19 +22,6 @@ struct SignUpView: View {
             ZStack {
                 LinearGradient(colors: [Color.white], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
                 
-                //            VStack {
-                //                Image(systemName: "chevron.up")
-                //                    .resizable()
-                //                    .scaledToFit()
-                //                    .frame(width: 50)
-                //                    .font(.system(.headline, design: .rounded).weight(.thin))
-                //                    .shadow(color: .black, radius: 3, x: 0, y: 7)
-                //                    .background()
-                //                    .padding(.top, 5)
-                //                
-                //                Spacer()
-                //            }
-                
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
                         Text("SignUp Page")
