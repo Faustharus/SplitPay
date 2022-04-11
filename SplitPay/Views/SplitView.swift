@@ -14,7 +14,6 @@ struct SplitView: View {
     let percentage = [0, 10, 15, 20, 25]
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
-    //let currencyNames = ["Euro", "Dollar", "Pounds", "Yen", "Indian Rupee", "Pesos", "Brazilian Real"]
     let currencyCode = ["EUR", "USD", "GBP", "JPY", "INR", "MXN", "BRL"]
     @State private var numOfPersons = [Double]()
     
@@ -94,6 +93,7 @@ struct SplitView: View {
                         }
                     }
                 }
+                .frame(maxHeight: 66)
                 .padding(.all, 15)
                 
                 
@@ -109,48 +109,11 @@ struct SplitView: View {
                 
                 // MARK: - Buttons
                 HStack {
-                    Button {
-                        // TODO: More Code Later
-                    } label: {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "plus")
-                                .offset(x: UIScreen.main.bounds.width * 0.07, y: -10)
-                                .zIndex(1)
-                            VStack {
-                                Text("Create Group")
-                                
-                            }
-                        }
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .bold, design: .serif))
-                        .frame(maxWidth: 200, maxHeight: 55)
-                        .background(.blue)
-                        .cornerRadius(7)
-                        .padding(.all, 5)
-                    }
+                    IconActionButtonView(title: "Creating Group", foreground: .white, background: .blue, sfSymbols: "plus", offsetSymbols: 0.06, handler: {})
                     
-                    Button {
-                        amountIsFocused = false
-                        self.amount = 0.0
-                        percentPosition = 0
-                        numOfPersons.removeAll()
-                    } label: {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "trash")
-                                .offset(x: UIScreen.main.bounds.width * 0.16, y: -10)
-                                .zIndex(1)
-                            VStack {
-                                Text("Reset")
-                                
-                            }
-                        }
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .bold, design: .serif))
-                        .frame(maxWidth: 200, maxHeight: 55)
-                        .background(.red)
-                        .cornerRadius(7)
-                        .padding(.all, 5)
-                    }
+                    IconActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", offsetSymbols: 0.16, handler: {
+                        reset()
+                    })
                 }
                 
                 Spacer()
@@ -184,10 +147,10 @@ struct SplitView: View {
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
             }
-            
-            
+            .navigationTitle("Split")
+            .navigationBarTitleDisplayMode(.inline)
+        
         }
-        .navigationBarHidden(true)
     }
 }
 
@@ -198,8 +161,15 @@ struct SplitView_Previews: PreviewProvider {
 }
 
 
-// MARK: - Computed Properties
+// MARK: - Computed Prop & Func
 extension SplitView {
+    
+    func reset() {
+        amountIsFocused = false
+        self.amount = 0.0
+        percentPosition = 0
+        numOfPersons.removeAll()
+    }
     
     var billWithTips: Double {
         let price = amount

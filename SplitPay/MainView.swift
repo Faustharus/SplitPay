@@ -7,9 +7,28 @@
 
 import SwiftUI
 
+enum PageSelected: String {
+    case split, profile
+}
+
 struct MainView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            SplitView()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Split")
+                }
+                .tag(PageSelected.split)
+            
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Profile")
+                }
+                .tag(PageSelected.profile)
+            
+        }
     }
 }
 

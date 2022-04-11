@@ -8,49 +8,63 @@
 import SwiftUI
 
 struct ProfileView: View {
+    
+    @EnvironmentObject var sessionService: SessionServiceImpl
+    
     var body: some View {
         ZStack {
             // Background ???
-            ScrollView {
-                Image(systemName: "person.crop.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 75)
-                Text("John Doe")
-                    .font(.system(size: 24, weight: .bold, design: .serif))
-                Text("JohnDoe#5487")
-                    .font(.system(size: 12, weight: .light, design: .serif))
-                
-                Rectangle()
-                    .foregroundColor(.secondary)
-                    .frame(height: 3)
-                
-                Button(action: {
-                    // TODO: More Code Later
-                }) {
+            VStack {
+                ScrollView {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75)
                     HStack {
-                        VStack {
-                            Text("Security Section")
-                                .font(.headline.weight(.bold))
-                            Text("Password, Name, Picture")
-                                .font(.subheadline.weight(.semibold))
-                        }
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 22, height: 20)
+                        Text("\(sessionService.userDetails.firstName) ") + Text("\(sessionService.userDetails.surName)")
+                            
                     }
-                    .padding(.horizontal, 15)
-                    .foregroundColor(.white)
-                    .frame(height: 55)
-                    .background(.blue)
-                    .cornerRadius(7)
-                    .padding()
+                    .font(.system(size: 24, weight: .bold, design: .serif))
+                    
+                    Text("\(sessionService.userDetails.nickName)#5487")
+                        .font(.system(size: 12, weight: .light, design: .serif))
+                    
+                    Rectangle()
+                        .foregroundColor(.secondary)
+                        .frame(height: 3)
+                    
+                    Button(action: {
+                        // TODO: More Code Later
+                    }) {
+                        HStack {
+                            VStack {
+                                Text("Security Section")
+                                    .font(.headline.weight(.bold))
+                                Text("Password, Name, Picture")
+                                    .font(.subheadline.weight(.semibold))
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22, height: 20)
+                        }
+                        .padding(.horizontal, 15)
+                        .foregroundColor(.white)
+                        .frame(height: 55)
+                        .background(.blue)
+                        .cornerRadius(7)
+                        .padding()
+                    }
+                }
+                ActionButtonView(title: "Logout", foreground: .white, background: .red, sfSymbols: "power") {
+                    sessionService.logout()
                 }
             }
+            .navigationTitle("Profile")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -58,5 +72,6 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .environmentObject(SessionServiceImpl())
     }
 }

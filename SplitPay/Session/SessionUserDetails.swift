@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct SessionUserDetails: Hashable {
+    var email: String
+    var firstName: String
+    var surName: String
+    var nickName: String
+    var profilePicture: String
+}

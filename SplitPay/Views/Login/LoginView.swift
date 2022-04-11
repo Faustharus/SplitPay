@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @StateObject private var vm = LoginViewModelImpl(service: LoginServiceImpl())
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var toSeePassword: Bool = false
@@ -26,10 +28,10 @@ struct LoginView: View {
                         Text("Login Page")
                             .font(.system(.title, design: .serif).weight(.bold))
                         
-                        EmailTextFieldView(email: $email, placeholder: "Email", sfSymbols: "envelope")
+                        EmailTextFieldView(email: $vm.credentials.email, placeholder: "Email", sfSymbols: "envelope")
                         
                         
-                        PasswordTextFieldView(password: $password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
+                        PasswordTextFieldView(password: $vm.credentials.password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
                         
                         HStack {
                             Spacer()
@@ -43,23 +45,11 @@ struct LoginView: View {
                         }
                         
                     }
-                    NavigationLink {
-                        MainView()
-                    } label: {
-                        HStack {
-                            Text("Login")
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                        }
-                        .foregroundColor(.white)
-                        .font(.system(.title3, design: .serif).weight(.semibold))
-                        .frame(maxWidth: .infinity, maxHeight: 55)
-                        .background(.blue)
-                        .cornerRadius(7)
+                    
+                    
+                    ActionButtonView(title: "Login", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
+                        vm.login()
                     }
-                    
-                    
-                    
-                    //                ActionButtonView(title: "Login", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right", handler: {})
                     
                     ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
                     

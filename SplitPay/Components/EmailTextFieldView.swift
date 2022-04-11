@@ -20,6 +20,8 @@ struct EmailTextFieldView: View {
                 HStack {
                     Image(systemName: sfSymbols)
                     TextField(placeholder, text: $email)
+                        .textInputAutocapitalization(.none)
+                        .keyboardType(.emailAddress)
                 }
                     .padding(.leading, 5)
             )

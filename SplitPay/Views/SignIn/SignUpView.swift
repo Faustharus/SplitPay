@@ -9,11 +9,14 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
+    @StateObject private var vm = RegistrationViewModelImpl(service: RegistrationServiceImpl())
+    
+//    @State private var email: String = ""
+//    @State private var password: String = ""
+//    @State private var confirmPassword: String = ""
     @State private var toSeePassword: Bool = false
     @State private var toSeeConfirmPassword: Bool = false
+    @State private var nextForm: Bool = false
     
     @Binding var changePage: Bool
     
@@ -22,33 +25,11 @@ struct SignUpView: View {
             ZStack {
                 LinearGradient(colors: [Color.white], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
                 
-                VStack(spacing: 16) {
-                    VStack(spacing: 16) {
-                        Text("SignUp Page")
-                            .font(.system(.title, design: .serif).weight(.bold))
-                        
-                        EmailTextFieldView(email: $email, placeholder: "Email", sfSymbols: "envelope")
-                        
-                        PasswordTextFieldView(password: $password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
-                        
-                        PasswordTextFieldView(password: $confirmPassword, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock")
-                    }
-                    
-                    ActionButtonView(title: "SignUp", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right", handler: {})
-                    
-                    ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
-                    
-                    HStack {
-                        Text("Already have an account ? -")
-                        Button {
-                            changePage.toggle()
-                        } label: {
-                            Text("LogIn")
-                        }
-                    }
-                    .font(.headline)
+                if !nextForm {
+                    firstPage
+                } else {
+                    secondPage
                 }
-                .padding(.horizontal, 10)
             }
             .navigationBarHidden(true)
         }
@@ -59,4 +40,65 @@ struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView(changePage: .constant(false))
     }
+}
+
+// MARK: - View Components
+extension SignUpView {
+    
+    private var firstPage: some View {
+        VStack(spacing: 16) {
+            VStack(spacing: 16) {
+                Text("SignUp Page")
+                    .font(.system(.title, design: .serif).weight(.bold))
+                
+                EmailTextFieldView(email: $vm.userDetails.email, placeholder: "Email", sfSymbols: "envelope")
+                
+                PasswordTextFieldView(password: $vm.userDetails.password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
+                
+                PasswordTextFieldView(password: $vm.userDetails.password, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock")
+            }
+            
+            ActionButtonView(title: "Continue", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
+                nextForm = true
+            }
+            
+            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
+            
+            HStack {
+                Text("Already have an account ? -")
+                Button {
+                    changePage.toggle()
+                } label: {
+                    Text("LogIn")
+                }
+            }
+            .font(.headline)
+        }
+        .padding(.horizontal, 10)
+    }
+    
+    private var secondPage: some View {
+        VStack(spacing: 16) {
+            VStack(spacing: 16) {
+                InputTextFieldView(text: $vm.userDetails.nickName, placeholder: "Nickname", sfSymbols: "person")
+                
+                InputTextFieldView(text: $vm.userDetails.firstName, placeholder: "First Name", sfSymbols: "person")
+                
+                InputTextFieldView(text: $vm.userDetails.surName, placeholder: "Surname", sfSymbols: "person")
+            }
+            ActionButtonView(title: "Back", foreground: .white, background: .blue, sfSymbols: "arrow.left") {
+                nextForm = false
+            }
+            
+            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
+            
+            Spacer().frame(height: 50)
+            
+            ActionButtonView(title: "SignUp", foreground: .white, background: .green, sfSymbols: "checkmark", handler: {
+                vm.register()
+            })
+        }
+        .padding(.horizontal, 10)
+    }
+    
 }
