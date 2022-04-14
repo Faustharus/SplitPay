@@ -15,7 +15,7 @@ struct ProfileView: View {
         ZStack {
             // Background ???
             VStack {
-                ScrollView {
+                
                     Image(systemName: "person.crop.circle")
                         .resizable()
                         .scaledToFit()
@@ -26,13 +26,13 @@ struct ProfileView: View {
                     }
                     .font(.system(size: 24, weight: .bold, design: .serif))
                     
-                    Text("\(sessionService.userDetails.nickName)#5487")
+                Text("\(sessionService.userDetails.nickName)#\(String(sessionService.userDetails.extNickName))")
                         .font(.system(size: 12, weight: .light, design: .serif))
                     
                     Rectangle()
                         .foregroundColor(.secondary)
                         .frame(height: 3)
-                    
+                List {
                     Button(action: {
                         // TODO: More Code Later
                     }) {
@@ -56,12 +56,22 @@ struct ProfileView: View {
                         .frame(height: 55)
                         .background(.blue)
                         .cornerRadius(7)
-                        .padding()
                     }
+                    
+                    Toggle("No Contacts Yet ?", isOn: .constant(false))
+                        .padding(.horizontal, 15)
+                        .frame(height: 55)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 7)
+                                .stroke(.black, lineWidth: 3)
+                        )
                 }
+                .listStyle(.plain)
+                
                 ActionButtonView(title: "Logout", foreground: .white, background: .red, sfSymbols: "power") {
                     sessionService.logout()
                 }
+                .padding(.all, 10)
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)

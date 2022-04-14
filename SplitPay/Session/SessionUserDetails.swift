@@ -12,5 +12,7 @@ struct SessionUserDetails: Hashable {
     var firstName: String
     var surName: String
     var nickName: String
+    var extNickName: Int
     var profilePicture: String
+    //var contacts: [String]?
 }

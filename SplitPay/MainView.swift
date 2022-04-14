@@ -8,10 +8,13 @@
 import SwiftUI
 
 enum PageSelected: String {
-    case split, profile
+    case split, review, profile
 }
 
 struct MainView: View {
+    
+    @EnvironmentObject var sessionService: SessionServiceImpl
+    
     var body: some View {
         TabView {
             SplitView()
@@ -20,6 +23,13 @@ struct MainView: View {
                     Text("Split")
                 }
                 .tag(PageSelected.split)
+            
+            HistoricSplitView()
+                .tabItem {
+                    Image(systemName: "chart.bar.xaxis")
+                    Text("Review")
+                }
+                .tag(PageSelected.review)
             
             ProfileView()
                 .tabItem {
@@ -35,5 +45,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environmentObject(SessionServiceImpl())
     }
 }

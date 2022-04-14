@@ -19,6 +19,9 @@ struct SplitView: View {
     
     @FocusState private var amountIsFocused: Bool
     
+    @State private var textFieldOrNot: Bool = true
+    @State private var indexOfPersons: Double = 0
+    
     var body: some View {
         ZStack {
             // Background ???
@@ -58,6 +61,7 @@ struct SplitView: View {
                 
                 
                 // MARK: - Number of Persons
+                if textFieldOrNot {
                 HStack {
                     Button(action: {
                         numOfPersons.append(1)
@@ -93,10 +97,28 @@ struct SplitView: View {
                         }
                     }
                 }
+                .onAppear(perform: personReset)
                 .frame(maxHeight: 66)
                 .padding(.all, 15)
+                    
+                } else {
+                    
+                    VStack {
+                        TextField("", value: $indexOfPersons, format: .number)
+                            .frame(height: 55)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.center)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 7)
+                                    .stroke(.black, lineWidth: 3)
+                            )
+                    }
+                    .onAppear(perform: personReset)
                 
+                }
                 
+                Toggle("Without Contact", isOn: $textFieldOrNot)
+                    .padding(.horizontal, 50)
                 
                 // MARK: - Percentage
                 Picker("", selection: $percentPosition) {
@@ -118,8 +140,8 @@ struct SplitView: View {
                 
                 Spacer()
                 
-                Button {
-                    // TODO: More Code Later
+                NavigationLink {
+                    DistributionView()
                 } label: {
                     ZStack(alignment: .topTrailing) {
                         Image(systemName: "checkmark")
@@ -133,17 +155,17 @@ struct SplitView: View {
                     .foregroundColor(.white)
                     .font(.system(size: 18, weight: .bold, design: .serif))
                     .frame(maxWidth: 200, maxHeight: 55)
-                    .background(amount == 0 || numOfPersons.isEmpty ? .gray : .green)
+                    .background(amount == 0 || numOfPersons.isEmpty && indexOfPersons == 0 ? .gray : .green)
                     .cornerRadius(7)
                     .padding(.all, 5)
                 }
-                .disabled(amount == 0 || numOfPersons.isEmpty)
+                .disabled(amount == 0 || numOfPersons.isEmpty && indexOfPersons == 0)
                 
                 Spacer()
-                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(billWithTips, specifier: "%.2f")")
+                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(textFieldOrNot ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
-                Text("Without Tips : \(billWithoutTips, specifier: "%.2f")")
+                Text("Without Tips : \(textFieldOrNot ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
             }
@@ -169,17 +191,26 @@ extension SplitView {
         self.amount = 0.0
         percentPosition = 0
         numOfPersons.removeAll()
+        indexOfPersons = 0
     }
     
-    var billWithTips: Double {
+    func personReset() {
+        if textFieldOrNot {
+            indexOfPersons = 0
+        } else {
+            numOfPersons.removeAll()
+        }
+    }
+    
+    var billArrayWithTips: Double {
         let price = amount
-        let peopleCount = numOfPersons
+        let peopleArrayCount = numOfPersons
         let currentPercent = Double(percentage[percentPosition])
 
-        if peopleCount.isEmpty {
+        if peopleArrayCount.isEmpty {
             return 0.0
         } else {
-            let priceDivided = price / peopleCount.reduce(0, { x, y in
+            let priceDivided = price / peopleArrayCount.reduce(0, { x, y in
                 x + y
             })
             let priceTiped = priceDivided * (currentPercent / 100.0)
@@ -189,17 +220,60 @@ extension SplitView {
         }
     }
     
-    var billWithoutTips: Double {
+    var billArrayWithoutTips: Double {
         let price = amount
-        let peopleCount = numOfPersons
+        let peopleArrayCount = numOfPersons
         
-        if peopleCount.isEmpty {
+        if peopleArrayCount.isEmpty {
             return 0.0
         } else {
-            let priceDivided = price / peopleCount.reduce(0, { x, y in
+            let priceDivided = price / peopleArrayCount.reduce(0, { x, y in
                 x + y
             })
             return priceDivided
+        }
+    }
+    
+    var billWithTips: Double {
+        let price = amount
+        let peopleCount = indexOfPersons
+        let currentPercent = Double(percentage[percentPosition])
+
+        if peopleCount == 0.0 {
+            return 0.0
+        } else {
+            let priceDivided = price / peopleCount
+            let priceTiped = priceDivided * (currentPercent / 100.0)
+            let result = priceDivided + priceTiped
+
+            return result
+        }
+    }
+    
+    var billWithoutTips: Double {
+        let price = amount
+        let peopleCount = indexOfPersons
+        
+        if peopleCount == 0 {
+            return 0.0
+        } else {
+            let priceDivided = price / peopleCount
+            return priceDivided
+        }
+    }
+    
+}
+
+
+// MARK: - View Components
+extension SplitView {
+    
+    @ViewBuilder
+    var destinationView: some View {
+        if textFieldOrNot {
+            DistributionView()
+        } else {
+            HistoricSplitView()
         }
     }
     

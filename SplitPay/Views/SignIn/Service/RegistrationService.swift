@@ -15,6 +15,7 @@ enum RegistrationKeys: String {
     case firstName
     case surName
     case nickName
+    case extNickName
     case profilePicture
     case email
 }
@@ -40,6 +41,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.surName.rawValue: details.surName,
                                     RegistrationKeys.nickName.rawValue: details.nickName,
+                                    RegistrationKeys.extNickName.rawValue: Int.random(in: 1000..<9999),
                                     RegistrationKeys.profilePicture.rawValue: details.profilePicture,
                                     RegistrationKeys.email.rawValue: details.email
                                 ]) { error in

@@ -25,7 +25,7 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
-    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", profilePicture: "")
+    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "")
     
     private var handler: AuthStateDidChangeListenerHandle?
     
@@ -70,12 +70,13 @@ private extension SessionServiceImpl {
                     self.userDetails.firstName = data["firstName"] as? String ?? "N/A"
                     self.userDetails.surName = data["surName"] as? String ?? "N/A"
                     self.userDetails.nickName = data["nickName"] as? String ?? "N/A"
+                    self.userDetails.extNickName = data["extNickName"] as? Int ?? 0000
                     self.userDetails.profilePicture = data["profilePicture"] as? String ?? "N/A"
                 }
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, profilePicture: self.userDetails.profilePicture)
+                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture)
             }
         }
     }

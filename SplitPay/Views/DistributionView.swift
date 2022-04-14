@@ -5,11 +5,17 @@
 //  Created by Damien Chailloleau on 03/04/2022.
 //
 
+import Combine
 import SwiftUI
 
 struct DistributionView: View {
     
     @State private var globalAmount: Double = 180
+//    var totalSum: Double = 180 {
+//        willSet {
+//            globalAmount = totalSum
+//        }
+//    }
     @State var totalSum: Double = 180
     let numOfPersons: [Double] = [1, 2, 3, 4, 5, 6]
     let sumOfPersons: [Double] = [1, 1, 1, 1, 1, 1]
@@ -17,7 +23,8 @@ struct DistributionView: View {
     var body: some View {
         ZStack {
             // Background ???
-            VStack {
+            
+            ScrollView {
                 TextField("", value: $globalAmount, format: .number)
                     .frame(height: 55)
                     .multilineTextAlignment(.center)
@@ -32,6 +39,7 @@ struct DistributionView: View {
                 ForEach(numOfPersons, id: \.self) { item in
                     DetailDistributionView(userNum: Int(item), globalAmount: globalAmount, amount: totalExpected)
                 }
+                .padding(.all, 1)
                 
                 Button(action: {
                     // TODO: More Code Later
@@ -39,19 +47,19 @@ struct DistributionView: View {
                     Text("Send")
                         .font(.system(size: 18, weight: .bold, design: .serif))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, maxHeight: 55)
+                        .frame(maxWidth: .infinity, minHeight: 55)
                         .background(.green)
                         .cornerRadius(7)
                         .padding(.horizontal, 15)
                 }
                 
-                
             }
+            
         }
     }
     
     var totalExpected: Double {
-        let initialAmount = globalAmount
+        let initialAmount = totalSum
         let sumPeople = sumOfPersons.reduce(0, { x, y in
             x + y
         })
@@ -81,10 +89,6 @@ struct DetailDistributionView: View {
     @State var amount: Double
     
     var body: some View {
-        let binding = Binding(
-            get: { self.amount },
-            set: { self.amount = $0 }
-        )
         ZStack {
             // Background ???
             VStack {
@@ -96,7 +100,7 @@ struct DetailDistributionView: View {
                     Text("Person \(userNum) - \(amount, specifier: "%.2f")€")
                         .font(.system(size: 16, design: .serif))
                 }
-                Slider(value: binding, in: 0...globalAmount, step: 0.01) {
+                Slider(value: $amount, in: 0...globalAmount, step: 0.01) {
                     Text("Test")
                 } minimumValueLabel: {
                     Text("0€")
