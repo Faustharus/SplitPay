@@ -25,9 +25,11 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
-    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "")
+    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "", withoutContact: false)
     
     private var handler: AuthStateDidChangeListenerHandle?
+    
+    let db = Firestore.firestore()
     
     init() {
         setupFirebaseAuthhandler()
@@ -35,6 +37,10 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func logout() {
         try? Auth.auth().signOut()
+    }
+    
+    func withOrWithoutContact() {
+        self.userDetails.withoutContact.toggle()
     }
     
 }
@@ -54,7 +60,6 @@ private extension SessionServiceImpl {
     }
     
     func handleRefresh(with uid: String) {
-        let db = Firestore.firestore()
         let docRef = db.collection("users").document(uid)
         docRef.getDocument { (document, error) in
             guard error == nil else {
@@ -72,11 +77,12 @@ private extension SessionServiceImpl {
                     self.userDetails.nickName = data["nickName"] as? String ?? "N/A"
                     self.userDetails.extNickName = data["extNickName"] as? Int ?? 0000
                     self.userDetails.profilePicture = data["profilePicture"] as? String ?? "N/A"
+                    self.userDetails.withoutContact = data["withoutContact"] as? Bool ?? false // Need to be modified reguarlely if necessary
                 }
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture)
+                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withoutContact: self.userDetails.withoutContact)
             }
         }
     }

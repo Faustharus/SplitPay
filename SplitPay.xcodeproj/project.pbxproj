@@ -32,6 +32,7 @@
 		9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82327F369D000CDC228 /* ActionButtonView.swift */; };
 		9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */; };
 		9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */; };
+		9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE379352809BB4A00C30417 /* SplitingDetails.swift */; };
 		A60F7679369A154E58595D81 /* Pods_SplitPay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368860DC998BA64E977AC799 /* Pods_SplitPay.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		9EDFF82327F369D000CDC228 /* ActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
 		9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextFieldView.swift; sourceTree = "<group>"; };
 		9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldView.swift; sourceTree = "<group>"; };
+		9EE379352809BB4A00C30417 /* SplitingDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitingDetails.swift; sourceTree = "<group>"; };
 		AACDE003F0625D627277FA75 /* Pods-SplitPay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.debug.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +96,7 @@
 				9E315E7A27FDCFBC00D21680 /* Login */,
 				9E3A571B27FDF12600D3F98A /* SignIn */,
 				9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */,
-				9E23EAEE27F4541200C8AA2D /* SplitView.swift */,
+				9EE379372809BB4E00C30417 /* Split */,
 				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
 				9E1DBFD927F9DF8500567931 /* DistributionView.swift */,
 				9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */,
@@ -232,6 +234,23 @@
 				9E315E7627FDBE5100D21680 /* IconActionButtonView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		9EE379372809BB4E00C30417 /* Split */ = {
+			isa = PBXGroup;
+			children = (
+				9E23EAEE27F4541200C8AA2D /* SplitView.swift */,
+				9EE379382809BB5600C30417 /* Model */,
+			);
+			path = Split;
+			sourceTree = "<group>";
+		};
+		9EE379382809BB5600C30417 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9EE379352809BB4A00C30417 /* SplitingDetails.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A6D90A75CF2E5A8E603B3AD8 /* Frameworks */ = {
@@ -379,6 +398,7 @@
 				9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */,
 				9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */,
 				9E315E7727FDBE5100D21680 /* IconActionButtonView.swift in Sources */,
+				9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */,
 				9E2A57D0280732E400005AEE /* HistoricSplitView.swift in Sources */,
 				9E23EAEF27F4541200C8AA2D /* SplitView.swift in Sources */,
 				9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */,

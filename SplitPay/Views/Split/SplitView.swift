@@ -19,8 +19,9 @@ struct SplitView: View {
     
     @FocusState private var amountIsFocused: Bool
     
-    @State private var textFieldOrNot: Bool = true
     @State private var indexOfPersons: Double = 0
+    
+    @EnvironmentObject var sessionService: SessionServiceImpl
     
     var body: some View {
         ZStack {
@@ -61,7 +62,7 @@ struct SplitView: View {
                 
                 
                 // MARK: - Number of Persons
-                if textFieldOrNot {
+                if sessionService.userDetails.withoutContact {
                 HStack {
                     Button(action: {
                         numOfPersons.append(1)
@@ -104,21 +105,26 @@ struct SplitView: View {
                 } else {
                     
                     VStack {
-                        TextField("", value: $indexOfPersons, format: .number)
-                            .frame(height: 55)
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.center)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 7)
-                                    .stroke(.black, lineWidth: 3)
-                            )
+                        HStack {
+                            Image(systemName: "person.3.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 44)
+                            TextField("", value: $indexOfPersons, format: .number)
+                                .frame(height: 55)
+                                .keyboardType(.decimalPad)
+                                .multilineTextAlignment(.center)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 7)
+                                        .stroke(.black, lineWidth: 3)
+                                )
+                        }
                     }
                     .onAppear(perform: personReset)
-                
+                    .frame(maxHeight: 66)
+                    .padding(.all, 10)
+                    
                 }
-                
-                Toggle("Without Contact", isOn: $textFieldOrNot)
-                    .padding(.horizontal, 50)
                 
                 // MARK: - Percentage
                 Picker("", selection: $percentPosition) {
@@ -162,10 +168,10 @@ struct SplitView: View {
                 .disabled(amount == 0 || numOfPersons.isEmpty && indexOfPersons == 0)
                 
                 Spacer()
-                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(textFieldOrNot ? billArrayWithTips : billWithTips, specifier: "%.2f")")
+                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(sessionService.userDetails.withoutContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
-                Text("Without Tips : \(textFieldOrNot ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
+                Text("Without Tips : \(sessionService.userDetails.withoutContact ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
             }
@@ -179,6 +185,7 @@ struct SplitView: View {
 struct SplitView_Previews: PreviewProvider {
     static var previews: some View {
         SplitView()
+            .environmentObject(SessionServiceImpl())
     }
 }
 
@@ -195,7 +202,7 @@ extension SplitView {
     }
     
     func personReset() {
-        if textFieldOrNot {
+        if sessionService.userDetails.withoutContact {
             indexOfPersons = 0
         } else {
             numOfPersons.removeAll()
@@ -268,13 +275,13 @@ extension SplitView {
 // MARK: - View Components
 extension SplitView {
     
-    @ViewBuilder
-    var destinationView: some View {
-        if textFieldOrNot {
-            DistributionView()
-        } else {
-            HistoricSplitView()
-        }
-    }
+//    @ViewBuilder
+//    var destinationView: some View {
+//        if textFieldOrNot {
+//            DistributionView()
+//        } else {
+//            HistoricSplitView()
+//        }
+//    }
     
 }

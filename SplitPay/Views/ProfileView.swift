@@ -58,7 +58,7 @@ struct ProfileView: View {
                         .cornerRadius(7)
                     }
                     
-                    Toggle("No Contacts Yet ?", isOn: .constant(false))
+                    Toggle("No Contacts Yet ?", isOn: $sessionService.userDetails.withoutContact)
                         .padding(.horizontal, 15)
                         .frame(height: 55)
                         .overlay(
