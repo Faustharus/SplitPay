@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E14433628153B530061AD19 /* HistoricDetailsSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */; };
 		9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1DBFD927F9DF8500567931 /* DistributionView.swift */; };
 		9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAE927F4453E00C8AA2D /* SignUpView.swift */; };
 		9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */; };
@@ -23,12 +24,15 @@
 		9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */; };
 		9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */; };
 		9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A572127FDFAA300D3F98A /* RegistrationService.swift */; };
+		9E4092CB2815847200C4B3A4 /* SessionSplitUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */; };
 		9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46C4A227F34C3700A05950 /* LoginView.swift */; };
 		9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */; };
 		9EB9361D2801DE6900A246A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */; };
 		9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1054627EF070000012D48 /* SplitPayApp.swift */; };
 		9EC1054B27EF070100012D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1054A27EF070100012D48 /* Assets.xcassets */; };
 		9EC1054E27EF070100012D48 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1054D27EF070100012D48 /* Preview Assets.xcassets */; };
+		9ED56EB0280D5DB0007ACFB2 /* SplitingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED56EAF280D5DB0007ACFB2 /* SplitingService.swift */; };
+		9ED56EB3280D66FC007ACFB2 /* SplitingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED56EB2280D66FC007ACFB2 /* SplitingViewModel.swift */; };
 		9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82327F369D000CDC228 /* ActionButtonView.swift */; };
 		9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */; };
 		9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */; };
@@ -39,6 +43,7 @@
 /* Begin PBXFileReference section */
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricDetailsSplitView.swift; sourceTree = "<group>"; };
 		9E1DBFD927F9DF8500567931 /* DistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionView.swift; sourceTree = "<group>"; };
 		9E23EAE927F4453E00C8AA2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
@@ -55,6 +60,7 @@
 		9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldView.swift; sourceTree = "<group>"; };
 		9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDetails.swift; sourceTree = "<group>"; };
 		9E3A572127FDFAA300D3F98A /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
+		9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSplitUserDetails.swift; sourceTree = "<group>"; };
 		9E46C4A227F34C3700A05950 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
@@ -62,6 +68,8 @@
 		9EC1054627EF070000012D48 /* SplitPayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayApp.swift; sourceTree = "<group>"; };
 		9EC1054A27EF070100012D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EC1054D27EF070100012D48 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9ED56EAF280D5DB0007ACFB2 /* SplitingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitingService.swift; sourceTree = "<group>"; };
+		9ED56EB2280D66FC007ACFB2 /* SplitingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitingViewModel.swift; sourceTree = "<group>"; };
 		9EDFF82327F369D000CDC228 /* ActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonView.swift; sourceTree = "<group>"; };
 		9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextFieldView.swift; sourceTree = "<group>"; };
 		9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldView.swift; sourceTree = "<group>"; };
@@ -98,6 +106,7 @@
 				9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */,
 				9EE379372809BB4E00C30417 /* Split */,
 				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
+				9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */,
 				9E1DBFD927F9DF8500567931 /* DistributionView.swift */,
 				9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */,
 			);
@@ -143,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3A571627FDEDF000D3F98A /* SessionUserDetails.swift */,
+				9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */,
 				9E3A571927FDEE2B00D3F98A /* SessionService.swift */,
 			);
 			path = Session;
@@ -224,6 +234,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		9ED56EB1280D5DB5007ACFB2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9ED56EAF280D5DB0007ACFB2 /* SplitingService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		9ED56EB4280D6700007ACFB2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9ED56EB2280D66FC007ACFB2 /* SplitingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9EDFF82527F369D500CDC228 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +267,8 @@
 			children = (
 				9E23EAEE27F4541200C8AA2D /* SplitView.swift */,
 				9EE379382809BB5600C30417 /* Model */,
+				9ED56EB4280D6700007ACFB2 /* ViewModel */,
+				9ED56EB1280D5DB5007ACFB2 /* Service */,
 			);
 			path = Split;
 			sourceTree = "<group>";
@@ -397,6 +425,7 @@
 				9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */,
 				9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */,
 				9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */,
+				9ED56EB0280D5DB0007ACFB2 /* SplitingService.swift in Sources */,
 				9E315E7727FDBE5100D21680 /* IconActionButtonView.swift in Sources */,
 				9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */,
 				9E2A57D0280732E400005AEE /* HistoricSplitView.swift in Sources */,
@@ -410,12 +439,15 @@
 				9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */,
 				9E3A571A27FDEE2B00D3F98A /* SessionService.swift in Sources */,
 				9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */,
+				9E4092CB2815847200C4B3A4 /* SessionSplitUserDetails.swift in Sources */,
 				9E3A571727FDEDF000D3F98A /* SessionUserDetails.swift in Sources */,
 				9E315E7527FDBB7F00D21680 /* MainView.swift in Sources */,
 				9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */,
 				9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */,
 				9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */,
 				9E315E7F27FDD05F00D21680 /* LoginService.swift in Sources */,
+				9E14433628153B530061AD19 /* HistoricDetailsSplitView.swift in Sources */,
+				9ED56EB3280D66FC007ACFB2 /* SplitingViewModel.swift in Sources */,
 				9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

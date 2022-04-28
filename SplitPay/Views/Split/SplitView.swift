@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SplitView: View {
     
+    @StateObject private var vm = SplitingViewModelImpl(service: SplitingServiceImpl())
+    
     @State private var amount: Double = 0
     @State private var percentPosition: Int = 0
     let percentage = [0, 10, 15, 20, 25]
@@ -19,7 +21,7 @@ struct SplitView: View {
     
     @FocusState private var amountIsFocused: Bool
     
-    @State private var indexOfPersons: Double = 0
+    //@State private var indexOfPersons: Double = 0
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
@@ -44,7 +46,7 @@ struct SplitView: View {
                             .frame(width: 44, height: 44)
                         
                         
-                        TextField("\(amount, specifier: "%2.f")", value: $amount, format: .number)
+                        TextField("\(vm.splitDetails.initialAmount, specifier: "%2.f")", value: $vm.splitDetails.initialAmount, format: .number)
                             .frame(height: 55)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.center)
@@ -62,7 +64,7 @@ struct SplitView: View {
                 
                 
                 // MARK: - Number of Persons
-                if sessionService.userDetails.withoutContact {
+                if sessionService.userDetails.withContact {
                 HStack {
                     Button(action: {
                         numOfPersons.append(1)
@@ -110,7 +112,7 @@ struct SplitView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 44)
-                            TextField("", value: $indexOfPersons, format: .number)
+                            TextField("", value: $vm.splitDetails.indexOfPersons, format: .number)
                                 .frame(height: 55)
                                 .keyboardType(.decimalPad)
                                 .multilineTextAlignment(.center)
@@ -127,9 +129,9 @@ struct SplitView: View {
                 }
                 
                 // MARK: - Percentage
-                Picker("", selection: $percentPosition) {
-                    ForEach(0 ..< percentage.count, id: \.self) {
-                        Text("\(percentage[$0])%")
+                Picker("", selection: $vm.splitDetails.percentage) {
+                    ForEach(0 ..< percentage.count, id: \.self) { item in
+                        Text("\(percentage[item])%")
                     }
                 }
                 .pickerStyle(.segmented)
@@ -146,6 +148,10 @@ struct SplitView: View {
                 
                 Spacer()
                 
+                IconActionButtonView(title: "Storing", foreground: .white, background: .purple, sfSymbols: "folder", offsetSymbols: 0.14, handler: {
+                    vm.addSplitToReview()
+                })
+                
                 NavigationLink {
                     DistributionView()
                 } label: {
@@ -161,17 +167,17 @@ struct SplitView: View {
                     .foregroundColor(.white)
                     .font(.system(size: 18, weight: .bold, design: .serif))
                     .frame(maxWidth: 200, maxHeight: 55)
-                    .background(amount == 0 || numOfPersons.isEmpty && indexOfPersons == 0 ? .gray : .green)
+                    .background(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .green)
                     .cornerRadius(7)
                     .padding(.all, 5)
                 }
-                .disabled(amount == 0 || numOfPersons.isEmpty && indexOfPersons == 0)
+                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
                 
                 Spacer()
-                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(sessionService.userDetails.withoutContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
+                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
-                Text("Without Tips : \(sessionService.userDetails.withoutContact ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
+                Text("Without Tips : \(sessionService.userDetails.withContact ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
             }
@@ -195,15 +201,21 @@ extension SplitView {
     
     func reset() {
         amountIsFocused = false
-        self.amount = 0.0
-        percentPosition = 0
+        vm.splitDetails.initialAmount = 0.0
+        vm.splitDetails.percentage = 0
+        vm.splitDetails.indexOfPersons = 0.0
         numOfPersons.removeAll()
-        indexOfPersons = 0
+//        amountIsFocused = false
+//        self.amount = 0.0
+//        percentPosition = 0
+//        numOfPersons.removeAll()
+//        indexOfPersons = 0
     }
     
     func personReset() {
-        if sessionService.userDetails.withoutContact {
-            indexOfPersons = 0
+        if sessionService.userDetails.withContact {
+            vm.splitDetails.indexOfPersons = 0.0
+            //indexOfPersons = 0
         } else {
             numOfPersons.removeAll()
         }
@@ -242,9 +254,9 @@ extension SplitView {
     }
     
     var billWithTips: Double {
-        let price = amount
-        let peopleCount = indexOfPersons
-        let currentPercent = Double(percentage[percentPosition])
+        let price = vm.splitDetails.initialAmount
+        let peopleCount = vm.splitDetails.indexOfPersons
+        let currentPercent = Double(percentage[vm.splitDetails.percentage])
 
         if peopleCount == 0.0 {
             return 0.0
@@ -252,14 +264,14 @@ extension SplitView {
             let priceDivided = price / peopleCount
             let priceTiped = priceDivided * (currentPercent / 100.0)
             let result = priceDivided + priceTiped
-
+            
             return result
         }
     }
     
     var billWithoutTips: Double {
-        let price = amount
-        let peopleCount = indexOfPersons
+        let price = vm.splitDetails.initialAmount
+        let peopleCount = vm.splitDetails.indexOfPersons
         
         if peopleCount == 0 {
             return 0.0

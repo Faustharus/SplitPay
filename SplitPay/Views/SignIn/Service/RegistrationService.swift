@@ -18,7 +18,7 @@ enum RegistrationKeys: String {
     case extNickName
     case profilePicture
     case email
-    case withoutContact
+    case withContact
 }
 
 protocol RegistrationService {
@@ -45,7 +45,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                     RegistrationKeys.extNickName.rawValue: Int.random(in: 1000..<9999),
                                     RegistrationKeys.profilePicture.rawValue: details.profilePicture,
                                     RegistrationKeys.email.rawValue: details.email,
-                                    RegistrationKeys.withoutContact.rawValue: details.withoutContact
+                                    RegistrationKeys.withContact.rawValue: details.withContact
                                 ]) { error in
                                     if let err = error {
                                         promise(.failure(err))

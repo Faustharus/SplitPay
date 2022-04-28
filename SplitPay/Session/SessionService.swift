@@ -25,7 +25,8 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
-    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "", withoutContact: false)
+    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "", withContact: false)
+    @Published var splitDetails: SessionSplitUserDetails = SessionSplitUserDetails.init(initialAmount: 0.00, percentageApplied: 0, currencyName: "", nbOfPersons: 0.00, splitedAmount: 0.00)
     
     private var handler: AuthStateDidChangeListenerHandle?
     
@@ -40,7 +41,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     }
     
     func withOrWithoutContact() {
-        self.userDetails.withoutContact.toggle()
+        self.userDetails.withContact.toggle()
     }
     
 }
@@ -77,12 +78,29 @@ private extension SessionServiceImpl {
                     self.userDetails.nickName = data["nickName"] as? String ?? "N/A"
                     self.userDetails.extNickName = data["extNickName"] as? Int ?? 0000
                     self.userDetails.profilePicture = data["profilePicture"] as? String ?? "N/A"
-                    self.userDetails.withoutContact = data["withoutContact"] as? Bool ?? false // Need to be modified reguarlely if necessary
+                    self.userDetails.withContact = data["withContact"] as? Bool ?? false // Need to be modified reguarlely if necessary
                 }
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withoutContact: self.userDetails.withoutContact)
+                self.userDetails = SessionUserDetails(email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact)
+            }
+        }
+    }
+    
+    func splitRefresh(with uid: String) {
+        let docRef = db.collection("users").document(uid).collection("review")
+        docRef.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot?.documents ?? [] {
+                    self.splitDetails.currencyName = document["currencyName"] as? String ?? "N/A"
+                    self.splitDetails.percentageApplied = document["percentageApplied"] as? Int ?? 0
+                    self.splitDetails.splitedAmount = document["splitedAmount"] as? Double ?? 0.00
+                    self.splitDetails.nbOfPersons = document["nbOfPersons"] as? Double ?? 0.00
+                    self.splitDetails.initialAmount = document["initialAmount"] as? Double ?? 0.00
+                }
             }
         }
     }
