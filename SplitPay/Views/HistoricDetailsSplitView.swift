@@ -11,7 +11,7 @@ struct HistoricDetailsSplitView: View {
     let currencyName: String
     let initialAmount: Double
     let percentageApplied: Int
-    let nbOfPersons: Double
+    let nbOfPersons: Int
     let splitedAmount: Double
     
     var body: some View {

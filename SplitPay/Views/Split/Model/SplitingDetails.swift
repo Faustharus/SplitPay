@@ -12,7 +12,7 @@ struct SplitingDetails: Hashable {
     var percentage: Int
     var initialAmount: Double
     var splitedAmount: Double
-    var indexOfPersons: Double
+    var indexOfPersons: Int
 }
 
 extension SplitingDetails {

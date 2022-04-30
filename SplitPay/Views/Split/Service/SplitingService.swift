@@ -30,7 +30,7 @@ final class SplitingServiceImpl: SplitingService {
                     let db = Firestore.firestore()
                     db.collection("users").document(uid).collection("review").document("doc\(UUID().uuidString)").setData([
                         SplitingKeys.initialAmount.rawValue: details.initialAmount,
-                        SplitingKeys.splitedAmount.rawValue: details.initialAmount / details.indexOfPersons,
+                        SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
                         SplitingKeys.currencyCode.rawValue: details.currencyCode,
                         SplitingKeys.percentage.rawValue: details.percentage,
                         SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons

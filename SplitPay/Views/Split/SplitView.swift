@@ -17,7 +17,7 @@ struct SplitView: View {
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
     let currencyCode = ["EUR", "USD", "GBP", "JPY", "INR", "MXN", "BRL"]
-    @State private var numOfPersons = [Double]()
+    @State private var numOfPersons = [Int]()
     
     @FocusState private var amountIsFocused: Bool
     
@@ -203,7 +203,7 @@ extension SplitView {
         amountIsFocused = false
         vm.splitDetails.initialAmount = 0.0
         vm.splitDetails.percentage = 0
-        vm.splitDetails.indexOfPersons = 0.0
+        vm.splitDetails.indexOfPersons = 0
         numOfPersons.removeAll()
 //        amountIsFocused = false
 //        self.amount = 0.0
@@ -214,7 +214,7 @@ extension SplitView {
     
     func personReset() {
         if sessionService.userDetails.withContact {
-            vm.splitDetails.indexOfPersons = 0.0
+            vm.splitDetails.indexOfPersons = 0
             //indexOfPersons = 0
         } else {
             numOfPersons.removeAll()
@@ -223,15 +223,15 @@ extension SplitView {
     
     var billArrayWithTips: Double {
         let price = amount
-        let peopleArrayCount = numOfPersons
+        let peopleArrayCount = numOfPersons as? [Double]
         let currentPercent = Double(percentage[percentPosition])
 
-        if peopleArrayCount.isEmpty {
+        if peopleArrayCount == nil {
             return 0.0
         } else {
-            let priceDivided = price / peopleArrayCount.reduce(0, { x, y in
+            let priceDivided = price / (peopleArrayCount?.reduce(0, { x, y in
                 x + y
-            })
+            }) ?? 0.0)
             let priceTiped = priceDivided * (currentPercent / 100.0)
             let result = priceDivided + priceTiped
 
@@ -241,14 +241,14 @@ extension SplitView {
     
     var billArrayWithoutTips: Double {
         let price = amount
-        let peopleArrayCount = numOfPersons
+        let peopleArrayCount = numOfPersons as? [Double]
         
-        if peopleArrayCount.isEmpty {
+        if peopleArrayCount == nil {
             return 0.0
         } else {
-            let priceDivided = price / peopleArrayCount.reduce(0, { x, y in
+            let priceDivided = price / (peopleArrayCount?.reduce(0, { x, y in
                 x + y
-            })
+            }) ?? 0.0)
             return priceDivided
         }
     }
@@ -258,10 +258,10 @@ extension SplitView {
         let peopleCount = vm.splitDetails.indexOfPersons
         let currentPercent = Double(percentage[vm.splitDetails.percentage])
 
-        if peopleCount == 0.0 {
+        if peopleCount == 0 {
             return 0.0
         } else {
-            let priceDivided = price / peopleCount
+            let priceDivided = price / Double(peopleCount)
             let priceTiped = priceDivided * (currentPercent / 100.0)
             let result = priceDivided + priceTiped
             
@@ -276,7 +276,7 @@ extension SplitView {
         if peopleCount == 0 {
             return 0.0
         } else {
-            let priceDivided = price / peopleCount
+            let priceDivided = price / Double(peopleCount)
             return priceDivided
         }
     }

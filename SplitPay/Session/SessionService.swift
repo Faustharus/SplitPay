@@ -26,7 +26,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
     @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "", withContact: false)
-    @Published var splitDetails: SessionSplitUserDetails = SessionSplitUserDetails.init(initialAmount: 0.00, percentageApplied: 0, currencyName: "", nbOfPersons: 0.00, splitedAmount: 0.00)
+    @Published var splitArray: [SessionSplitUserDetails] = []
     
     private var handler: AuthStateDidChangeListenerHandle?
     
@@ -46,7 +46,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
 }
 
-private extension SessionServiceImpl {
+extension SessionServiceImpl {
     
     func setupFirebaseAuthhandler() {
         handler = Auth
@@ -55,7 +55,8 @@ private extension SessionServiceImpl {
                 guard let self = self else { return }
                 self.state = user == nil ? .loggedOut : .loggedIn
                 if let uid = user?.uid {
-                    self.handleRefresh(with: uid)
+                    self.handleRefresh(with: uid);
+                    self.splitRefresh(with: uid)
                 }
             })
     }
@@ -91,16 +92,12 @@ private extension SessionServiceImpl {
     func splitRefresh(with uid: String) {
         let docRef = db.collection("users").document(uid).collection("review")
         docRef.getDocuments() { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in querySnapshot?.documents ?? [] {
-                    self.splitDetails.currencyName = document["currencyName"] as? String ?? "N/A"
-                    self.splitDetails.percentageApplied = document["percentageApplied"] as? Int ?? 0
-                    self.splitDetails.splitedAmount = document["splitedAmount"] as? Double ?? 0.00
-                    self.splitDetails.nbOfPersons = document["nbOfPersons"] as? Double ?? 0.00
-                    self.splitDetails.initialAmount = document["initialAmount"] as? Double ?? 0.00
-                }
+            guard let snapshot = querySnapshot, error == nil else {
+                print("Error detected ...")
+                return
+            }
+            DispatchQueue.main.async {
+                self.splitArray = snapshot.documents.compactMap { SessionSplitUserDetails(dictionary: $0.data()) }
             }
         }
     }
