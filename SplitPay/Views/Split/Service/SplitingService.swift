@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 enum SplitingKeys: String {
     case currencyCode
-    case percentage
+    case percentages
     case initialAmount
     case splitedAmount
     case indexOfPersons
@@ -32,7 +32,7 @@ final class SplitingServiceImpl: SplitingService {
                         SplitingKeys.initialAmount.rawValue: details.initialAmount,
                         SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
                         SplitingKeys.currencyCode.rawValue: details.currencyCode,
-                        SplitingKeys.percentage.rawValue: details.percentage,
+                        SplitingKeys.percentages.rawValue: details.percentages.reelValue,
                         SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons
                     ]) { error in
                         if let err = error {

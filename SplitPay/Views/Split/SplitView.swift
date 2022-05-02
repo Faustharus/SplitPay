@@ -12,7 +12,7 @@ struct SplitView: View {
     @StateObject private var vm = SplitingViewModelImpl(service: SplitingServiceImpl())
     
     @State private var amount: Double = 0
-    @State private var percentPosition: Int = 0
+    //@State private var percentPosition: Int = 0
     let percentage = [0, 10, 15, 20, 25]
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
@@ -64,74 +64,94 @@ struct SplitView: View {
                 
                 
                 // MARK: - Number of Persons
-                if sessionService.userDetails.withContact {
-                HStack {
-                    Button(action: {
-                        numOfPersons.append(1)
-                    }) {
-                        Circle()
-                            .stroke(.black, lineWidth: 3)
-                            .frame(width: 44, height: 44)
+                VStack {
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 44)
+                        TextField("\(vm.splitDetails.indexOfPersons)", value: $vm.splitDetails.indexOfPersons, format: .number)
+                            .frame(height: 55)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.center)
                             .overlay(
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 22)
-                                    .foregroundColor(.black)
+                                RoundedRectangle(cornerRadius: 7)
+                                    .stroke(.black, lineWidth: 3)
                             )
-                    }
-                    .padding(.horizontal, 10)
-
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(numOfPersons, id: \.self) { item in
-                                VStack {
-                                    Image(systemName: "person.crop.circle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 44)
-                                    Text("Person")
-                                        .font(.subheadline)
-                                }
-                                .onTapGesture {
-                                    numOfPersons.removeAll(keepingCapacity: true)
-                                }
-                            }
-                        }
                     }
                 }
                 .onAppear(perform: personReset)
                 .frame(maxHeight: 66)
-                .padding(.all, 15)
-                    
-                } else {
-                    
-                    VStack {
-                        HStack {
-                            Image(systemName: "person.3.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 44)
-                            TextField("", value: $vm.splitDetails.indexOfPersons, format: .number)
-                                .frame(height: 55)
-                                .keyboardType(.decimalPad)
-                                .multilineTextAlignment(.center)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 7)
-                                        .stroke(.black, lineWidth: 3)
-                                )
-                        }
-                    }
-                    .onAppear(perform: personReset)
-                    .frame(maxHeight: 66)
-                    .padding(.all, 10)
-                    
-                }
+                .padding(.all, 10)
+                
+//                if sessionService.userDetails.withContact {
+//                HStack {
+//                    Button(action: {
+//                        numOfPersons.append(1)
+//                    }) {
+//                        Circle()
+//                            .stroke(.black, lineWidth: 3)
+//                            .frame(width: 44, height: 44)
+//                            .overlay(
+//                                Image(systemName: "plus")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 22)
+//                                    .foregroundColor(.black)
+//                            )
+//                    }
+//                    .padding(.horizontal, 10)
+//
+//                    ScrollView(.horizontal) {
+//                        HStack {
+//                            ForEach(numOfPersons, id: \.self) { item in
+//                                VStack {
+//                                    Image(systemName: "person.crop.circle")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 44)
+//                                    Text("Person")
+//                                        .font(.subheadline)
+//                                }
+//                                .onTapGesture {
+//                                    numOfPersons.removeAll(keepingCapacity: true)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                .onAppear(perform: personReset)
+//                .frame(maxHeight: 66)
+//                .padding(.all, 15)
+//
+//                } else {
+//
+//                    VStack {
+//                        HStack {
+//                            Image(systemName: "person.3.fill")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 44)
+//                            TextField("", value: $vm.splitDetails.indexOfPersons, format: .number)
+//                                .frame(height: 55)
+//                                .keyboardType(.decimalPad)
+//                                .multilineTextAlignment(.center)
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: 7)
+//                                        .stroke(.black, lineWidth: 3)
+//                                )
+//                        }
+//                    }
+//                    .onAppear(perform: personReset)
+//                    .frame(maxHeight: 66)
+//                    .padding(.all, 10)
+//
+//                }
                 
                 // MARK: - Percentage
-                Picker("", selection: $vm.splitDetails.percentage) {
-                    ForEach(0 ..< percentage.count, id: \.self) { item in
-                        Text("\(percentage[item])%")
+                Picker("", selection: $vm.splitDetails.percentages) {
+                    ForEach(SplitingDetails.percentArray, id: \.self) {
+                        Text("\($0.reelValue)%")
                     }
                 }
                 .pickerStyle(.segmented)
@@ -202,7 +222,7 @@ extension SplitView {
     func reset() {
         amountIsFocused = false
         vm.splitDetails.initialAmount = 0.0
-        vm.splitDetails.percentage = 0
+        vm.splitDetails.percentages = PercentageDetails.init(reelValue: 0, position: 0)
         vm.splitDetails.indexOfPersons = 0
         numOfPersons.removeAll()
 //        amountIsFocused = false
@@ -224,15 +244,15 @@ extension SplitView {
     var billArrayWithTips: Double {
         let price = amount
         let peopleArrayCount = numOfPersons as? [Double]
-        let currentPercent = Double(percentage[percentPosition])
-
+        let currentPercent = SplitingDetails.percentArray[vm.splitDetails.percentages.position]
+        
         if peopleArrayCount == nil {
             return 0.0
         } else {
             let priceDivided = price / (peopleArrayCount?.reduce(0, { x, y in
                 x + y
             }) ?? 0.0)
-            let priceTiped = priceDivided * (currentPercent / 100.0)
+            let priceTiped = priceDivided * (Double(currentPercent.reelValue) / 100.0)
             let result = priceDivided + priceTiped
 
             return result
@@ -256,13 +276,13 @@ extension SplitView {
     var billWithTips: Double {
         let price = vm.splitDetails.initialAmount
         let peopleCount = vm.splitDetails.indexOfPersons
-        let currentPercent = Double(percentage[vm.splitDetails.percentage])
+        let currentPercent = SplitingDetails.percentArray[vm.splitDetails.percentages.position]
 
         if peopleCount == 0 {
             return 0.0
         } else {
             let priceDivided = price / Double(peopleCount)
-            let priceTiped = priceDivided * (currentPercent / 100.0)
+            let priceTiped = priceDivided * (Double(currentPercent.reelValue) / 100.0)
             let result = priceDivided + priceTiped
             
             return result

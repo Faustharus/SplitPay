@@ -8,38 +8,38 @@
 import Foundation
 import FirebaseFirestore
 
-protocol DocumentSerizlizable {
+protocol DocumentSerializable {
     init?(dictionary: [String: Any])
 }
 
 struct SessionSplitUserDetails: Hashable {
     var initialAmount: Double
-    var percentageApplied: Int
+    var percentages: Int
     var currencyName: String
-    var nbOfPersons: Int
+    var indexOfPersons: Int
     var splitedAmount: Double
     
     var dictionary: [String: Any] {
         return [
             "initialAmount": initialAmount,
-            "percentageApplied": percentageApplied,
+            "percentages": PercentageDetails.init(reelValue: 0, position: 0).reelValue,
             "currencyName": currencyName,
-            "nbOfPersons": nbOfPersons,
+            "indexOfPersons": indexOfPersons,
             "splitedAmount": splitedAmount
         ]
     }
 }
 
-extension SessionSplitUserDetails: DocumentSerizlizable {
+extension SessionSplitUserDetails: DocumentSerializable {
     
     init?(dictionary: [String : Any]) {
         let initialAmount = dictionary["initialAmount"] as? Double ?? 0.00
-        let percentageApplied = dictionary["percentageApplied"] as? Int ?? 0
+        let percentages = dictionary["percentages"] as? Int ?? 0
         let currencyName = dictionary["currencyName"] as? String ?? ""
-        let nbOfPersons = dictionary["nbOfPersons"] as? Int ?? 0
+        let indexOfPersons = dictionary["indexOfPersons"] as? Int ?? 0
         let splitedAmount = dictionary["splitedAmount"] as? Double ?? 0.00
         
-        self.init(initialAmount: initialAmount, percentageApplied: percentageApplied, currencyName: currencyName, nbOfPersons: nbOfPersons, splitedAmount: splitedAmount)
+        self.init(initialAmount: initialAmount, percentages: percentages, currencyName: currencyName, indexOfPersons: indexOfPersons, splitedAmount: splitedAmount)
     }
     
 }

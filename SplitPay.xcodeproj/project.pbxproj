@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E14433628153B530061AD19 /* HistoricDetailsSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */; };
 		9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1DBFD927F9DF8500567931 /* DistributionView.swift */; };
 		9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAE927F4453E00C8AA2D /* SignUpView.swift */; };
 		9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */; };
@@ -43,7 +42,6 @@
 /* Begin PBXFileReference section */
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricDetailsSplitView.swift; sourceTree = "<group>"; };
 		9E1DBFD927F9DF8500567931 /* DistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionView.swift; sourceTree = "<group>"; };
 		9E23EAE927F4453E00C8AA2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */,
 				9EE379372809BB4E00C30417 /* Split */,
 				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
-				9E14433528153B530061AD19 /* HistoricDetailsSplitView.swift */,
 				9E1DBFD927F9DF8500567931 /* DistributionView.swift */,
 				9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */,
 			);
@@ -446,7 +443,6 @@
 				9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */,
 				9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */,
 				9E315E7F27FDD05F00D21680 /* LoginService.swift in Sources */,
-				9E14433628153B530061AD19 /* HistoricDetailsSplitView.swift in Sources */,
 				9ED56EB3280D66FC007ACFB2 /* SplitingViewModel.swift in Sources */,
 				9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */,
 			);
