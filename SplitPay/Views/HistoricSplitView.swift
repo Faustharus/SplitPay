@@ -24,7 +24,7 @@ struct HistoricSplitView: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 7)
                             .stroke(.black, lineWidth: 3)
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5)
+                            .frame(width: UIScreen.main.bounds.width / 1.1, height: UIScreen.main.bounds.height / 5)
                             .shadow(color: .black, radius: 5, x: 1, y: 10)
                         VStack {
                             HStack {
@@ -33,13 +33,13 @@ struct HistoricSplitView: View {
                                 Spacer()
                                     .frame(maxWidth: 50)
                                 
-                                Text("Currency: \(item.currencyName)")
+                                Text("Currency: \(item.currencyCode)")
                             }
                             .font(.system(.headline))
                             
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text("Initial Amount: \(item.initialAmount, specifier: "%.2f") €")
+                                    Text("Initial Amount: \(item.initialAmount, specifier: "%.2f")")
                                     Text("Percentage Applied: \(item.percentages) %")
                                 }
                                 Rectangle()
@@ -50,7 +50,7 @@ struct HistoricSplitView: View {
                             }
                             .padding(.vertical, 10)
                             
-                            Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f") €")
+                            Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
                         }
                     }
                     

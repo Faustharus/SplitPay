@@ -50,5 +50,4 @@ final class SplitingViewModelImpl: ObservableObject, SplitingViewModel {
             .store(in: &subsciptions)
     }
     
-    
 }

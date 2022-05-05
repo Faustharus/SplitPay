@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var toSeePassword: Bool = false
+    @State private var forgotPassword: Bool = false
     
     @Binding var changePage: Bool
     
@@ -37,10 +38,13 @@ struct LoginView: View {
                             Spacer()
                             
                             Button {
-                                // TODO: More Code Later
+                                self.forgotPassword = true
                             } label: {
                                 Text("Forgot Password ? ")
                                     .font(.headline)
+                            }
+                            .sheet(isPresented: $forgotPassword) {
+                                ForgotPasswordView()
                             }
                         }
                         
@@ -51,7 +55,9 @@ struct LoginView: View {
                         vm.login()
                     }
                     
-                    ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
+                    ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash") {
+                        reset()
+                    }
                     
                     HStack {
                         Text("Don't have an account yet ? -")
@@ -75,4 +81,14 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(changePage: .constant(false))
     }
+}
+
+// MARK: - Functions
+extension LoginView {
+    
+    func reset() {
+        email = ""
+        password = ""
+    }
+    
 }

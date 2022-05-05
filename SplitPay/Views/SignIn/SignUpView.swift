@@ -62,7 +62,9 @@ extension SignUpView {
                 nextForm = true
             }
             
-            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
+            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash") {
+                resetFirstPage()
+            }
             
             HStack {
                 Text("Already have an account ? -")
@@ -90,7 +92,9 @@ extension SignUpView {
                 nextForm = false
             }
             
-            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", handler: {})
+            ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash") {
+                resetSecondPage()
+            }
             
             Spacer().frame(height: 50)
             
@@ -99,6 +103,23 @@ extension SignUpView {
             })
         }
         .padding(.horizontal, 10)
+    }
+    
+}
+
+
+// MARK: - Functions
+extension SignUpView {
+    
+    func resetFirstPage() {
+        vm.userDetails.email = ""
+        vm.userDetails.password = ""
+    }
+    
+    func resetSecondPage() {
+        vm.userDetails.nickName = ""
+        vm.userDetails.firstName = ""
+        vm.userDetails.surName = ""
     }
     
 }

@@ -15,7 +15,7 @@ protocol DocumentSerializable {
 struct SessionSplitUserDetails: Hashable {
     var initialAmount: Double
     var percentages: Int
-    var currencyName: String
+    var currencyCode: String
     var indexOfPersons: Int
     var splitedAmount: Double
     
@@ -23,7 +23,7 @@ struct SessionSplitUserDetails: Hashable {
         return [
             "initialAmount": initialAmount,
             "percentages": PercentageDetails.init(reelValue: 0, position: 0).reelValue,
-            "currencyName": currencyName,
+            "currencyCode": CurrencyDetails.init(currencyValue: "", position: 0).currencyValue,
             "indexOfPersons": indexOfPersons,
             "splitedAmount": splitedAmount
         ]
@@ -35,11 +35,11 @@ extension SessionSplitUserDetails: DocumentSerializable {
     init?(dictionary: [String : Any]) {
         let initialAmount = dictionary["initialAmount"] as? Double ?? 0.00
         let percentages = dictionary["percentages"] as? Int ?? 0
-        let currencyName = dictionary["currencyName"] as? String ?? ""
+        let currencyCode = dictionary["currencyCode"] as? String ?? ""
         let indexOfPersons = dictionary["indexOfPersons"] as? Int ?? 0
         let splitedAmount = dictionary["splitedAmount"] as? Double ?? 0.00
         
-        self.init(initialAmount: initialAmount, percentages: percentages, currencyName: currencyName, indexOfPersons: indexOfPersons, splitedAmount: splitedAmount)
+        self.init(initialAmount: initialAmount, percentages: percentages, currencyCode: currencyCode, indexOfPersons: indexOfPersons, splitedAmount: splitedAmount)
     }
     
 }

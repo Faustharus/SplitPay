@@ -13,10 +13,10 @@ struct SplitView: View {
     
     @State private var amount: Double = 0
     //@State private var percentPosition: Int = 0
-    let percentage = [0, 10, 15, 20, 25]
+    //let percentage = [0, 10, 15, 20, 25]
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
-    let currencyCode = ["EUR", "USD", "GBP", "JPY", "INR", "MXN", "BRL"]
+    //let currencyCode = ["EUR", "USD", "GBP", "JPY", "INR", "MXN", "BRL"]
     @State private var numOfPersons = [Int]()
     
     @FocusState private var amountIsFocused: Bool
@@ -32,15 +32,15 @@ struct SplitView: View {
             VStack {
                 
                 VStack {
-                    Picker("", selection: $currencyPosition) {
-                        ForEach(0 ..< currencySigns.count, id: \.self) { item in
-                            Text("\(currencyCode[item])")
+                    Picker("", selection: $vm.splitDetails.currencyCode) {
+                        ForEach(SplitingDetails.currencyArray, id: \.self) {
+                            Text("\($0.currencyValue)")
                         }
                     }
                     .pickerStyle(.menu)
                     
                     HStack {
-                        Image(systemName: "\(currencySigns[currencyPosition])")
+                        Image(systemName: "\(currencySigns[vm.splitDetails.currencyCode.position])")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 44, height: 44)
@@ -83,7 +83,7 @@ struct SplitView: View {
                 .onAppear(perform: personReset)
                 .frame(maxHeight: 66)
                 .padding(.all, 10)
-                
+                // MARK: - Add People Section
 //                if sessionService.userDetails.withContact {
 //                HStack {
 //                    Button(action: {
@@ -148,6 +148,8 @@ struct SplitView: View {
 //
 //                }
                 
+                
+                
                 // MARK: - Percentage
                 Picker("", selection: $vm.splitDetails.percentages) {
                     ForEach(SplitingDetails.percentArray, id: \.self) {
@@ -194,7 +196,7 @@ struct SplitView: View {
                 .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
                 
                 Spacer()
-                Text("Result in \(Image(systemName: currencySigns[currencyPosition])) : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
+                Text("Result in \(Image(systemName: currencySigns[vm.splitDetails.currencyCode.position])) : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
                 Text("Without Tips : \(sessionService.userDetails.withContact ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
@@ -225,17 +227,11 @@ extension SplitView {
         vm.splitDetails.percentages = PercentageDetails.init(reelValue: 0, position: 0)
         vm.splitDetails.indexOfPersons = 0
         numOfPersons.removeAll()
-//        amountIsFocused = false
-//        self.amount = 0.0
-//        percentPosition = 0
-//        numOfPersons.removeAll()
-//        indexOfPersons = 0
     }
     
     func personReset() {
         if sessionService.userDetails.withContact {
             vm.splitDetails.indexOfPersons = 0
-            //indexOfPersons = 0
         } else {
             numOfPersons.removeAll()
         }
