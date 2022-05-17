@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SplitingDetails: Hashable {
+struct SplitingDetails: Identifiable, Hashable {
+    var id: String = UUID().uuidString
     var currencyCode: CurrencyDetails
     var percentages: PercentageDetails
     var initialAmount: Double

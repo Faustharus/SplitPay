@@ -19,6 +19,7 @@ enum SessionState {
 protocol SessionService {
     var state: SessionState { get }
     var userDetails: SessionUserDetails { get }
+    var splitArray: [SessionSplitUserDetails] { get }
     func logout()
 }
 
@@ -42,6 +43,18 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func withOrWithoutContact() {
         self.userDetails.withContact.toggle()
+    }
+    
+    func splitDelete(with uid: String, with details: SessionSplitUserDetails) {
+        db.collection("users").document(uid).collection("review").document(details.id).delete { error in
+            if error == nil {
+                DispatchQueue.main.async {
+                    self.splitArray.removeAll { item in
+                        return item.id == details.id
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -97,7 +110,10 @@ extension SessionServiceImpl {
                 return
             }
             DispatchQueue.main.async {
-                self.splitArray = snapshot.documents.compactMap { SessionSplitUserDetails(dictionary: $0.data()) }
+                //self.splitArray = snapshot.documents.compactMap { SessionSplitUserDetails(dictionary: $0.data()) }
+                self.splitArray = snapshot.documents.map { item in
+                    return SessionSplitUserDetails(id: item.documentID, initialAmount: item["initialAmount"] as? Double ?? 0.00, percentages: item["percentages"] as? Int ?? 0, currencyCode: item["currencyCode"] as? String ?? "", indexOfPersons: item["indexOfPersons"] as? Int ?? 0, splitedAmount: item["splitedAmount"] as? Double ?? 0.00)
+                }
             }
         }
     }

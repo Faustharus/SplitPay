@@ -110,7 +110,7 @@
 				9E72D1A828242AF400488C95 /* ForgotPassword */,
 				9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */,
 				9EE379372809BB4E00C30417 /* Split */,
-				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
+				9E80B47F28244A84005C8749 /* Historic */,
 				9E1DBFD927F9DF8500567931 /* DistributionView.swift */,
 				9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */,
 			);
@@ -213,6 +213,14 @@
 				9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E80B47F28244A84005C8749 /* Historic */ = {
+			isa = PBXGroup;
+			children = (
+				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
+			);
+			path = Historic;
 			sourceTree = "<group>";
 		};
 		9EB9361E2801DE6E00A246A0 /* ViewModel */ = {

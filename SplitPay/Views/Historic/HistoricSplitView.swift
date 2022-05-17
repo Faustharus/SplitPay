@@ -12,10 +12,12 @@ struct HistoricSplitView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
+    @State private var toDelete: Bool = false
+    
     var body: some View {
-        ScrollView {
-            Text("Historic View")
-                .font(.title.weight(.bold))
+        List {
+//            Text("Historic View")
+//                .font(.title.weight(.bold))
             
             // ForEach of the Split - Creating an Historic
             ForEach(sessionService.splitArray, id: \.self) { item in
@@ -50,16 +52,26 @@ struct HistoricSplitView: View {
                             }
                             .padding(.vertical, 10)
                             
-                            Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
+                            HStack {
+                                Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
+                                Button(action: {
+                                    sessionService.splitDelete(with: Auth.auth().currentUser!.uid, with: item)
+                                }) {
+                                    Image(systemName: "minus.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 33, height: 33)
+                                        .foregroundColor(.red)
+                                }
+                            }
                         }
                     }
                     
                 }
             }
-            .onAppear {
-                sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
-            }
-            // .onDelete built-in func needed
+        }
+        .refreshable {
+            sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
         }
     }
 }

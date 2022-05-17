@@ -28,7 +28,7 @@ final class SplitingServiceImpl: SplitingService {
             Future { promise in
                 if let uid = Auth.auth().currentUser?.uid {
                     let db = Firestore.firestore()
-                    db.collection("users").document(uid).collection("review").document("doc\(UUID().uuidString)").setData([
+                    db.collection("users").document(uid).collection("review").addDocument(data: [
                         SplitingKeys.initialAmount.rawValue: details.initialAmount,
                         SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
                         SplitingKeys.currencyCode.rawValue: details.currencyCode.currencyValue,
@@ -44,13 +44,42 @@ final class SplitingServiceImpl: SplitingService {
                 } else {
                     promise(.failure(NSError(domain: "Invalid Entered Split Data", code: 1, userInfo: nil)))
                 }
-                
-                
             }
         }
         .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
     }
+    
+    // MARK: - Re-purposed as an Edit function
+//    func storing(with details: SplitingDetails) -> AnyPublisher<Void, Error> {
+//        Deferred {
+//            Future { promise in
+//                if let uid = Auth.auth().currentUser?.uid {
+//                    let db = Firestore.firestore()
+//                    db.collection("users").document(uid).collection("review").document("doc\(details.id)").setData([
+//                        SplitingKeys.initialAmount.rawValue: details.initialAmount,
+//                        SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
+//                        SplitingKeys.currencyCode.rawValue: details.currencyCode.currencyValue,
+//                        SplitingKeys.percentages.rawValue: details.percentages.reelValue,
+//                        SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons
+//                    ], merge: false) { error in
+//                        if let err = error {
+//                            promise(.failure(err))
+//                        } else {
+//                            promise(.success(()))
+//                            print("\(String(describing: details.id))")
+//                        }
+//                    }
+//                } else {
+//                    promise(.failure(NSError(domain: "Invalid Entered Split Data", code: 1, userInfo: nil)))
+//                }
+//
+//
+//            }
+//        }
+//        .receive(on: RunLoop.main)
+//        .eraseToAnyPublisher()
+//    }
     
 //    var billWithTips: Double {
 //        let price = vm.splitDetails.initialAmount
