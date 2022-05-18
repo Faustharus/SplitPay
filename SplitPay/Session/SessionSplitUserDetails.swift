@@ -19,6 +19,7 @@ struct SessionSplitUserDetails: Identifiable, Hashable {
     var currencyCode: String
     var indexOfPersons: Int
     var splitedAmount: Double
+    var entryDate: Timestamp
     
     var dictionary: [String: Any] {
         return [
@@ -27,7 +28,8 @@ struct SessionSplitUserDetails: Identifiable, Hashable {
             "percentages": PercentageDetails.init(reelValue: 0, position: 0).reelValue,
             "currencyCode": CurrencyDetails.init(currencyValue: "", position: 0).currencyValue,
             "indexOfPersons": indexOfPersons,
-            "splitedAmount": splitedAmount
+            "splitedAmount": splitedAmount,
+            "entryDate": entryDate
         ]
     }
 }
@@ -41,8 +43,9 @@ extension SessionSplitUserDetails: DocumentSerializable {
         let currencyCode = dictionary["currencyCode"] as? String ?? ""
         let indexOfPersons = dictionary["indexOfPersons"] as? Int ?? 0
         let splitedAmount = dictionary["splitedAmount"] as? Double ?? 0.00
+        let entryDate = dictionary["entryDate"] as? Timestamp ?? Timestamp()
         
-        self.init(id: id, initialAmount: initialAmount, percentages: percentages, currencyCode: currencyCode, indexOfPersons: indexOfPersons, splitedAmount: splitedAmount)
+        self.init(id: id, initialAmount: initialAmount, percentages: percentages, currencyCode: currencyCode, indexOfPersons: indexOfPersons, splitedAmount: splitedAmount, entryDate: entryDate)
     }
     
 }

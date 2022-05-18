@@ -12,69 +12,66 @@ struct HistoricSplitView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
-    @State private var toDelete: Bool = false
-    
     var body: some View {
-        List {
-//            Text("Historic View")
-//                .font(.title.weight(.bold))
-            
-            // ForEach of the Split - Creating an Historic
-            ForEach(sessionService.splitArray, id: \.self) { item in
+        List(sessionService.splitArray) { item in
+                
                 VStack {
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 7)
-                            .stroke(.black, lineWidth: 3)
-                            .frame(width: UIScreen.main.bounds.width / 1.1, height: UIScreen.main.bounds.height / 5)
-                            .shadow(color: .black, radius: 5, x: 1, y: 10)
+                    HStack {
                         VStack {
-                            HStack {
-                                Text("\(Date().formatted())")
-                                
-                                Spacer()
-                                    .frame(maxWidth: 50)
-                                
-                                Text("Currency: \(item.currencyCode)")
-                            }
-                            .font(.system(.headline))
-                            
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("Initial Amount: \(item.initialAmount, specifier: "%.2f")")
-                                    Text("Percentage Applied: \(item.percentages) %")
-                                }
-                                Rectangle()
-                                    .frame(width: 1, height: 50)
-                                    .foregroundColor(.gray)
-                                
-                                Text("N° of Persons: \(item.indexOfPersons)")
-                            }
-                            .padding(.vertical, 10)
-                            
-                            HStack {
-                                Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
-                                Button(action: {
-                                    sessionService.splitDelete(with: Auth.auth().currentUser!.uid, with: item)
-                                }) {
-                                    Image(systemName: "minus.circle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 33, height: 33)
-                                        .foregroundColor(.red)
-                                }
-                            }
+                            Text("\(item.entryDate.dateValue().formatted(date: .abbreviated, time: .omitted))")
+                                .font(.system(size: 12, weight: .light, design: .serif))
+                            Text("\(item.entryDate.dateValue().formatted(date: .omitted, time: .standard))")
+                                .font(.system(size: 14, weight: .regular, design: .serif))
+                        }
+                        
+                        Spacer()
+                            .frame(maxWidth: 50)
+                        
+                        Text("Currency: \(item.currencyCode)")
+                    }
+                    .font(.system(.headline))
+                    
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Initial Amount: \(item.initialAmount, specifier: "%.2f")")
+                            Text("Percentage Applied: \(item.percentages) %")
+                        }
+                        Rectangle()
+                            .frame(width: 1, height: 50)
+                            .foregroundColor(.gray)
+                        
+                        Text("N° of Persons: \(item.indexOfPersons)")
+                    }
+                    .padding(.vertical, 10)
+                    
+                    HStack {
+                        Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
+                        Button(action: {
+                            sessionService.splitDelete(with: Auth.auth().currentUser!.uid, with: item)
+                        }) {
+                            Image(systemName: "minus.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 33, height: 33)
+                                .foregroundColor(.red)
                         }
                     }
-                    
                 }
-            }
+                
+            
         }
         .refreshable {
             sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
         }
     }
 }
+
+//private let itemFormatter: DateFormatter = {
+//    let formatter = DateFormatter()
+//    formatter.dateStyle = .medium
+//    formatter.timeStyle = .medium
+//    return formatter
+//}()
 
 struct HistoricSplitView_Previews: PreviewProvider {
     static var previews: some View {

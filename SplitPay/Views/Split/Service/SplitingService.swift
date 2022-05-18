@@ -16,6 +16,7 @@ enum SplitingKeys: String {
     case initialAmount
     case splitedAmount
     case indexOfPersons
+    case entryDate
 }
 
 protocol SplitingService {
@@ -33,7 +34,8 @@ final class SplitingServiceImpl: SplitingService {
                         SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
                         SplitingKeys.currencyCode.rawValue: details.currencyCode.currencyValue,
                         SplitingKeys.percentages.rawValue: details.percentages.reelValue,
-                        SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons
+                        SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons,
+                        SplitingKeys.entryDate.rawValue: Timestamp(date: Date.now)
                     ]) { error in
                         if let err = error {
                             promise(.failure(err))

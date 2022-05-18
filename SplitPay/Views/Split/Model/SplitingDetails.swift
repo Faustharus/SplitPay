@@ -14,6 +14,7 @@ struct SplitingDetails: Identifiable, Hashable {
     var initialAmount: Double
     var splitedAmount: Double
     var indexOfPersons: Int
+    var entryDate: Date
 }
 
 struct PercentageDetails: Hashable {
@@ -28,7 +29,7 @@ struct CurrencyDetails: Hashable {
 
 extension SplitingDetails {
     
-    static var new: SplitingDetails = SplitingDetails(currencyCode: CurrencyDetails.init(currencyValue: "EUR", position: 0), percentages: PercentageDetails.init(reelValue: 10, position: 1), initialAmount: 0.00, splitedAmount: 0.00, indexOfPersons: 0)
+    static var new: SplitingDetails = SplitingDetails(currencyCode: CurrencyDetails.init(currencyValue: "EUR", position: 0), percentages: PercentageDetails.init(reelValue: 10, position: 1), initialAmount: 0.00, splitedAmount: 0.00, indexOfPersons: 0, entryDate: Date())
     
     static var percentArray: [PercentageDetails] = [
         PercentageDetails(reelValue: 0, position: 0),

@@ -19,7 +19,7 @@ struct MainView: View {
         TabView {
             SplitView()
                 .tabItem {
-                    Image(systemName: "person")
+                    Image(systemName: "banknote")
                     Text("Split")
                 }
                 .tag(PageSelected.split)
@@ -33,7 +33,7 @@ struct MainView: View {
             
             ProfileView()
                 .tabItem {
-                    Image(systemName: "gear")
+                    Image(systemName: "person")
                     Text("Profile")
                 }
                 .tag(PageSelected.profile)

@@ -112,7 +112,7 @@ extension SessionServiceImpl {
             DispatchQueue.main.async {
                 //self.splitArray = snapshot.documents.compactMap { SessionSplitUserDetails(dictionary: $0.data()) }
                 self.splitArray = snapshot.documents.map { item in
-                    return SessionSplitUserDetails(id: item.documentID, initialAmount: item["initialAmount"] as? Double ?? 0.00, percentages: item["percentages"] as? Int ?? 0, currencyCode: item["currencyCode"] as? String ?? "", indexOfPersons: item["indexOfPersons"] as? Int ?? 0, splitedAmount: item["splitedAmount"] as? Double ?? 0.00)
+                    return SessionSplitUserDetails(id: item.documentID, initialAmount: item["initialAmount"] as? Double ?? 0.00, percentages: item["percentages"] as? Int ?? 0, currencyCode: item["currencyCode"] as? String ?? "", indexOfPersons: item["indexOfPersons"] as? Int ?? 0, splitedAmount: item["splitedAmount"] as? Double ?? 0.00, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
                 }
             }
         }
