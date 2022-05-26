@@ -39,6 +39,7 @@
 		9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */; };
 		9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */; };
 		9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE379352809BB4A00C30417 /* SplitingDetails.swift */; };
+		9EFE1EBB2837F93000C5B9DB /* HistoricDetailsSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFE1EBA2837F93000C5B9DB /* HistoricDetailsSplitView.swift */; };
 		A60F7679369A154E58595D81 /* Pods_SplitPay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368860DC998BA64E977AC799 /* Pods_SplitPay.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		9EDFF82627F36BB400CDC228 /* PasswordTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextFieldView.swift; sourceTree = "<group>"; };
 		9EDFF82827F36DBE00CDC228 /* EmailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldView.swift; sourceTree = "<group>"; };
 		9EE379352809BB4A00C30417 /* SplitingDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitingDetails.swift; sourceTree = "<group>"; };
+		9EFE1EBA2837F93000C5B9DB /* HistoricDetailsSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricDetailsSplitView.swift; sourceTree = "<group>"; };
 		AACDE003F0625D627277FA75 /* Pods-SplitPay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.debug.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				9E2A57CF280732E400005AEE /* HistoricSplitView.swift */,
+				9EFE1EBA2837F93000C5B9DB /* HistoricDetailsSplitView.swift */,
 			);
 			path = Historic;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EFE1EBB2837F93000C5B9DB /* HistoricDetailsSplitView.swift in Sources */,
 				9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */,
 				9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */,
 				9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */,

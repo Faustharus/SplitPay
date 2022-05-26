@@ -26,7 +26,7 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
-    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: 0000, profilePicture: "", withContact: false)
+    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
     @Published var splitArray: [SessionSplitUserDetails] = []
     
     private var handler: AuthStateDidChangeListenerHandle?
@@ -51,6 +51,21 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                 DispatchQueue.main.async {
                     self.splitArray.removeAll { item in
                         return item.id == details.id
+                    }
+                }
+            }
+        }
+    }
+    
+    func splitDeleteAll(with uid: String) {
+        let docRf = db.collection("users").document(uid).collection("review")
+        docRf.getDocuments() { (querySnapshot, error) in
+            for docSnapshot in querySnapshot!.documents {
+                docSnapshot.reference.delete { error in
+                    if error == nil {
+                        DispatchQueue.main.async {
+                            self.splitArray.removeAll()
+                        }
                     }
                 }
             }
@@ -90,7 +105,7 @@ extension SessionServiceImpl {
                     self.userDetails.firstName = data["firstName"] as? String ?? "N/A"
                     self.userDetails.surName = data["surName"] as? String ?? "N/A"
                     self.userDetails.nickName = data["nickName"] as? String ?? "N/A"
-                    self.userDetails.extNickName = data["extNickName"] as? Int ?? 0000
+                    self.userDetails.extNickName = data["extNickName"] as? String ?? "N/A"
                     self.userDetails.profilePicture = data["profilePicture"] as? String ?? "N/A"
                     self.userDetails.withContact = data["withContact"] as? Bool ?? false // Need to be modified reguarlely if necessary
                 }

@@ -26,7 +26,7 @@ struct ProfileView: View {
                     }
                     .font(.system(size: 24, weight: .bold, design: .serif))
                     
-                Text("\(sessionService.userDetails.nickName)#\(String(sessionService.userDetails.extNickName))")
+                Text("\(sessionService.userDetails.extNickName)")
                         .font(.system(size: 12, weight: .light, design: .serif))
                     
                     Rectangle()

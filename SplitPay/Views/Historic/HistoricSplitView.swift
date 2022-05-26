@@ -5,6 +5,7 @@
 //  Created by Damien Chailloleau on 13/04/2022.
 //
 
+import Firebase
 import FirebaseAuth
 import SwiftUI
 
@@ -12,66 +13,62 @@ struct HistoricSplitView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
+    @State private var showDetails: Bool = false
+    
+    init() {
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
-        List(sessionService.splitArray) { item in
+        VStack {
+            List {
                 
-                VStack {
-                    HStack {
-                        VStack {
-                            Text("\(item.entryDate.dateValue().formatted(date: .abbreviated, time: .omitted))")
-                                .font(.system(size: 12, weight: .light, design: .serif))
-                            Text("\(item.entryDate.dateValue().formatted(date: .omitted, time: .standard))")
-                                .font(.system(size: 14, weight: .regular, design: .serif))
+                ForEach(sessionService.splitArray, id: \.id) { item in
+                    NavigationLink {
+                        HistoricDetailsSplitView(details: item)
+                    } label: {
+                        HStack {
+                            VStack {
+                                HStack {
+                                    Text("Currency: ")
+                                    Text("\(item.currencyCode)")
+                                        .font(.headline)
+                                }
+                                Text("\(item.entryDate.dateValue().formatted(date: .abbreviated, time: .omitted))")
+                            }
+                            
+                            Spacer()
+                            
+                            VStack {
+                                Text("Initial Amount:")
+                                Text("\(item.initialAmount, specifier: "%.2f")")
+                            }
                         }
-                        
-                        Spacer()
-                            .frame(maxWidth: 50)
-                        
-                        Text("Currency: \(item.currencyCode)")
                     }
-                    .font(.system(.headline))
-                    
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Initial Amount: \(item.initialAmount, specifier: "%.2f")")
-                            Text("Percentage Applied: \(item.percentages) %")
-                        }
-                        Rectangle()
-                            .frame(width: 1, height: 50)
-                            .foregroundColor(.gray)
-                        
-                        Text("N° of Persons: \(item.indexOfPersons)")
-                    }
-                    .padding(.vertical, 10)
-                    
-                    HStack {
-                        Text("Splited Amount: \(item.splitedAmount, specifier: "%.2f")")
-                        Button(action: {
+                    .swipeActions {
+                        Button(role: .destructive) {
                             sessionService.splitDelete(with: Auth.auth().currentUser!.uid, with: item)
-                        }) {
-                            Image(systemName: "minus.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 33, height: 33)
-                                .foregroundColor(.red)
+                        } label: {
+                            Image(systemName: "trash")
                         }
                     }
                 }
-                
+            }
+            .refreshable {
+                sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
+            }
             
-        }
-        .refreshable {
-            sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
+            ActionButtonView(title: "Delete All", foreground: .white, background: sessionService.splitArray.isEmpty ? .gray : .red, sfSymbols: "trash.fill") {
+                sessionService.splitDeleteAll(with: Auth.auth().currentUser!.uid)
+            }
+            .padding(.horizontal, 10)
+            .disabled(sessionService.splitArray.isEmpty)
+            
+            
         }
     }
 }
-
-//private let itemFormatter: DateFormatter = {
-//    let formatter = DateFormatter()
-//    formatter.dateStyle = .medium
-//    formatter.timeStyle = .medium
-//    return formatter
-//}()
 
 struct HistoricSplitView_Previews: PreviewProvider {
     static var previews: some View {

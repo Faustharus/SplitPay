@@ -12,7 +12,7 @@ struct SessionUserDetails: Hashable {
     var firstName: String
     var surName: String
     var nickName: String
-    var extNickName: Int
+    var extNickName: String
     var profilePicture: String
     var withContact: Bool
     //var contacts: [String]?

@@ -42,7 +42,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.surName.rawValue: details.surName,
                                     RegistrationKeys.nickName.rawValue: details.nickName,
-                                    RegistrationKeys.extNickName.rawValue: Int.random(in: 1000..<9999),
+                                    RegistrationKeys.extNickName.rawValue: "\(details.nickName)#\(Int.random(in: 1000..<9999))",
                                     RegistrationKeys.profilePicture.rawValue: details.profilePicture,
                                     RegistrationKeys.email.rawValue: details.email,
                                     RegistrationKeys.withContact.rawValue: details.withContact
