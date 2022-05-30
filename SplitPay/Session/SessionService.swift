@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 import SwiftUI
 
 enum SessionState {
@@ -45,12 +46,72 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         self.userDetails.withContact.toggle()
     }
     
+    func updateProfile(with uid: String) {
+        let profileRef = db.collection("users").document(uid)
+        profileRef.updateData([
+            "firstName": userDetails.firstName,
+            "surName": userDetails.surName
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    func updateProfilePicture(with uid: String, with details: SessionUserDetails) {
+        
+        guard let imageSelected = details.picture else {
+            print("Avatar is nil")
+            return
+        }
+        
+        guard let imageData = imageSelected.jpegData(compressionQuality: 0.2) else {
+            return
+        }
+        
+        let storageRef = Storage.storage().reference(forURL: "gs://splitpay-6dc17.appspot.com")
+        let storageProfileRef = storageRef.child("profile").child("\(uid)")
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        storageProfileRef.putData(imageData, metadata: metadata, completion: {
+            (storageMetaData, error) in
+            if error != nil {
+                print("\(String(describing: error?.localizedDescription))")
+                return
+            }
+            
+            storageProfileRef.downloadURL { (url, error) in
+                if let metaImageUrl = url?.absoluteString {
+                    self.userDetails.profilePicture = metaImageUrl
+                    
+                    let pictureRef = self.db.collection("users").document(uid)
+                    pictureRef.updateData([
+                        "profilePicture": metaImageUrl
+                    ]) { error in
+                        if let error = error {
+                            print("Error uploading picture: \(error)")
+                        } else {
+                            print("Picture successfully uploaded")
+                        }
+                    }
+                    
+                }
+            }
+        })
+    }
+    
     func splitDelete(with uid: String, with details: SessionSplitUserDetails) {
         db.collection("users").document(uid).collection("review").document(details.id).delete { error in
             if error == nil {
                 DispatchQueue.main.async {
-                    self.splitArray.removeAll { item in
-                        return item.id == details.id
+                    withAnimation(.spring()) {
+                        self.splitArray.removeAll { item in
+                            return item.id == details.id
+                        }
                     }
                 }
             }
@@ -64,7 +125,9 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                 docSnapshot.reference.delete { error in
                     if error == nil {
                         DispatchQueue.main.async {
-                            self.splitArray.removeAll()
+                            withAnimation(.spring()) {
+                                self.splitArray.removeAll()
+                            }
                         }
                     }
                 }

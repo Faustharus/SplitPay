@@ -55,6 +55,9 @@ struct HistoricSplitView: View {
                     }
                 }
             }
+            .onAppear {
+                sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
+            }
             .refreshable {
                 sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
             }

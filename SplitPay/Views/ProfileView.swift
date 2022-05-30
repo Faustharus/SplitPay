@@ -6,20 +6,28 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ProfileView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
+    
+    @State private var seeDetails: Bool = false
     
     var body: some View {
         ZStack {
             // Background ???
             VStack {
                 
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75)
+                AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
+                    image.resizable()
+                } placeholder: {
+                    Color.red.frame(width: 125)
+                }
+                .scaledToFit()
+                .frame(width: 125)
+                .clipShape(Circle())
+                
                     HStack {
                         Text("\(sessionService.userDetails.firstName) ") + Text("\(sessionService.userDetails.surName)")
                             
@@ -34,7 +42,7 @@ struct ProfileView: View {
                         .frame(height: 3)
                 List {
                     Button(action: {
-                        // TODO: More Code Later
+                        self.seeDetails = true
                     }) {
                         HStack {
                             VStack {
@@ -75,6 +83,12 @@ struct ProfileView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $seeDetails) {
+                ProfileChangeView()
+            }
+            .onAppear {
+                sessionService.handleRefresh(with: Auth.auth().currentUser!.uid)
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct SessionUserDetails: Hashable {
     var email: String
@@ -13,6 +14,7 @@ struct SessionUserDetails: Hashable {
     var surName: String
     var nickName: String
     var extNickName: String
+    var picture: UIImage?
     var profilePicture: String
     var withContact: Bool
     //var contacts: [String]?
