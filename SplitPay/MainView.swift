@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum PageSelected: String {
-    case split, review, profile
+    case split, contacts, review, profile
 }
 
 struct MainView: View {
@@ -24,6 +24,13 @@ struct MainView: View {
                 }
                 .tag(PageSelected.split)
             
+            ContactsView()
+                .tabItem {
+                    Image(systemName: "person.3")
+                    Text("Contacts")
+                }
+                .tag(PageSelected.contacts)
+            
             HistoricSplitView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")
@@ -33,7 +40,7 @@ struct MainView: View {
             
             ProfileView()
                 .tabItem {
-                    Image(systemName: "person")
+                    Image(systemName: "gearshape.2")
                     Text("Profile")
                 }
                 .tag(PageSelected.profile)

@@ -12,16 +12,11 @@ struct SplitView: View {
     @StateObject private var vm = SplitingViewModelImpl(service: SplitingServiceImpl())
     
     @State private var amount: Double = 0
-    //@State private var percentPosition: Int = 0
-    //let percentage = [0, 10, 15, 20, 25]
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
-    //let currencyCode = ["EUR", "USD", "GBP", "JPY", "INR", "MXN", "BRL"]
     @State private var numOfPersons = [Int]()
     
     @FocusState private var amountIsFocused: Bool
-    
-    //@State private var indexOfPersons: Double = 0
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
@@ -83,6 +78,8 @@ struct SplitView: View {
                 .onAppear(perform: personReset)
                 .frame(maxHeight: 66)
                 .padding(.all, 10)
+                
+                
                 // MARK: - Add People Section
 //                if sessionService.userDetails.withContact {
 //                HStack {
@@ -170,9 +167,10 @@ struct SplitView: View {
                 
                 Spacer()
                 
-                IconActionButtonView(title: "Storing", foreground: .white, background: .purple, sfSymbols: "folder", offsetSymbols: 0.14, handler: {
+                IconActionButtonView(title: "Storing", foreground: .white, background: vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .purple, sfSymbols: "folder", offsetSymbols: 0.14, handler: {
                     vm.addSplitToReview()
                 })
+                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
                 
                 NavigationLink {
                     DistributionView()

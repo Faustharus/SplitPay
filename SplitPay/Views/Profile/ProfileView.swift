@@ -8,29 +8,43 @@
 import SwiftUI
 import FirebaseAuth
 
+enum ActiveSheet: Identifiable {
+    case first, second
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ProfileView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
-    @State private var seeDetails: Bool = false
+    @State private var seeDetails: ActiveSheet?
     
     var body: some View {
         ZStack {
             // Background ???
             VStack {
                 
-                AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
-                    image.resizable()
-                } placeholder: {
-                    Color.red.frame(width: 125)
+                if sessionService.userDetails.profilePicture.isEmpty {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75)
+                } else {
+                    AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.red.frame(width: 125)
+                    }
+                    .scaledToFit()
+                    .frame(width: 125)
+                    .clipShape(Circle())
                 }
-                .scaledToFit()
-                .frame(width: 125)
-                .clipShape(Circle())
                 
                     HStack {
                         Text("\(sessionService.userDetails.firstName) ") + Text("\(sessionService.userDetails.surName)")
-                            
                     }
                     .font(.system(size: 24, weight: .bold, design: .serif))
                     
@@ -41,29 +55,12 @@ struct ProfileView: View {
                         .foregroundColor(.secondary)
                         .frame(height: 3)
                 List {
-                    Button(action: {
-                        self.seeDetails = true
-                    }) {
-                        HStack {
-                            VStack {
-                                Text("Security Section")
-                                    .font(.headline.weight(.bold))
-                                Text("Password, Name, Picture")
-                                    .font(.subheadline.weight(.semibold))
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 22, height: 20)
-                        }
-                        .padding(.horizontal, 15)
-                        .foregroundColor(.white)
-                        .frame(height: 55)
-                        .background(.blue)
-                        .cornerRadius(7)
+                    ChevronButtonView(title: "Update Profile", subTitle: "Profile Info", foreground: .white, background: .blue) {
+                        self.seeDetails = .first
+                    }
+                    
+                    ChevronButtonView(title: "Update Security", subTitle: "Password Cred.", foreground: .white, background: .blue) {
+                        self.seeDetails = .second
                     }
                     
                     Toggle("With Contacts ?", isOn: $sessionService.userDetails.withContact)
@@ -83,8 +80,14 @@ struct ProfileView: View {
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $seeDetails) {
-                ProfileChangeView()
+            .sheet(item: $seeDetails) { item in
+                switch item {
+                case .first:
+                    ProfileChangeView()
+                case .second:
+                    ProfilePwdChangeView()
+                }
+                
             }
             .onAppear {
                 sessionService.handleRefresh(with: Auth.auth().currentUser!.uid)

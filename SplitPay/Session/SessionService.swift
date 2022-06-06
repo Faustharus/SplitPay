@@ -46,21 +46,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         self.userDetails.withContact.toggle()
     }
     
-    func updateProfile(with uid: String) {
-        let profileRef = db.collection("users").document(uid)
-        profileRef.updateData([
-            "firstName": userDetails.firstName,
-            "surName": userDetails.surName
-        ]) { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {
-                print("Document successfully updated")
-            }
-        }
-    }
-    
-    func updateProfilePicture(with uid: String, with details: SessionUserDetails) {
+    func updateProfile(with uid: String, with details: SessionUserDetails) {
         
         guard let imageSelected = details.picture else {
             print("Avatar is nil")
@@ -84,21 +70,22 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                 return
             }
             
-            storageProfileRef.downloadURL { (url, error) in
+            storageProfileRef.downloadURL { [weak self] (url, error) in
                 if let metaImageUrl = url?.absoluteString {
-                    self.userDetails.profilePicture = metaImageUrl
+                    self!.userDetails.profilePicture = metaImageUrl
                     
-                    let pictureRef = self.db.collection("users").document(uid)
-                    pictureRef.updateData([
+                    let profileRef = self!.db.collection("users").document(uid)
+                    profileRef.updateData([
+                        "firstName": self!.userDetails.firstName,
+                        "surName": self!.userDetails.surName,
                         "profilePicture": metaImageUrl
                     ]) { error in
                         if let error = error {
-                            print("Error uploading picture: \(error)")
+                            print("Error updating document: \(error)")
                         } else {
-                            print("Picture successfully uploaded")
+                            print("Document successfully updated")
                         }
                     }
-                    
                 }
             }
         })

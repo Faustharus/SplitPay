@@ -5,6 +5,8 @@
 //  Created by Damien Chailloleau on 27/05/2022.
 //
 
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -29,8 +31,7 @@ struct ProfileChangeView: View {
 
             
             ActionButtonView(title: "Confirm Change", foreground: .white, background: sessionService.userDetails.firstName.isEmpty || sessionService.userDetails.surName.isEmpty ? .gray : .green, sfSymbols: "checkmark.shield") {
-                sessionService.updateProfile(with: Auth.auth().currentUser!.uid)
-                sessionService.updateProfilePicture(with: Auth.auth().currentUser!.uid, with: sessionService.userDetails)
+                sessionService.updateProfile(with: Auth.auth().currentUser!.uid, with: sessionService.userDetails)
             }
             .disabled(sessionService.userDetails.firstName.isEmpty || sessionService.userDetails.surName.isEmpty)
             
