@@ -21,6 +21,7 @@ struct ProfileView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     @State private var seeDetails: ActiveSheet?
+    @State private var toLogout: Bool = false
     
     var body: some View {
         ZStack {
@@ -74,12 +75,26 @@ struct ProfileView: View {
                 .listStyle(.plain)
                 
                 ActionButtonView(title: "Logout", foreground: .white, background: .red, sfSymbols: "power") {
-                    sessionService.logout()
+                    self.toLogout = true
                 }
                 .padding(.all, 10)
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .alert(isPresented: $toLogout) {
+                Alert(title: Text("Logging Out"), message: Text("Are you sure ?"), primaryButton: .cancel(
+                        Text("Cancel"),
+                    action: {
+                        self.toLogout = false
+                    }
+                ), secondaryButton:
+                    .destructive(
+                        Text("Logout"),
+                    action: {
+                        sessionService.logout()
+                    })
+                )
+            }
             .sheet(item: $seeDetails) { item in
                 switch item {
                 case .first:

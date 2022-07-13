@@ -29,15 +29,19 @@ final class RegistrationServiceImpl: RegistrationService {
     func register(with details: RegistrationDetails) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
+                // Initialize the authentication
                 Auth
                     .auth()
+                    // Set the creation of a new user
                     .createUser(withEmail: details.email, password: details.password) { res, error in
                         if let err = error {
                             promise(.failure(err))
                         } else {
+                            // Initialize a new uid
                             if let uid = res?.user.uid {
-                                
+                                // Initialize the DB
                                 let db = Firestore.firestore()
+                                // Add the data in the DB for the new user created
                                 db.collection("users").document(uid).setData([
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.surName.rawValue: details.surName,

@@ -15,6 +15,8 @@ struct SearchContactsView: View {
         VStack {
             Text("\(searchText)")
                 .searchable(text: $searchText, prompt: "Search...")
+            
+            Text("List of all contacts in the app")
         }
         
     }

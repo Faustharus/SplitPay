@@ -27,8 +27,11 @@ final class SplitingServiceImpl: SplitingService {
     func storing(with details: SplitingDetails) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
+                // Check if the user is connected
                 if let uid = Auth.auth().currentUser?.uid {
+                    // Initialize the DB
                     let db = Firestore.firestore()
+                    // Add a new document in the Collection named "review"
                     db.collection("users").document(uid).collection("review").addDocument(data: [
                         SplitingKeys.initialAmount.rawValue: details.initialAmount,
                         SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
@@ -38,8 +41,10 @@ final class SplitingServiceImpl: SplitingService {
                         SplitingKeys.entryDate.rawValue: Timestamp(date: Date.now)
                     ]) { error in
                         if let err = error {
+                            // Display an error if there an issue
                             promise(.failure(err))
                         } else {
+                            // Let the process continue if the process run'd smoothly
                             promise(.success(()))
                         }
                     }

@@ -14,6 +14,7 @@ struct HistoricSplitView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     @State private var showDetails: Bool = false
+    @State private var toDeleteAll: Bool = false
     
     init() {
         UITableView.appearance().backgroundColor = .clear
@@ -64,13 +65,28 @@ struct HistoricSplitView: View {
             .refreshable {
                 sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
             }
+            .alert(isPresented: $toDeleteAll) {
+                Alert(title: Text("Delete All"), message: Text("Are you sure ?"),
+                    primaryButton:
+                        .cancel(
+                            Text("Cancel"),
+                        action: {
+                            self.toDeleteAll = false
+                        }
+                ), secondaryButton:
+                        .destructive(
+                            Text("Delete All"),
+                        action: {
+                            sessionService.splitDeleteAll(with: Auth.auth().currentUser!.uid)
+                        })
+                )
+            }
             
             ActionButtonView(title: "Delete All", foreground: .white, background: sessionService.splitArray.isEmpty ? .gray : .red, sfSymbols: "trash.fill") {
-                sessionService.splitDeleteAll(with: Auth.auth().currentUser!.uid)
+                self.toDeleteAll = true
             }
             .padding(.all, 10)
             .disabled(sessionService.splitArray.isEmpty)
-            
             
         }
     }

@@ -32,6 +32,7 @@ final class ForgotPasswordViewModelImpl: ObservableObject, ForgotPasswordViewMod
             .sendPasswordReset(to: email)
             .sink { res in
                 switch res {
+                // If there an error of any king - break the func and show the error in the console
                 case .failure(let err):
                     print("Failed: \(err)")
                 default: break

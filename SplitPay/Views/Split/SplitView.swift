@@ -219,6 +219,7 @@ struct SplitView_Previews: PreviewProvider {
 // MARK: - Computed Prop & Func
 extension SplitView {
     
+    // Reset all
     func reset() {
         amountIsFocused = false
         vm.splitDetails.initialAmount = 0.0
@@ -227,6 +228,7 @@ extension SplitView {
         numOfPersons.removeAll()
     }
     
+    // Reset number of persons added on the calculation
     func personReset() {
         if sessionService.userDetails.withContact {
             vm.splitDetails.indexOfPersons = 0

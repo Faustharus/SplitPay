@@ -18,10 +18,62 @@ struct HistoricDetailsSplitView: View {
     
     var body: some View {
         VStack {
-            Text("Date : \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
-            Text("Initial Amount : \(details.initialAmount, specifier: "%.2f")")
-            Text("Splited Amount with Tips : \(splitWithTips, specifier: "%.2f")")
-
+            HStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(.black, lineWidth: 3)
+                    .frame(width: 100, height: 100)
+                    .overlay(
+                        VStack {
+                            Text("Currency :")
+                                .font(.headline)
+                            Image(systemName: currencySymbol)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 44, height: 44)
+                        }
+                )
+                
+                Spacer().frame(width: UIScreen.main.bounds.midX - 80)
+                
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(.black, lineWidth: 3)
+                    .frame(width: 150, height: 100)
+                    .overlay(
+                        VStack {
+                            Text("Percentage Applied :")
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                                .padding(.vertical, 1)
+                            Text("\(details.percentages) %")
+                                .font(.headline.weight(.bold))
+                        }
+                    )
+            }
+            
+            RoundedRectangle(cornerRadius: 25)
+                .stroke(.black, lineWidth: 3)
+                .frame(width: 200, height: 200)
+                .overlay(
+                    VStack {
+                        Text("The rest of the infos")
+                    }
+                )
+            
+            
+            
+//            Text("Date : \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
+//            HStack {
+//                Text("Currency : ")
+//                Image(systemName: currencySymbol)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 44, height: 44)
+//            }
+//            Text("Initial Amount : \(details.initialAmount, specifier: "%.2f")")
+//            Text("Number of Persons : \(details.indexOfPersons)")
+//            Text("Price Percentage Applied : \(details.percentages)")
+//            Text("Splited Amount without Tips : \(details.splitedAmount, specifier: "%.2f")")
+//            Text("Splited Amount with Tips : \(splitWithTips, specifier: "%.2f")")
         }
     }
 }
@@ -49,6 +101,25 @@ extension HistoricDetailsSplitView {
             let result = priceDivided + priceTiped
             
             return result
+        }
+    }
+    
+    var currencySymbol: String {
+        switch details.currencyCode {
+        case "EUR":
+            return "eurosign.circle"
+        case "GBP":
+            return "sterlignsign.circle"
+        case "JPY":
+            return "yensign.circle"
+        case "INR":
+            return "indianrupeesign.circle"
+        case "MXN":
+            return "pesosign.circle"
+        case "BRL":
+            return "brazilianrealsign.circle"
+        default:
+            return "dollarsign.circle"
         }
     }
     
