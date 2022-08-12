@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119390284DF88700F67A62 /* NavigationButtonView.swift */; };
 		9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1DBFD927F9DF8500567931 /* DistributionView.swift */; };
+		9E221BF4289C4EF700EFADB8 /* SearchContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E221BF3289C4EF700EFADB8 /* SearchContactsView.swift */; };
 		9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAE927F4453E00C8AA2D /* SignUpView.swift */; };
 		9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */; };
 		9E23EAEF27F4541200C8AA2D /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEE27F4541200C8AA2D /* SplitView.swift */; };
@@ -34,7 +35,10 @@
 		9E72D1AA28242B4B00488C95 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E72D1A928242B4B00488C95 /* ForgotPasswordService.swift */; };
 		9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */; };
 		9E811B75284617DE00089C4B /* ChevronButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E811B74284617DE00089C4B /* ChevronButtonView.swift */; };
+		9E8AE5702895B23A00983ADA /* ProfileAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */; };
 		9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */; };
+		9EAFA61E289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */; };
+		9EAFA620289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */; };
 		9EB9361D2801DE6900A246A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */; };
 		9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1054627EF070000012D48 /* SplitPayApp.swift */; };
 		9EC1054B27EF070100012D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1054A27EF070100012D48 /* Assets.xcassets */; };
@@ -56,6 +60,7 @@
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E119390284DF88700F67A62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
 		9E1DBFD927F9DF8500567931 /* DistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionView.swift; sourceTree = "<group>"; };
+		9E221BF3289C4EF700EFADB8 /* SearchContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContactsView.swift; sourceTree = "<group>"; };
 		9E23EAE927F4453E00C8AA2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		9E23EAEE27F4541200C8AA2D /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
@@ -81,7 +86,10 @@
 		9E72D1A928242B4B00488C95 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		9E811B74284617DE00089C4B /* ChevronButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronButtonView.swift; sourceTree = "<group>"; };
+		9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAccountView.swift; sourceTree = "<group>"; };
 		9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDoubleWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
+		9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIntWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
 		9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		9EC1054327EF070000012D48 /* SplitPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC1054627EF070000012D48 /* SplitPayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayApp.swift; sourceTree = "<group>"; };
@@ -130,7 +138,7 @@
 				9EE379372809BB4E00C30417 /* Split */,
 				9E80B47F28244A84005C8749 /* Historic */,
 				9E1DBFD927F9DF8500567931 /* DistributionView.swift */,
-				9EF10E4F284B511C00835B4C /* ContactsView.swift */,
+				9EA6C1C2289C00CC0055C015 /* Contacts */,
 				9E811B732846163700089C4B /* Profile */,
 			);
 			path = Views;
@@ -258,8 +266,18 @@
 				9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */,
 				9E5C342928412E2900CA3847 /* ProfileChangeView.swift */,
 				9EF35F012846955B0049B9FF /* ProfilePwdChangeView.swift */,
+				9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		9EA6C1C2289C00CC0055C015 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				9EF10E4F284B511C00835B4C /* ContactsView.swift */,
+				9E221BF3289C4EF700EFADB8 /* SearchContactsView.swift */,
+			);
+			path = Contacts;
 			sourceTree = "<group>";
 		};
 		9EB9361E2801DE6E00A246A0 /* ViewModel */ = {
@@ -339,6 +357,8 @@
 				9E4E904728453C3500684F10 /* PictureProfileView.swift */,
 				9E811B74284617DE00089C4B /* ChevronButtonView.swift */,
 				9E119390284DF88700F67A62 /* NavigationButtonView.swift */,
+				9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */,
+				9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -523,12 +543,15 @@
 				9E315E8227FDD15400D21680 /* LoginViewModel.swift in Sources */,
 				9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */,
 				9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */,
+				9EAFA620289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift in Sources */,
 				9EB9361D2801DE6900A246A0 /* RegistrationViewModel.swift in Sources */,
 				9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */,
 				9E3A571A27FDEE2B00D3F98A /* SessionService.swift in Sources */,
+				9EAFA61E289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift in Sources */,
 				9E5C342C284135C100CA3847 /* PhotoPicker.swift in Sources */,
 				9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */,
 				9E4092CB2815847200C4B3A4 /* SessionSplitUserDetails.swift in Sources */,
+				9E221BF4289C4EF700EFADB8 /* SearchContactsView.swift in Sources */,
 				9E3A571727FDEDF000D3F98A /* SessionUserDetails.swift in Sources */,
 				9EF10E50284B511C00835B4C /* ContactsView.swift in Sources */,
 				9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */,
@@ -538,6 +561,7 @@
 				9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */,
 				9E315E7F27FDD05F00D21680 /* LoginService.swift in Sources */,
 				9ED56EB3280D66FC007ACFB2 /* SplitingViewModel.swift in Sources */,
+				9E8AE5702895B23A00983ADA /* ProfileAccountView.swift in Sources */,
 				9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */,
 				9EF35F022846955B0049B9FF /* ProfilePwdChangeView.swift in Sources */,
 				9E72D1AA28242B4B00488C95 /* ForgotPasswordService.swift in Sources */,

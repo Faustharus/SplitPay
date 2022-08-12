@@ -51,9 +51,10 @@ struct LoginView: View {
                     }
                     
                     
-                    ActionButtonView(title: "Login", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
+                    ActionButtonView(title: "Login", foreground: .white, background: vm.credentials.email.isEmpty || vm.credentials.email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || vm.credentials.password.isEmpty || vm.credentials.password.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
                         vm.login()
                     }
+                    .disabled(vm.credentials.email.isEmpty || vm.credentials.email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || vm.credentials.password.isEmpty || vm.credentials.password.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     
                     ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash") {
                         reset()

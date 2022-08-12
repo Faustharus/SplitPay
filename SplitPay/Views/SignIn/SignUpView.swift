@@ -11,9 +11,6 @@ struct SignUpView: View {
     
     @StateObject private var vm = RegistrationViewModelImpl(service: RegistrationServiceImpl())
     
-//    @State private var email: String = ""
-//    @State private var password: String = ""
-//    @State private var confirmPassword: String = ""
     @State private var toSeePassword: Bool = false
     @State private var toSeeConfirmPassword: Bool = false
     @State private var nextForm: Bool = false
@@ -55,12 +52,13 @@ extension SignUpView {
                 
                 PasswordTextFieldView(password: $vm.userDetails.password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
                 
-                PasswordTextFieldView(password: $vm.userDetails.password, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock")
+                PasswordTextFieldView(password: $vm.userDetails.confirmPassword, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock")
             }
             
-            ActionButtonView(title: "Continue", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
+            ActionButtonView(title: "Continue", foreground: .white, background: vm.userDetails.confirmPassword != vm.userDetails.password || vm.userDetails.password.isEmpty || vm.userDetails.confirmPassword.isEmpty ? .gray : .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
                 nextForm = true
             }
+            .disabled(vm.userDetails.confirmPassword != vm.userDetails.password || vm.userDetails.password.isEmpty || vm.userDetails.confirmPassword.isEmpty)
             
             ActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash") {
                 resetFirstPage()
@@ -114,6 +112,7 @@ extension SignUpView {
     func resetFirstPage() {
         vm.userDetails.email = ""
         vm.userDetails.password = ""
+        vm.userDetails.confirmPassword = ""
     }
     
     func resetSecondPage() {

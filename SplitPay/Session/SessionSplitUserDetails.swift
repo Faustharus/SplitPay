@@ -26,7 +26,7 @@ struct SessionSplitUserDetails: Identifiable, Hashable {
             "id": id,
             "initialAmount": initialAmount,
             "percentages": PercentageDetails.init(reelValue: 0, position: 0).reelValue,
-            "currencyCode": CurrencyDetails.init(currencyValue: "", position: 0).currencyValue,
+            "currencyCode": CurrencyDetails.init(names: "", code: "", symbols: "", isSelected: false, position: 0).code,
             "indexOfPersons": indexOfPersons,
             "splitedAmount": splitedAmount,
             "entryDate": entryDate

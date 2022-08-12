@@ -33,9 +33,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     private var handler: AuthStateDidChangeListenerHandle?
     
     let db = Firestore.firestore()
-    //let user = Auth.auth().currentUser
-    //var credential: AuthCredential
-    //var credentials = EmailAuthProvider.credential(withEmail: user!.email!, password: "")
     
     init() {
         setupFirebaseAuthhandler()
@@ -48,37 +45,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     func withOrWithoutContact() {
         self.userDetails.withContact.toggle()
     }
-    
-//    func reauthenticating(with currentEmail: String, with oldPassword: String) {
-//        guard let user = Auth.auth().currentUser else { return }
-//        var credential: AuthCredential
-//        let emailCred = EmailAuthProvider.credential(withEmail: currentEmail, password: oldPassword)
-//
-//        user.reauthenticate(with: emailCred, completion: {
-//            [weak self] (result, error) in
-//            if let err = error {
-//                print("Error detected: \(err)")
-//            } else {
-//                // TODO: More Code Later
-//            }
-//        })
-//    }
-    
-//    func updatePassword(with newPassword: String) {
-//        guard let user = Auth.auth().currentUser else { return }
-//
-//        user.updatePassword(to: newPassword) { error in
-//            if error == nil {
-//                print("Current User Password Changed !")
-//            } else {
-//                guard let errorCode = AuthErrorCode(rawValue: 3600) else { return }
-//
-//                if errorCode == AuthErrorCode.requiresRecentLogin {
-//                    //let loginView = LoginView(changePage: .constant(false))
-//                }
-//            }
-//        }
-//    }
     
     func updatePassword(with newPassword: String) {
         guard let user = Auth.auth().currentUser else { return }
@@ -97,85 +63,36 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         }
     }
     
-/*    func updatePassword(with email: String, with oldPassword: String, with newPassword: String) {
-        let credentials = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
-        Auth
-            .auth()
-            .signIn(with: credentials) { res, error in
-                if error != nil {
-                    print("Error detected ...")
-                } else {
-                    print("You're reconnected !")
-                }
-            }
-        user!.reauthenticate(with: credentials) { error, _ in
-            if error != nil {
-                print("Something wrong occured ...")
-            } else {
-                self.user!.updatePassword(to: newPassword) { (error) in
-                    if error != nil {
-                        print("Password not updated")
-                    } else {
-                        print("Password successfully updated")
+    func accountDeleting(with uid: String, with password: String) {
+        guard let user = Auth.auth().currentUser else { return }
+        let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)
+        
+        let dbRef = db.collection("users").document(uid).collection("review")
+        dbRef.getDocuments() { snapshot, error in
+            for docSnapshot in snapshot!.documents {
+                docSnapshot.reference.delete { err in
+                    if err == nil {
+                        DispatchQueue.main.async {
+                            self.splitArray.removeAll()
+                            self.db.collection("users").document(uid).delete()
+                        }
                     }
                 }
             }
         }
-    }*/
-    
-//    func updatePassword(with password: String) {
-//        let user = Auth.auth().currentUser
-//        let credentials = EmailAuthProvider.credential(withEmail: userDetails.email, password: password)
-//
-//        user?.reauthenticate(with: credentials) { error, _ in
-//            if error != nil {
-//                print("Data Successfully Updated")
-//            } else {
-//                print("Error detected: \(String(describing: error))")
-//            }
-//        }
-//    }
-    
-//    func updatePassword(with email: String, with password: String) {
-//        Auth.auth().signIn(withEmail: email, password: password) { (res, error) in
-//            if let err = error {
-//                print("Error detected: \(err)")
-//            } else {
-//                print("Credentials Valid !")
-//                self.user?.reauthenticate(with: self.credentials!) { error, _ in
-//                    if error != nil {
-//                        print("Something went wrong !")
-//                    } else {
-//                        Auth.auth().currentUser?.updatePassword(to: password) { (error) in
-//                            if error != nil {
-//                                print("Something wrong happened again...")
-//                            } else {
-//                                print("Password successfully updated !")
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-//    func updatePassword(with password: String) {
-//        if let credentials = credentials {
-//            user?.reauthenticate(with: credentials) { error, _ in
-//                if error != nil {
-//                    print("Something wrong occur...")
-//                } else {
-//                    Auth.auth().currentUser?.updatePassword(to: password) { (error) in
-//                        if error != nil {
-//                            print("Something wrong happened again...")
-//                        } else {
-//                            print("Password successfully updated !")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+        
+        user.delete { error in
+            if error != nil {
+                let authErr = AuthErrorCode(rawValue: 3600)
+                if authErr == .requiresRecentLogin {
+                    user.reauthenticate(with: credential)
+                }
+                print("Some Error Occured...")
+            } else {
+                print("Account successfully deleted !")
+            }
+        }
+    }
     
     func updateProfile(with uid: String, with details: SessionUserDetails) {
         

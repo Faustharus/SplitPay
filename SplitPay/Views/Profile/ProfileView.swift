@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 enum ActiveSheet: Identifiable {
-    case first, second
+    case first, second, third
     
     var id: Int {
         hashValue
@@ -64,6 +64,10 @@ struct ProfileView: View {
                         self.seeDetails = .second
                     }
                     
+                    ChevronButtonView(title: "Update Account", subTitle: "Security Info", foreground: .white, background: .blue) {
+                        self.seeDetails = .third
+                    }
+                    
                     Toggle("With Contacts ?", isOn: $sessionService.userDetails.withContact)
                         .padding(.horizontal, 15)
                         .frame(height: 55)
@@ -101,6 +105,8 @@ struct ProfileView: View {
                     ProfileChangeView()
                 case .second:
                     ProfilePwdChangeView()
+                case .third:
+                    ProfileAccountView()
                 }
                 
             }

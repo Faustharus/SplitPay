@@ -109,7 +109,7 @@ extension HistoricDetailsSplitView {
         case "EUR":
             return "eurosign.circle"
         case "GBP":
-            return "sterlignsign.circle"
+            return "sterlingsign.circle"
         case "JPY":
             return "yensign.circle"
         case "INR":

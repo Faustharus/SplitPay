@@ -9,14 +9,20 @@ import SwiftUI
 
 struct SplitView: View {
     
+    enum Field {
+        case totalAmount
+        case nbPersons
+    }
+    
     @StateObject private var vm = SplitingViewModelImpl(service: SplitingServiceImpl())
     
     @State private var amount: Double = 0
     @State private var currencyPosition: Int = 0
     let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
     @State private var numOfPersons = [Int]()
+    @State private var changeCurrency: Bool = false
     
-    @FocusState private var amountIsFocused: Bool
+    @FocusState private var amountIsFocused: Field?
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
@@ -26,59 +32,86 @@ struct SplitView: View {
             
             VStack {
                 
-                VStack {
-                    Picker("", selection: $vm.splitDetails.currencyCode) {
-                        ForEach(SplitingDetails.currencyArray, id: \.self) {
-                            Text("\($0.currencyValue)")
+                ScrollView {
+                    DisclosureGroup("Choose a Currency", isExpanded: $changeCurrency) {
+                        VStack {
+                            ForEach(vm.options, id: \.self) { item in
+                                Text(item)
+                                    .foregroundColor(vm.selectedOptions == item ? .blue : .black)
+                                    .onTapGesture {
+                                        self.vm.selectedOptions = ("\(item)")
+                                        withAnimation {
+                                            self.changeCurrency.toggle()
+                                        }
+                                    }
+                                    .padding(.vertical, 1)
+                            }
+                        }
+                        .padding()
+                    }
+                    .frame(width: 350)
+                    List {
+                        ForEach(vm.currencies) { item in
+                            HStack {
+                                Image(systemName: item.symbols)
+                                Text(item.names)
+                                Spacer()
+                                Text(item.code)
+                            }
                         }
                     }
-                    .pickerStyle(.menu)
+                    .frame(height: 50)
+                    .listStyle(.plain)
+                    
+                    Spacer().frame(height: 15)
+                    
+                    Section(header: Text("Tips Percentage").font(.system(size: 16, weight: .bold, design: .serif))) {
+                        Picker("", selection: $vm.splitDetails.percentages) {
+                            ForEach(SplitingDetails.percentArray, id: \.self) {
+                                Text("\($0.reelValue)%")
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal, 10)
+                    }
+                    
+                    Spacer().frame(height: 25)
                     
                     HStack {
-                        Image(systemName: "\(currencySigns[vm.splitDetails.currencyCode.position])")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 44, height: 44)
+                        InputDoubleWithoutIconTextFieldView(values: $vm.splitDetails.initialAmount, title: "Current Amount :")
+                            .focused($amountIsFocused, equals: .totalAmount)
+                            .submitLabel(.next)
                         
-                        
-                        TextField("\(vm.splitDetails.initialAmount, specifier: "%2.f")", value: $vm.splitDetails.initialAmount, format: .number)
-                            .frame(height: 55)
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.center)
-                            .focused($amountIsFocused)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 7)
-                                    .stroke(.black, lineWidth: 3)
-                            )
-                        
-                        
+                        InputIntWithoutIconTextFieldView(values: $vm.splitDetails.indexOfPersons, title: "Nb of Persons :")
+                            .focused($amountIsFocused, equals: .nbPersons)
+                            .submitLabel(.join)
                     }
-                }
-                .padding(.all, 10)
-                
-                
-                
-                // MARK: - Number of Persons
-                VStack {
+                    .padding(.horizontal, 10)
+                    .frame(width: 400, height: 100)
+                    
+                    Spacer().frame(height: 25)
+                    
                     HStack {
-                        Image(systemName: "person.3.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 44)
-                        TextField("\(vm.splitDetails.indexOfPersons)", value: $vm.splitDetails.indexOfPersons, format: .number)
-                            .frame(height: 55)
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.center)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 7)
-                                    .stroke(.black, lineWidth: 3)
-                            )
+                        IconActionButtonView(title: "Continue", foreground: .white, background: vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .green, sfSymbols: "checkmark.circle", offsetSymbols: 0.09) {
+                            vm.addSplitToReview()
+                        }
+                        .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
+                        
+                        IconActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", offsetSymbols: 0.15) {
+                            reset()
+                        }
                     }
+                    .padding(.horizontal, 10)
+                    .frame(width: 400, height: 100)
+                    
+                    IconActionButtonView(title: "Calculating", foreground: .white, background: .blue, sfSymbols: "plus.forwardslash.minus", offsetSymbols: 0.10) {
+                        // TODO: More Code Later
+                    }
+                    .padding(.horizontal, 10)
+                    .frame(width: 400, height: 100)
+                    
                 }
-                .onAppear(perform: personReset)
-                .frame(maxHeight: 66)
-                .padding(.all, 10)
-                
+                .padding(.all, 5)
                 
                 // MARK: - Add People Section
 //                if sessionService.userDetails.withContact {
@@ -145,57 +178,33 @@ struct SplitView: View {
 //
 //                }
                 
-                
-                
-                // MARK: - Percentage
-                Picker("", selection: $vm.splitDetails.percentages) {
-                    ForEach(SplitingDetails.percentArray, id: \.self) {
-                        Text("\($0.reelValue)%")
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.all, 15)
-                
-                // MARK: - Buttons
-                HStack {
-                    IconActionButtonView(title: "Creating Group", foreground: .white, background: .blue, sfSymbols: "plus", offsetSymbols: 0.06, handler: {})
-                    
-                    IconActionButtonView(title: "Reset", foreground: .white, background: .red, sfSymbols: "trash", offsetSymbols: 0.16, handler: {
-                        reset()
-                    })
-                }
-                
-                Spacer()
-                
-                IconActionButtonView(title: "Storing", foreground: .white, background: vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .purple, sfSymbols: "folder", offsetSymbols: 0.14, handler: {
-                    vm.addSplitToReview()
-                })
-                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
-                
-                NavigationLink {
-                    DistributionView()
-                } label: {
-                    ZStack(alignment: .topTrailing) {
-                        Image(systemName: "checkmark")
-                            .offset(x: UIScreen.main.bounds.width * 0.09, y: -10)
-                            .zIndex(1)
-                        VStack {
-                            Text("Calculating")
-                            
-                        }
-                    }
-                    .foregroundColor(.white)
-                    .font(.system(size: 18, weight: .bold, design: .serif))
-                    .frame(maxWidth: 200, maxHeight: 55)
-                    .background(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .green)
-                    .cornerRadius(7)
-                    .padding(.all, 5)
-                }
-                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
+//                NavigationLink {
+//                    DistributionView()
+//                } label: {
+//                    ZStack(alignment: .topTrailing) {
+//                        Image(systemName: "checkmark")
+//                            .offset(x: UIScreen.main.bounds.width * 0.09, y: -10)
+//                            .zIndex(1)
+//                        VStack {
+//                            Text("Calculating")
+//
+//                        }
+//                    }
+//                    .foregroundColor(.white)
+//                    .font(.system(size: 18, weight: .bold, design: .serif))
+//                    .frame(maxWidth: 200, maxHeight: 55)
+//                    .background(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .green)
+//                    .cornerRadius(7)
+//                    .padding(.all, 5)
+//                }
+//                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
                 
                 Spacer()
+                
+                
                 Text("Result in \(Image(systemName: currencySigns[vm.splitDetails.currencyCode.position])) : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
+                
                 
                 Text("Without Tips : \(sessionService.userDetails.withContact ? billArrayWithoutTips : billWithoutTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
@@ -221,7 +230,7 @@ extension SplitView {
     
     // Reset all
     func reset() {
-        amountIsFocused = false
+        //amountIsFocused = false
         vm.splitDetails.initialAmount = 0.0
         vm.splitDetails.percentages = PercentageDetails.init(reelValue: 0, position: 0)
         vm.splitDetails.indexOfPersons = 0

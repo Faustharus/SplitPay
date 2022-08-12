@@ -11,6 +11,7 @@ import SwiftUI
 struct RegistrationDetails {
     var email: String
     var password: String
+    var confirmPassword: String
     var firstName: String
     var surName: String
     var nickName: String
@@ -22,7 +23,7 @@ struct RegistrationDetails {
 extension RegistrationDetails {
     
     static var new: RegistrationDetails {
-        RegistrationDetails(email: "", password: "", firstName: "", surName: "", nickName: "", picture: nil, profilePicture: "", withContact: false)
+        RegistrationDetails(email: "", password: "", confirmPassword: "", firstName: "", surName: "", nickName: "", picture: nil, profilePicture: "", withContact: false)
     }
     
 }

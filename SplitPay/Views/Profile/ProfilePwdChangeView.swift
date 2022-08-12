@@ -28,11 +28,10 @@ struct ProfilePwdChangeView: View {
         
         PasswordTextFieldView(password: $newPassword, toSeePassword: $toSeeNewPassword, placeholder: "New Password", sfSymbols: "lock")
         
-        ActionButtonView(title: "Confirm New Pwd", foreground: .white, background: oldPassword.isEmpty || newPassword.isEmpty ? .gray : .blue, sfSymbols: "pencil") {
-            //sessionService.updatePassword(with: email, with: oldPassword, with: newPassword)
+        ActionButtonView(title: "Confirm New Pwd", foreground: .white, background: oldPassword.isEmpty || newPassword.isEmpty || oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || newPassword.trimmingCharacters(in: .whitespaces).isEmpty ? .gray : .blue, sfSymbols: "pencil") {
             sessionService.updatePassword(with: newPassword)
         }
-        .disabled(oldPassword.isEmpty || newPassword.isEmpty)
+        .disabled(oldPassword.isEmpty || newPassword.isEmpty || oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || newPassword.trimmingCharacters(in: .whitespaces).isEmpty)
     }
 }
 

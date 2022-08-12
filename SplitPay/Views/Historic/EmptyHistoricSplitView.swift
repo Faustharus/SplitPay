@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmptyHistoricSplitView: View {
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             Text("Historic Split")
                 .font(.title)
             
