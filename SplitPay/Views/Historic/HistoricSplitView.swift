@@ -22,10 +22,11 @@ struct HistoricSplitView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             List {
                 if sessionService.splitArray.isEmpty {
                     EmptyHistoricSplitView()
+                        .padding(.horizontal, 20)
                 } else {
                     ForEach(sessionService.splitArray, id: \.id) { item in
                         NavigationLink {

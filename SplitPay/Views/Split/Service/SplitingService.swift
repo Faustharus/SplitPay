@@ -12,7 +12,6 @@ import FirebaseFirestore
 
 enum SplitingKeys: String {
     case currencyCode
-    //case currencyName
     case percentages
     case initialAmount
     case splitedAmount
@@ -21,11 +20,11 @@ enum SplitingKeys: String {
 }
 
 protocol SplitingService {
-    func storing(with details: SplitingDetails, _ currency: CurrencyDetails) -> AnyPublisher<Void, Error>
+    func storing(with details: SplitingDetails, _ currencyDetails: [CurrencyDetails]) -> AnyPublisher<Void, Error>
 }
 
 final class SplitingServiceImpl: SplitingService {
-    func storing(with details: SplitingDetails, _ currency: CurrencyDetails) -> AnyPublisher<Void, Error> {
+    func storing(with details: SplitingDetails, _ currencyDetails: [CurrencyDetails]) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
                 // Check if the user is connected
@@ -36,8 +35,7 @@ final class SplitingServiceImpl: SplitingService {
                     db.collection("users").document(uid).collection("review").addDocument(data: [
                         SplitingKeys.initialAmount.rawValue: details.initialAmount,
                         SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
-                        SplitingKeys.currencyCode.rawValue: details.currencyCode.code,
-                        //SplitingKeys.currencyName.rawValue: details.currencyCode.names,
+                        SplitingKeys.currencyCode.rawValue: currencyDetails[0].code,
                         SplitingKeys.percentages.rawValue: details.percentages.reelValue,
                         SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons,
                         SplitingKeys.entryDate.rawValue: Timestamp(date: Date.now)

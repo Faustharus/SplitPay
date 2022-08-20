@@ -32,7 +32,7 @@ final class SplitingViewModelImpl: ObservableObject, SplitingViewModel {
     
     var selectedOptions: String {
         didSet {
-            currencies = currencyData.filter { $0.names == selectedOptions }
+            currencies = SplitingDetails.currencyArray.filter { $0.names == selectedOptions }
         }
     }
     
@@ -47,7 +47,7 @@ final class SplitingViewModelImpl: ObservableObject, SplitingViewModel {
     
     func addSplitToReview() {
         service
-            .storing(with: splitDetails, splitDetails.currencyCode)
+            .storing(with: splitDetails, currencies)
             .sink { [weak self] res in
                 switch res {
                 case .failure(let error):

@@ -54,16 +54,6 @@ extension SplitingDetails {
         CurrencyDetails(names: "Japanese Yen", code: "JPY", symbols: "yensign.circle", isSelected: false, position: 6)
     ]
     
-//    static var currencyArray: [CurrencyDetails] = [
-//        CurrencyDetails(currencyValue: "EUR", position: 0),
-//        CurrencyDetails(currencyValue: "USD", position: 1),
-//        CurrencyDetails(currencyValue: "GBP", position: 2),
-//        CurrencyDetails(currencyValue: "JPY", position: 3),
-//        CurrencyDetails(currencyValue: "INR", position: 4),
-//        CurrencyDetails(currencyValue: "MXN", position: 5),
-//        CurrencyDetails(currencyValue: "BRL", position: 6)
-//    ]
-    
 }
 
 let currencyData: [CurrencyDetails] = [

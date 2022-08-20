@@ -55,7 +55,10 @@ struct HistoricDetailsSplitView: View {
                 .frame(width: 200, height: 200)
                 .overlay(
                     VStack {
+                        Text("Date: \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
+                            .font(.system(size: 14, weight: .semibold, design: .serif))
                         Text("The rest of the infos")
+                            .font(.headline)
                     }
                 )
             

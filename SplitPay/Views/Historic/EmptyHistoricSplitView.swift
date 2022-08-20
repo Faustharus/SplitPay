@@ -11,11 +11,16 @@ struct EmptyHistoricSplitView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text("Historic Split")
-                .font(.title)
+                .font(.title.bold())
             
-            Text("Vous voyez ici l'historique de tous vos splits. \n Pour ajouter votre premier split - rendez-vous sur la section Split.")
-                .multilineTextAlignment(.center)
+            Spacer().frame(height: 10)
+            
+            Text("Vous voyez ici l'historique de tous vos splits")
+            Text("Pour ajouter votre 1er split")
+            Text("Rendez-vous sur la section Split.")
         }
+        .font(.headline.italic())
+        .multilineTextAlignment(.center)
     }
 }
 

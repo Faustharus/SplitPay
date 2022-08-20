@@ -18,7 +18,6 @@ struct SplitView: View {
     
     @State private var amount: Double = 0
     @State private var currencyPosition: Int = 0
-    let currencySigns = ["eurosign.circle", "dollarsign.circle", "sterlingsign.circle", "yensign.circle", "indianrupeesign.circle", "pesosign.circle", "brazilianrealsign.circle"]
     @State private var numOfPersons = [Int]()
     @State private var changeCurrency: Bool = false
     
@@ -104,9 +103,10 @@ struct SplitView: View {
                     .padding(.horizontal, 10)
                     .frame(width: 400, height: 100)
                     
-                    IconActionButtonView(title: "Calculating", foreground: .white, background: .blue, sfSymbols: "plus.forwardslash.minus", offsetSymbols: 0.10) {
-                        // TODO: More Code Later
+                    NavigationButtonView(title: "Calculating", foreground: .white, background: vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .blue, sfSymbols: "plus.forwardslash.minus") {
+                        DistributionView()
                     }
+                    .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
                     .padding(.horizontal, 10)
                     .frame(width: 400, height: 100)
                     
@@ -178,31 +178,9 @@ struct SplitView: View {
 //
 //                }
                 
-//                NavigationLink {
-//                    DistributionView()
-//                } label: {
-//                    ZStack(alignment: .topTrailing) {
-//                        Image(systemName: "checkmark")
-//                            .offset(x: UIScreen.main.bounds.width * 0.09, y: -10)
-//                            .zIndex(1)
-//                        VStack {
-//                            Text("Calculating")
-//
-//                        }
-//                    }
-//                    .foregroundColor(.white)
-//                    .font(.system(size: 18, weight: .bold, design: .serif))
-//                    .frame(maxWidth: 200, maxHeight: 55)
-//                    .background(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0 ? .gray : .green)
-//                    .cornerRadius(7)
-//                    .padding(.all, 5)
-//                }
-//                .disabled(vm.splitDetails.initialAmount == 0 || numOfPersons.isEmpty && vm.splitDetails.indexOfPersons == 0)
-                
                 Spacer()
                 
-                
-                Text("Result in \(Image(systemName: currencySigns[vm.splitDetails.currencyCode.position])) : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
+                Text("Result in : \(sessionService.userDetails.withContact ? billArrayWithTips : billWithTips, specifier: "%.2f")")
                     .font(.system(size: 24, weight: .semibold, design: .serif))
                 
                 
