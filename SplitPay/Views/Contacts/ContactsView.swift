@@ -11,19 +11,28 @@ struct ContactsView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
+    @State private var isToBeContacted: Bool = false
+    
     let names = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
     
     var body: some View {
         VStack {
             HStack {
+                
                 if sessionService.userDetails.profilePicture.isEmpty {
                     Image(systemName: "person")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
+                        .onTapGesture {
+                            isToBeContacted = true
+                        }
                 } else {
                     AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
                         image.resizable()
+                            .onTapGesture {
+                                isToBeContacted = true
+                            }
                     } placeholder: {
                         Color.red.frame(width: 125)
                     }
@@ -31,6 +40,7 @@ struct ContactsView: View {
                     .frame(width: 125)
                     .clipShape(Circle())
                 }
+                
                 VStack(alignment: .leading, spacing: 0) {
                     Text(sessionService.userDetails.nickName)
                         .font(.title).bold()
@@ -47,7 +57,7 @@ struct ContactsView: View {
                 Spacer()
                 
                 NavigationLink {
-                    SearchContactsView()
+                    SearchContactsView(detailsArray: sessionService.userArray)
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .resizable()
@@ -93,6 +103,9 @@ struct ContactsView: View {
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 1)
+        }
+        .sheet(isPresented: $isToBeContacted) {
+            RequestListContactsView()
         }
         
     }

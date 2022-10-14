@@ -13,6 +13,7 @@
 		9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAE927F4453E00C8AA2D /* SignUpView.swift */; };
 		9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */; };
 		9E23EAEF27F4541200C8AA2D /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAEE27F4541200C8AA2D /* SplitView.swift */; };
+		9E25A09528BBA5BE00687F42 /* RequestListContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E25A09428BBA5BE00687F42 /* RequestListContactsView.swift */; };
 		9E2A57D0280732E400005AEE /* HistoricSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2A57CF280732E400005AEE /* HistoricSplitView.swift */; };
 		9E315E7527FDBB7F00D21680 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E315E7427FDBB7F00D21680 /* MainView.swift */; };
 		9E315E7727FDBE5100D21680 /* IconActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E315E7627FDBE5100D21680 /* IconActionButtonView.swift */; };
@@ -20,6 +21,7 @@
 		9E315E7C27FDCFD700D21680 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E315E7B27FDCFD700D21680 /* LoginCredentials.swift */; };
 		9E315E7F27FDD05F00D21680 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E315E7E27FDD05F00D21680 /* LoginService.swift */; };
 		9E315E8227FDD15400D21680 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E315E8127FDD15400D21680 /* LoginViewModel.swift */; };
+		9E34493528BAA81B0030A7E5 /* FriendsRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34493428BAA81B0030A7E5 /* FriendsRequestView.swift */; };
 		9E3A571727FDEDF000D3F98A /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571627FDEDF000D3F98A /* SessionUserDetails.swift */; };
 		9E3A571A27FDEE2B00D3F98A /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571927FDEE2B00D3F98A /* SessionService.swift */; };
 		9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */; };
@@ -35,10 +37,14 @@
 		9E72D1AA28242B4B00488C95 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E72D1A928242B4B00488C95 /* ForgotPasswordService.swift */; };
 		9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */; };
 		9E811B75284617DE00089C4B /* ChevronButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E811B74284617DE00089C4B /* ChevronButtonView.swift */; };
+		9E8AD9F928BA707F00693B86 /* RequestingContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AD9F828BA707F00693B86 /* RequestingContactView.swift */; };
 		9E8AE5702895B23A00983ADA /* ProfileAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */; };
 		9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */; };
 		9EAFA61E289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */; };
 		9EAFA620289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */; };
+		9EB6EC4328DF4344005830FB /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6EC4228DF4344005830FB /* FriendRequest.swift */; };
+		9EB6EC4528DF4449005830FB /* FriendRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6EC4428DF4449005830FB /* FriendRequestService.swift */; };
+		9EB6EC4728DF4D83005830FB /* FriendRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6EC4628DF4D83005830FB /* FriendRequestViewModel.swift */; };
 		9EB9361D2801DE6900A246A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */; };
 		9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1054627EF070000012D48 /* SplitPayApp.swift */; };
 		9EC1054B27EF070100012D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1054A27EF070100012D48 /* Assets.xcassets */; };
@@ -64,6 +70,7 @@
 		9E23EAE927F4453E00C8AA2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		9E23EAEB27F446B500C8AA2D /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		9E23EAEE27F4541200C8AA2D /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
+		9E25A09428BBA5BE00687F42 /* RequestListContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListContactsView.swift; sourceTree = "<group>"; };
 		9E2A57CF280732E400005AEE /* HistoricSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricSplitView.swift; sourceTree = "<group>"; };
 		9E315E7427FDBB7F00D21680 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9E315E7627FDBE5100D21680 /* IconActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconActionButtonView.swift; sourceTree = "<group>"; };
@@ -71,6 +78,7 @@
 		9E315E7B27FDCFD700D21680 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		9E315E7E27FDD05F00D21680 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		9E315E8127FDD15400D21680 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		9E34493428BAA81B0030A7E5 /* FriendsRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequestView.swift; sourceTree = "<group>"; };
 		9E3A571627FDEDF000D3F98A /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
 		9E3A571927FDEE2B00D3F98A /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldView.swift; sourceTree = "<group>"; };
@@ -86,10 +94,14 @@
 		9E72D1A928242B4B00488C95 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		9E811B74284617DE00089C4B /* ChevronButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronButtonView.swift; sourceTree = "<group>"; };
+		9E8AD9F828BA707F00693B86 /* RequestingContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingContactView.swift; sourceTree = "<group>"; };
 		9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAccountView.swift; sourceTree = "<group>"; };
 		9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDoubleWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
 		9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIntWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
+		9EB6EC4228DF4344005830FB /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		9EB6EC4428DF4449005830FB /* FriendRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestService.swift; sourceTree = "<group>"; };
+		9EB6EC4628DF4D83005830FB /* FriendRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModel.swift; sourceTree = "<group>"; };
 		9EB9361C2801DE6900A246A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		9EC1054327EF070000012D48 /* SplitPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC1054627EF070000012D48 /* SplitPayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayApp.swift; sourceTree = "<group>"; };
@@ -276,6 +288,12 @@
 			children = (
 				9EF10E4F284B511C00835B4C /* ContactsView.swift */,
 				9E221BF3289C4EF700EFADB8 /* SearchContactsView.swift */,
+				9E8AD9F828BA707F00693B86 /* RequestingContactView.swift */,
+				9E34493428BAA81B0030A7E5 /* FriendsRequestView.swift */,
+				9E25A09428BBA5BE00687F42 /* RequestListContactsView.swift */,
+				9EB6EC4228DF4344005830FB /* FriendRequest.swift */,
+				9EB6EC4428DF4449005830FB /* FriendRequestService.swift */,
+				9EB6EC4628DF4D83005830FB /* FriendRequestViewModel.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -529,6 +547,7 @@
 				9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */,
 				9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */,
 				9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */,
+				9E34493528BAA81B0030A7E5 /* FriendsRequestView.swift in Sources */,
 				9ED56EB0280D5DB0007ACFB2 /* SplitingService.swift in Sources */,
 				9E315E7727FDBE5100D21680 /* IconActionButtonView.swift in Sources */,
 				9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */,
@@ -537,8 +556,10 @@
 				9E23EAEF27F4541200C8AA2D /* SplitView.swift in Sources */,
 				9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */,
 				9E315E7C27FDCFD700D21680 /* LoginCredentials.swift in Sources */,
+				9EB6EC4328DF4344005830FB /* FriendRequest.swift in Sources */,
 				9E4E904A2845487800684F10 /* EmptyHistoricSplitView.swift in Sources */,
 				9E811B75284617DE00089C4B /* ChevronButtonView.swift in Sources */,
+				9E25A09528BBA5BE00687F42 /* RequestListContactsView.swift in Sources */,
 				9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */,
 				9E315E8227FDD15400D21680 /* LoginViewModel.swift in Sources */,
 				9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */,
@@ -547,6 +568,7 @@
 				9EB9361D2801DE6900A246A0 /* RegistrationViewModel.swift in Sources */,
 				9EDFF82727F36BB400CDC228 /* PasswordTextFieldView.swift in Sources */,
 				9E3A571A27FDEE2B00D3F98A /* SessionService.swift in Sources */,
+				9E8AD9F928BA707F00693B86 /* RequestingContactView.swift in Sources */,
 				9EAFA61E289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift in Sources */,
 				9E5C342C284135C100CA3847 /* PhotoPicker.swift in Sources */,
 				9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */,
@@ -555,6 +577,7 @@
 				9E3A571727FDEDF000D3F98A /* SessionUserDetails.swift in Sources */,
 				9EF10E50284B511C00835B4C /* ContactsView.swift in Sources */,
 				9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */,
+				9EB6EC4728DF4D83005830FB /* FriendRequestViewModel.swift in Sources */,
 				9E315E7527FDBB7F00D21680 /* MainView.swift in Sources */,
 				9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */,
 				9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */,
@@ -563,6 +586,7 @@
 				9ED56EB3280D66FC007ACFB2 /* SplitingViewModel.swift in Sources */,
 				9E8AE5702895B23A00983ADA /* ProfileAccountView.swift in Sources */,
 				9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */,
+				9EB6EC4528DF4449005830FB /* FriendRequestService.swift in Sources */,
 				9EF35F022846955B0049B9FF /* ProfilePwdChangeView.swift in Sources */,
 				9E72D1AA28242B4B00488C95 /* ForgotPasswordService.swift in Sources */,
 			);

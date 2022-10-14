@@ -33,12 +33,13 @@ final class SplitingViewModelImpl: ObservableObject, SplitingViewModel {
     var selectedOptions: String {
         didSet {
             currencies = SplitingDetails.currencyArray.filter { $0.names == selectedOptions }
+            //currencies = currencyData.filter { $0.names == selectedOptions }
         }
     }
     
     let service: SplitingService
     
-    private var subsciptions = Set<AnyCancellable>()
+    private var subscriptions = Set<AnyCancellable>()
     
     init(service: SplitingService) {
         self.service = service
@@ -57,7 +58,7 @@ final class SplitingViewModelImpl: ObservableObject, SplitingViewModel {
             } receiveValue: { [weak self] in
                 self?.state = .successfull
             }
-            .store(in: &subsciptions)
+            .store(in: &subscriptions)
     }
     
 }

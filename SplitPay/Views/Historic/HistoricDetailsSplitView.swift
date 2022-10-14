@@ -50,33 +50,24 @@ struct HistoricDetailsSplitView: View {
                     )
             }
             
-            RoundedRectangle(cornerRadius: 25)
-                .stroke(.black, lineWidth: 3)
-                .frame(width: 200, height: 200)
-                .overlay(
-                    VStack {
-                        Text("Date: \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
-                            .font(.system(size: 14, weight: .semibold, design: .serif))
-                        Text("The rest of the infos")
+            VStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(.black, lineWidth: 3)
+                    .frame(width: 200, height: 200)
+                    .overlay(
+                        VStack {
+                            Text("Date : \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
+                                .font(.system(size: 14, weight: .semibold, design: .serif))
+                        }
+                    )
+                    .overlay(
+                        HStack {
+                            Text("Initial Amount : \(details.initialAmount, specifier: "%.2f")")
+                            Text("Splited Amount : \(details.splitedAmount, specifier: "%.2f")")
+                        }
                             .font(.headline)
-                    }
-                )
-            
-            
-            
-//            Text("Date : \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
-//            HStack {
-//                Text("Currency : ")
-//                Image(systemName: currencySymbol)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 44, height: 44)
-//            }
-//            Text("Initial Amount : \(details.initialAmount, specifier: "%.2f")")
-//            Text("Number of Persons : \(details.indexOfPersons)")
-//            Text("Price Percentage Applied : \(details.percentages)")
-//            Text("Splited Amount without Tips : \(details.splitedAmount, specifier: "%.2f")")
-//            Text("Splited Amount with Tips : \(splitWithTips, specifier: "%.2f")")
+                    )
+            }
         }
     }
 }

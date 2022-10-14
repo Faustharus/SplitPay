@@ -41,7 +41,7 @@ final class SplitingServiceImpl: SplitingService {
                         SplitingKeys.entryDate.rawValue: Timestamp(date: Date.now)
                     ]) { error in
                         if let err = error {
-                            // Display an error if there an issue
+                            // Display an error if there is an issue
                             promise(.failure(err))
                         } else {
                             // Let the process continue if the process run'd smoothly

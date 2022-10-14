@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct RegistrationDetails {
+struct RegistrationDetails: Identifiable {
+    var id: String = UUID().uuidString
     var email: String
     var password: String
     var confirmPassword: String

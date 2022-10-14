@@ -23,7 +23,6 @@ struct PercentageDetails: Hashable {
 }
 
 struct CurrencyDetails: Identifiable, Hashable {
-    //var currencyValue: String
     let id = UUID()
     let names: String
     let code: String

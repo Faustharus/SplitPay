@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 enum RegistrationKeys: String {
+    case id
     case firstName
     case surName
     case nickName
@@ -43,6 +44,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                 let db = Firestore.firestore()
                                 // Add the data in the DB for the new user created
                                 db.collection("users").document(uid).setData([
+                                    RegistrationKeys.id.rawValue: res?.user.uid ?? details.id,
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.surName.rawValue: details.surName,
                                     RegistrationKeys.nickName.rawValue: details.nickName,
