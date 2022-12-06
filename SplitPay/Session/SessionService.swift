@@ -28,16 +28,17 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
     @Published var userDetails: SessionUserDetails = SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
+    @Published var userArray: [SessionUserDetails] = []
     @Published var splitArray: [SessionSplitUserDetails] = []
     
-    //@Published var contactsSentArray: [SessionRequestSent] = []
+    //@Published var userRequestArray: [SessionRequestSent] = []
+    //@Published var userRequest: SessionRequestSent = SessionRequestSent.init(userUid: "", confirmation: false, entryDate: Timestamp())
     
-    @Published var userArray: [SessionUserDetails] = [] // ? To get all users from the DB ?
+    @Published var userTextMessage: String = ""
     
     private var handler: AuthStateDidChangeListenerHandle?
     
     let db = Firestore.firestore()
-    var ref: DocumentReference!
     
     init() {
         setupFirebaseAuthhandler()
@@ -51,23 +52,24 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         self.userDetails.withContact.toggle()
     }
     
-    // MARK: - Test Func for Req Received
-    
-    
-    func requestReceived(with uid: String) {
-        db.collection("users").document(uid).updateData([
-            "requestReceived": FieldValue.arrayUnion([
-                Auth.auth().currentUser!.uid
+    func sendingMessages(with details: SessionUserDetails) {
+        guard let fromUid = Auth.auth().currentUser?.uid else { return }
+        let toUid = details.id
+        
+        DispatchQueue.main.async {
+            self.db.collection("users").document(fromUid).collection("msgSentTo\(String(describing: toUid))").addDocument(data: [
+                "id": toUid,
+                "message": self.userTextMessage,
+                "timestamp": Timestamp(date: Date.now)
             ])
-        ])
+            
+            self.db.collection("users").document(toUid).collection("msgReceivedFrom\(String(describing: fromUid))").addDocument(data: [
+                "id": fromUid,
+                "message": self.userTextMessage,
+                "timestamp": Timestamp(date: Date.now)
+            ])
+        }
     }
-    
-    
-    // MARK: - End Test Func for Req Received
-    
-    
-    
-    
     
     func updatePassword(with newPassword: String) {
         guard let user = Auth.auth().currentUser else { return }
@@ -75,7 +77,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         
         user.updatePassword(to: newPassword) { error in
             if error != nil {
-                let authErr = AuthErrorCode(rawValue: 3600)
+                let authErr = AuthErrorCode(rawValue: 300)
                 if authErr == .requiresRecentLogin {
                     user.reauthenticate(with: credential)
                 }
@@ -85,13 +87,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
             }
         }
     }
-    
-//    func newFriend(with uid: String) {
-//        let ref = db.collection("users")
-//        let user = Auth.auth().currentUser?.uid
-//        ref.document("\(String(describing: user))friended\(uid)").setData(["isFriend" : true]);
-//        ref.document("\(uid)friendedBy\(String(describing: user))").setData(["isFriendWith" : true])
-//    }
     
     func accountDeleting(with uid: String, with password: String) {
         guard let user = Auth.auth().currentUser else { return }
@@ -122,7 +117,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         
         user.delete { error in
             if error != nil {
-                let authErr = AuthErrorCode(rawValue: 1)
+                let authErr = AuthErrorCode(rawValue: 300)
                 if authErr == .requiresRecentLogin {
                     user.reauthenticate(with: credential)
                 }
@@ -184,21 +179,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
             }
         })
     }
-    
-//    func removeReqSent(with uid: String, with details: SessionRequestSent) {
-//        let userId = Auth.auth().currentUser!.uid
-//        db.collection("users").document(userId).collection("requestSent").document(uid).delete { error in
-//            if error == nil {
-//                DispatchQueue.main.async {
-//                    withAnimation(.spring()) {
-//                        self.contactsSentArray.removeAll() { item in
-//                            return item.id == uid
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     func splitDelete(with uid: String, with details: SessionSplitUserDetails) {
         // Get the selected document through it's id for deleting
@@ -287,7 +267,7 @@ extension SessionServiceImpl {
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact)
+                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact/*, isReceivingInvit: self.userDetails.isReceivingInvit*/)
             }
         }
     }
@@ -312,9 +292,29 @@ extension SessionServiceImpl {
         }
     }
     
+    // MARK: - Friend Req Received - Begin
+//    func reqReceivedRefresh(with uid: String) {
+//        let docRef = db.collection("users").document(uid).collection("requestReceived")
+//        docRef.getDocuments() { (querySnapshot, error) in
+//            guard let snapshot = querySnapshot, error == nil else {
+//                print("Error retrieving Req Sent Detected ... !")
+//                return
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.userRequestArray = snapshot.documents.map { item in
+//                    return SessionRequestSent(userUid: item.documentID, confirmation: item["confirmation"] as? Bool ?? true, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
+//                }
+//            }
+//        }
+//    }
+    // MARK: - Friend Req Received - End
+    
+    
+    
     func allUsersRefresh() {
         guard let user = Auth.auth().currentUser?.uid else { return }
-        let docRef = db.collection("users")
+        let docRef = db.collection("users").whereField("id", isNotEqualTo: user)
         docRef.getDocuments() { (querySnapshot, error) in
             guard let snapshot = querySnapshot, error == nil else {
                 print("No other contacts detected... or simply ERROR !!")
@@ -323,30 +323,15 @@ extension SessionServiceImpl {
             
             DispatchQueue.main.async {
                 self.userArray = snapshot.documents.map { item in
-                    if item.documentID == user {
-                        return SessionUserDetails(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
+                    if item.documentID != user {
+                        return SessionUserDetails(id: item.documentID, email: item["email"] as? String ?? "", firstName: item["firstName"] as? String ?? "", surName: item["surName"] as? String ?? "", nickName: item["nickName"] as? String ?? "", extNickName: item["extNickName"] as? String ?? "", profilePicture: item["profilePicture"] as? String ?? "", withContact: item["withContact"] as? Bool ?? false)
+                        
                     } else {
-                        return SessionUserDetails(id: item.documentID, email: item["email"] as? String ?? "", firstName: item["firstName"] as? String ?? "", surName: item["surName"] as? String ?? "", nickName: item["nickName"] as? String ?? "", extNickName: item["extNickName"] as? String ?? "", profilePicture: item["profilePicture"] as? String ?? "", withContact: false)
+                        return SessionUserDetails(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
                     }
                 }
             }
         }
     }
-    
-//    func sendingReq(with uid: String, with details: SessionUserDetails) {
-//        //guard let user = Auth.auth().currentUser else { return }
-//        let documentRefString = db.collection("users").document(details.id)
-//        self.ref = db.document("users/\(documentRefString)")
-//
-//        db.collection("users").document(uid).collection("inProgress").document().setData([
-//            "test": ref as Any
-//        ]) { err in
-//            if let err = err {
-//                print("Error detected: \(err)")
-//            } else {
-//                print("Everything works !")
-//            }
-//        }
-//    }
     
 }

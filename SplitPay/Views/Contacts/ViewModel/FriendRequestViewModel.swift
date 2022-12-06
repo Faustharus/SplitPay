@@ -11,22 +11,23 @@ import SwiftUI
 
 enum FriendState {
     case sent
-    case received
+    //case received
     case failed(error: Error)
     case na
 }
 
 protocol FriendRequestViewModel {
-    //var friendRequest: FriendRequest { get }
+    var friendRequest: FriendRequest { get }
     var state: FriendState { get }
     var service: FriendRequestService { get }
     init(service: FriendRequestService)
-    func makeNewRequest(with userUid: String)
+    func makeNewRequest()
+    func deleteNewRequest()
 }
 
 final class FriendRequestViewModelImpl: ObservableObject, FriendRequestViewModel {
     
-    //@Published var friendRequest: FriendRequest = FriendRequest.new
+    @Published var friendRequest: FriendRequest = FriendRequest.new
     @Published var state: FriendState = FriendState.na
     //@Published var isFriended: Bool = false
     
@@ -38,9 +39,24 @@ final class FriendRequestViewModelImpl: ObservableObject, FriendRequestViewModel
         self.service = service
     }
     
-    func makeNewRequest(with userUid: String) {
+    func makeNewRequest() {
         service
-            .makeRequest(with: userUid)
+            .makeRequest(with: friendRequest)
+            .sink { [weak self] res in
+                switch res {
+                case .failure(let error):
+                    self?.state = .failed(error: error)
+                default: break
+                }
+            } receiveValue: { [weak self] in
+                self?.state = .sent
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func deleteNewRequest() {
+        service
+            .deleteRequest(with: friendRequest)
             .sink { [weak self] res in
                 switch res {
                 case .failure(let error):

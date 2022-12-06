@@ -78,10 +78,12 @@ struct SplitView: View {
                     
                     HStack {
                         InputDoubleWithoutIconTextFieldView(values: $vm.splitDetails.initialAmount, title: "Current Amount :")
+                            .keyboardType(.decimalPad)
                             .focused($amountIsFocused, equals: .totalAmount)
                             .submitLabel(.next)
                         
                         InputIntWithoutIconTextFieldView(values: $vm.splitDetails.indexOfPersons, title: "Nb of Persons :")
+                            .keyboardType(.decimalPad)
                             .focused($amountIsFocused, equals: .nbPersons)
                             .submitLabel(.join)
                     }

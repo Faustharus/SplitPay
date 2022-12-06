@@ -48,11 +48,13 @@ extension SignUpView {
                 Text("SignUp Page")
                     .font(.system(.title, design: .serif).weight(.bold))
                 
-                EmailTextFieldView(email: $vm.userDetails.email, placeholder: "Email", sfSymbols: "envelope")
+                EmailTextFieldView(email: $vm.userDetails.email, placeholder: "Email", sfSymbols: "envelope").keyboardType(.emailAddress)
                 
                 PasswordTextFieldView(password: $vm.userDetails.password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
+                    .keyboardType(.default)
                 
                 PasswordTextFieldView(password: $vm.userDetails.confirmPassword, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock")
+                    .keyboardType(.default)
             }
             
             ActionButtonView(title: "Continue", foreground: .white, background: vm.userDetails.confirmPassword != vm.userDetails.password || vm.userDetails.password.isEmpty || vm.userDetails.confirmPassword.isEmpty ? .gray : .blue, sfSymbols: "rectangle.portrait.and.arrow.right") {
@@ -80,11 +82,11 @@ extension SignUpView {
     private var secondPage: some View {
         VStack(spacing: 16) {
             VStack(spacing: 16) {
-                InputTextFieldView(text: $vm.userDetails.nickName, placeholder: "Nickname", sfSymbols: "person")
+                InputTextFieldView(text: $vm.userDetails.nickName, placeholder: "Nickname", sfSymbols: "person").keyboardType(.default)
                 
-                InputTextFieldView(text: $vm.userDetails.firstName, placeholder: "First Name", sfSymbols: "person")
+                InputTextFieldView(text: $vm.userDetails.firstName, placeholder: "First Name", sfSymbols: "person").keyboardType(.default)
                 
-                InputTextFieldView(text: $vm.userDetails.surName, placeholder: "Surname", sfSymbols: "person")
+                InputTextFieldView(text: $vm.userDetails.surName, placeholder: "Surname", sfSymbols: "person").keyboardType(.default)
             }
             ActionButtonView(title: "Back", foreground: .white, background: .blue, sfSymbols: "arrow.left") {
                 nextForm = false

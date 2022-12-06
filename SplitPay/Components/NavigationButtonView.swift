@@ -43,8 +43,8 @@ struct NavigationButtonView<Content>: View where Content: View {
     }
 }
 
-struct NavigationButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationButtonView<SearchContactsView>(title: "New Contact", foreground: .white, background: .blue, sfSymbols: "person") { SearchContactsView(detailsArray: [SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)]) }
-    }
-}
+//struct NavigationButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationButtonView<SearchContactsView>(title: "New Contact", foreground: .white, background: .blue, sfSymbols: "person") { SearchContactsView(detailsArray: [SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)]) }
+//    }
+//}

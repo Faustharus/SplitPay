@@ -44,5 +44,6 @@ struct ActionButtonView: View {
 struct ActionButtonView_Previews: PreviewProvider {
     static var previews: some View {
         ActionButtonView(title: "Login", foreground: .white, background: .blue, sfSymbols: "rectangle.portrait.and.arrow.right", handler: {})
+            .previewLayout(.sizeThatFits)
     }
 }

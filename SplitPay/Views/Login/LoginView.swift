@@ -30,9 +30,11 @@ struct LoginView: View {
                             .font(.system(.title, design: .serif).weight(.bold))
                         
                         EmailTextFieldView(email: $vm.credentials.email, placeholder: "Email", sfSymbols: "envelope")
+                            .keyboardType(.emailAddress)
                         
                         
                         PasswordTextFieldView(password: $vm.credentials.password, toSeePassword: $toSeePassword, placeholder: "Password", sfSymbols: "lock")
+                            .keyboardType(.default)
                         
                         HStack {
                             Spacer()
