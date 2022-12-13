@@ -38,8 +38,12 @@
 		9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */; };
 		9E811B75284617DE00089C4B /* ChevronButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E811B74284617DE00089C4B /* ChevronButtonView.swift */; };
 		9E8AE5702895B23A00983ADA /* ProfileAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */; };
+		9E9E441B2940FBD900974BB9 /* SessionChatMessageDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E441A2940FBD900974BB9 /* SessionChatMessageDetails.swift */; };
 		9EA6A9812937C3AC008F0ADB /* CreateNewMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6A9802937C3AC008F0ADB /* CreateNewMessagesView.swift */; };
 		9EA9B9BC27FB8904008D4E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */; };
+		9EAB944F29424CC1004940BB /* ChatDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB944E29424CC1004940BB /* ChatDetails.swift */; };
+		9EAB945129424CF3004940BB /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB945029424CF3004940BB /* ChatService.swift */; };
+		9EAB945329425215004940BB /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB945229425215004940BB /* ChatViewModel.swift */; };
 		9EAFA61E289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */; };
 		9EAFA620289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */; };
 		9EB6EC4328DF4344005830FB /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6EC4228DF4344005830FB /* FriendRequest.swift */; };
@@ -96,8 +100,12 @@
 		9E72D1AC28242C1800488C95 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		9E811B74284617DE00089C4B /* ChevronButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChevronButtonView.swift; sourceTree = "<group>"; };
 		9E8AE56F2895B23A00983ADA /* ProfileAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAccountView.swift; sourceTree = "<group>"; };
+		9E9E441A2940FBD900974BB9 /* SessionChatMessageDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChatMessageDetails.swift; sourceTree = "<group>"; };
 		9EA6A9802937C3AC008F0ADB /* CreateNewMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewMessagesView.swift; sourceTree = "<group>"; };
 		9EA9B9BB27FB8904008D4E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		9EAB944E29424CC1004940BB /* ChatDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetails.swift; sourceTree = "<group>"; };
+		9EAB945029424CF3004940BB /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		9EAB945229425215004940BB /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDoubleWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
 		9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputIntWithoutIconTextFieldView.swift; sourceTree = "<group>"; };
 		9EB6EC4228DF4344005830FB /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
@@ -200,6 +208,7 @@
 				9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */,
 				9E3A571927FDEE2B00D3F98A /* SessionService.swift */,
 				9E2189C32912D84600792299 /* SessionRequestSent.swift */,
+				9E9E441A2940FBD900974BB9 /* SessionChatMessageDetails.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -298,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB6EC4628DF4D83005830FB /* FriendRequestViewModel.swift */,
+				9EAB945229425215004940BB /* ChatViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -306,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB6EC4428DF4449005830FB /* FriendRequestService.swift */,
+				9EAB945029424CF3004940BB /* ChatService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -314,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB6EC4228DF4344005830FB /* FriendRequest.swift */,
+				9EAB944E29424CC1004940BB /* ChatDetails.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -586,6 +598,7 @@
 				9E315E7727FDBE5100D21680 /* IconActionButtonView.swift in Sources */,
 				9EE379362809BB4A00C30417 /* SplitingDetails.swift in Sources */,
 				9E2A57D0280732E400005AEE /* HistoricSplitView.swift in Sources */,
+				9EAB945329425215004940BB /* ChatViewModel.swift in Sources */,
 				9E72D1A728242AEE00488C95 /* ForgotPasswordView.swift in Sources */,
 				9E23EAEF27F4541200C8AA2D /* SplitView.swift in Sources */,
 				9EC1054727EF070000012D48 /* SplitPayApp.swift in Sources */,
@@ -593,6 +606,7 @@
 				9EB6EC4328DF4344005830FB /* FriendRequest.swift in Sources */,
 				9E4E904A2845487800684F10 /* EmptyHistoricSplitView.swift in Sources */,
 				9E811B75284617DE00089C4B /* ChevronButtonView.swift in Sources */,
+				9EAB945129424CF3004940BB /* ChatService.swift in Sources */,
 				9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */,
 				9E315E8227FDD15400D21680 /* LoginViewModel.swift in Sources */,
 				9E72D1AD28242C1800488C95 /* ForgotPasswordViewModel.swift in Sources */,
@@ -615,6 +629,7 @@
 				9EB6EC4728DF4D83005830FB /* FriendRequestViewModel.swift in Sources */,
 				9E315E7527FDBB7F00D21680 /* MainView.swift in Sources */,
 				9E23EAEC27F446B500C8AA2D /* CredentialsView.swift in Sources */,
+				9E9E441B2940FBD900974BB9 /* SessionChatMessageDetails.swift in Sources */,
 				9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */,
 				9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */,
 				9E315E7F27FDD05F00D21680 /* LoginService.swift in Sources */,
@@ -624,6 +639,7 @@
 				9EB6EC4528DF4449005830FB /* FriendRequestService.swift in Sources */,
 				9E6F2266293A3D490085EC65 /* CurrentChatLogView.swift in Sources */,
 				9EF35F022846955B0049B9FF /* ProfilePwdChangeView.swift in Sources */,
+				9EAB944F29424CC1004940BB /* ChatDetails.swift in Sources */,
 				9E72D1AA28242B4B00488C95 /* ForgotPasswordService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

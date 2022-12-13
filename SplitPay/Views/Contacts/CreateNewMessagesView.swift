@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreateNewMessagesView: View {
     
+    @ObservedObject var vm = ChatViewModelImpl(service: ChatServiceImpl())
+    
     @EnvironmentObject var sessionService: SessionServiceImpl
     @Environment(\.dismiss) var dismiss
     

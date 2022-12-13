@@ -17,6 +17,12 @@ enum SessionState {
     case loggedOut
 }
 
+enum MessageKeys: String {
+    case id
+    case message
+    case timestamp
+}
+
 protocol SessionService {
     var state: SessionState { get }
     var userDetails: SessionUserDetails { get }
@@ -35,6 +41,8 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     //@Published var userRequest: SessionRequestSent = SessionRequestSent.init(userUid: "", confirmation: false, entryDate: Timestamp())
     
     @Published var userTextMessage: String = ""
+    //@Published var chatMessage: SessionChatMessageDetails = SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp(date: .now))
+    @Published var chatMessageArray = [SessionChatMessageDetails]()
     
     private var handler: AuthStateDidChangeListenerHandle?
     
@@ -50,25 +58,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func withOrWithoutContact() {
         self.userDetails.withContact.toggle()
-    }
-    
-    func sendingMessages(with details: SessionUserDetails) {
-        guard let fromUid = Auth.auth().currentUser?.uid else { return }
-        let toUid = details.id
-        
-        DispatchQueue.main.async {
-            self.db.collection("users").document(fromUid).collection("msgSentTo\(String(describing: toUid))").addDocument(data: [
-                "id": toUid,
-                "message": self.userTextMessage,
-                "timestamp": Timestamp(date: Date.now)
-            ])
-            
-            self.db.collection("users").document(toUid).collection("msgReceivedFrom\(String(describing: fromUid))").addDocument(data: [
-                "id": fromUid,
-                "message": self.userTextMessage,
-                "timestamp": Timestamp(date: Date.now)
-            ])
-        }
     }
     
     func updatePassword(with newPassword: String) {
@@ -267,7 +256,7 @@ extension SessionServiceImpl {
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact/*, isReceivingInvit: self.userDetails.isReceivingInvit*/)
+                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact)
             }
         }
     }
@@ -292,26 +281,26 @@ extension SessionServiceImpl {
         }
     }
     
-    // MARK: - Friend Req Received - Begin
-//    func reqReceivedRefresh(with uid: String) {
-//        let docRef = db.collection("users").document(uid).collection("requestReceived")
-//        docRef.getDocuments() { (querySnapshot, error) in
-//            guard let snapshot = querySnapshot, error == nil else {
-//                print("Error retrieving Req Sent Detected ... !")
-//                return
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.userRequestArray = snapshot.documents.map { item in
-//                    return SessionRequestSent(userUid: item.documentID, confirmation: item["confirmation"] as? Bool ?? true, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
-//                }
-//            }
-//        }
-//    }
-    // MARK: - Friend Req Received - End
-    
-    
-    
+    func fetchMessages(with fromUid: String, and toUid: String) {
+        let fromDocRef = db.collection("messages").document(fromUid).collection(toUid).order(by: "timestamp")
+        //let toDocRef = db.collection("messages").document(toUid).collection(fromUid)
+        
+        fromDocRef.addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                print("Error detected getting messages: \(error)")
+                return
+            }
+            DispatchQueue.main.async {
+                querySnapshot?.documentChanges.forEach({ change in
+                    if change.type == .added {
+                        let data = change.document.data()
+                        self.chatMessageArray.append(.init(documentID: change.document.documentID, data: data))
+                    }
+                })
+            }
+        }
+    }
+        
     func allUsersRefresh() {
         guard let user = Auth.auth().currentUser?.uid else { return }
         let docRef = db.collection("users").whereField("id", isNotEqualTo: user)
@@ -335,3 +324,48 @@ extension SessionServiceImpl {
     }
     
 }
+
+
+// MARK: - Friend Req Received
+//    func reqReceivedRefresh(with uid: String) {
+//        let docRef = db.collection("users").document(uid).collection("requestReceived")
+//        docRef.getDocuments() { (querySnapshot, error) in
+//            guard let snapshot = querySnapshot, error == nil else {
+//                print("Error retrieving Req Sent Detected ... !")
+//                return
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.userRequestArray = snapshot.documents.map { item in
+//                    return SessionRequestSent(userUid: item.documentID, confirmation: item["confirmation"] as? Bool ?? true, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
+//                }
+//            }
+//        }
+//    }
+
+
+// MARK: - Fetch Messages
+
+
+//    func fetchMessages() {
+//        guard let fromUid = Auth.auth().currentUser?.uid else { return }
+//        let toUid = userDetails.id
+//        // If docRef exists otherwise Fatal Error !!!
+//        let docRef = db.collection("users").document(fromUid).collection(toUid).order(by: "timestamp")
+//
+//        docRef.addSnapshotListener { querySnapshot, error in
+//            if let error = error {
+//                print("Error getting messages detected: \(error)")
+//                return
+//            }
+//
+//            DispatchQueue.main.async {
+//                querySnapshot?.documentChanges.forEach({ change in
+//                    if change.type == .added {
+//                        self.chatMessage.append(SessionChatDetails(id: change.document.documentID, textMessage: self.userTextMessage, timestamp: Timestamp(date: .now)))
+//                    }
+//                })
+//            }
+//
+//        }
+//    }

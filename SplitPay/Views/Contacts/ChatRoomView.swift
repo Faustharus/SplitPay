@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChatRoomView: View {
     
+    @StateObject var vm = ChatViewModelImpl(service: ChatServiceImpl())
+    
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     @State var chatUser: SessionUserDetails?
@@ -57,6 +59,7 @@ struct ChatRoomView: View {
                 
                 NavigationLink("", isActive: $shouldNavigateToChatLogView) {
                     CurrentChatLogView(chatUser: self.chatUser)
+                        .environmentObject(sessionService)
                 }
                 
                 List(names, id: \.self) { item in
@@ -102,6 +105,7 @@ struct ChatRoomView: View {
                     self.shouldNavigateToChatLogView = true
                     self.chatUser = user
                 })
+                .environmentObject(sessionService)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

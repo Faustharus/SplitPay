@@ -29,6 +29,7 @@ final class FriendRequestViewModelImpl: ObservableObject, FriendRequestViewModel
     
     @Published var friendRequest: FriendRequest = FriendRequest.new
     @Published var state: FriendState = FriendState.na
+    @Published var testID: String = "" /** UUID String put inside func like makeNewRequest(with uid: String) */
     //@Published var isFriended: Bool = false
     
     let service: FriendRequestService
