@@ -9,8 +9,7 @@ import Foundation
 
 struct ChatDetails: Identifiable {
     
-    var id: String { documentID }
-    var documentID: String
+    var id: String
     var fromUid: String
     var toUid: String
     var message: String
@@ -20,6 +19,6 @@ struct ChatDetails: Identifiable {
 
 extension ChatDetails {
     
-    static var new: ChatDetails = ChatDetails(documentID: "", fromUid: "", toUid: "", message: "", timestamp: Date())
+    static var new: ChatDetails = ChatDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Date())
     
 }

@@ -17,56 +17,122 @@ struct HistoricDetailsSplitView: View {
     let details: SessionSplitUserDetails
     
     var body: some View {
-        VStack {
-            HStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .stroke(.black, lineWidth: 3)
-                    .frame(width: 100, height: 100)
-                    .overlay(
-                        VStack {
-                            Text("Currency :")
-                                .font(.headline)
-                            Image(systemName: currencySymbol)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 44, height: 44)
-                        }
-                )
+        ScrollView {
+            VStack(spacing: 10) {
+                HStack {
+                    Text("Currency :")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Text(currencyName)
+                        .font(.headline)
+                        .bold()
+                        .italic()
+//                    Image(systemName: currencySymbol)
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 44, height: 44)
+                    
+                    Spacer()
+                    Divider()
+                    Spacer()
+                    
+                    VStack(alignment: .leading) {
+                        Text("\(details.entryDate.dateValue().formatted(date: .abbreviated, time: .omitted)),")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                        Text("\(details.entryDate.dateValue().formatted(date: .omitted, time: .standard))")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                    }
+                }
+                .padding()
                 
-                Spacer().frame(width: UIScreen.main.bounds.midX - 80)
+                HStack {
+                    Text("Number of Persons :")
+                    Text("\(details.indexOfPersons)")
+                        .italic()
+                }
+                .font(.headline)
                 
-                RoundedRectangle(cornerRadius: 25)
-                    .stroke(.black, lineWidth: 3)
-                    .frame(width: 150, height: 100)
-                    .overlay(
-                        VStack {
-                            Text("Percentage Applied :")
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical, 1)
-                            Text("\(details.percentages) %")
-                                .font(.headline.weight(.bold))
-                        }
-                    )
-            }
-            
-            VStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .stroke(.black, lineWidth: 3)
-                    .frame(width: 200, height: 200)
-                    .overlay(
-                        VStack {
-                            Text("Date : \(details.entryDate.dateValue().formatted(date: .abbreviated, time: .standard))")
-                                .font(.system(size: 14, weight: .semibold, design: .serif))
-                        }
-                    )
-                    .overlay(
+                HStack {
+                    Text("Percentage Rate :")
+                    Text("\(details.percentages) %")
+                }
+                
+                HStack {
+                    VStack {
+                        Text("Total Amount :")
                         HStack {
-                            Text("Initial Amount : \(details.initialAmount, specifier: "%.2f")")
-                            Text("Splited Amount : \(details.splitedAmount, specifier: "%.2f")")
+                            Text("\(details.initialAmount, specifier: "%.2f")")
+                            Image(systemName: currencySign)
                         }
-                            .font(.headline)
-                    )
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("Your Split :")
+                        HStack {
+                            Text("\(details.splitedAmount, specifier: "%.2f")")
+                            Image(systemName: currencySign)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("With Tips :")
+                        HStack {
+                            Text("\(splitWithTips - details.splitedAmount, specifier: "%.2f")")
+                            Image(systemName: currencySign)
+                        }
+                    }
+                    
+                }
+                .padding()
+                
+                VStack {
+                    Text("Names :")
+                        .font(.headline)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(0 ..< 10) { item in
+                                VStack {
+                                    Image(systemName: "person.crop.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 44, height: 44)
+                                    Text("Name \(item)")
+                                }
+                            }
+                            .padding(.horizontal, 6)
+                        }
+                    }
+                    
+                }
+                .frame(height: 100)
+                .padding()
+                
+                Button {
+                    // TODO: More Code Later
+                } label: {
+                    HStack {
+                        Text("Export as PDF")
+                        Image(systemName: "doc.badge.arrow.up")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 44, height: 44)
+                    }
+                    .font(.system(size: 20, weight: .bold, design: .serif))
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 60)
+                    .background(Color.blue)
+                    .cornerRadius(7)
+                    
+                }
+                
             }
         }
     }
@@ -114,6 +180,44 @@ extension HistoricDetailsSplitView {
             return "brazilianrealsign.circle"
         default:
             return "dollarsign.circle"
+        }
+    }
+    
+    var currencySign: String {
+        switch details.currencyCode {
+        case "EUR":
+            return "eurosign"
+        case "GBP":
+            return "sterlingsign"
+        case "JPY":
+            return "yensign"
+        case "INR":
+            return "indianrupeesign"
+        case "MXN":
+            return "pesosign"
+        case "BRL":
+            return "brazilianrealsign"
+        default:
+            return "dollarsign"
+        }
+    }
+    
+    var currencyName: String {
+        switch details.currencyCode {
+        case "EUR":
+            return "EUR"
+        case "GBP":
+            return "GBP"
+        case "JPY":
+            return "JPY"
+        case "INR":
+            return "INR"
+        case "MXN":
+            return "MXN"
+        case "BRL":
+            return "BRL"
+        default:
+            return "USD"
         }
     }
     

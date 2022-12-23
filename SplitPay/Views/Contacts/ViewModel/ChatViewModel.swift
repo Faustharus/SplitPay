@@ -29,6 +29,8 @@ final class ChatViewModelImpl: ObservableObject, ChatViewModel {
     @Published var state: ChatState = .na
     @Published var toUid: String = ""
     
+    @Published var count: Int = 0 // Need to be used in order to have an ID for the scrollTo (ScrollViewReader)
+    
     let service: ChatService
     
     private var subscriptions = Set<AnyCancellable>()
@@ -40,6 +42,22 @@ final class ChatViewModelImpl: ObservableObject, ChatViewModel {
     func sendNewMessage(with toUid: String?, and model: ChatDetails) {
         service
             .sendMessage(with: toUid, and: chatMessage)
+            .sink { [weak self] res in
+                switch res {
+                case .failure(let error):
+                    self?.state = .failed(error: error)
+                default: break
+                }
+            } receiveValue: { [weak self] in
+                self?.state = .successfull
+                self?.count += 1
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func newLastMessage(with toUid: String?, and model: ChatDetails) {
+        service
+            .lastMessage(with: toUid, and: chatMessage)
             .sink { [weak self] res in
                 switch res {
                 case .failure(let error):

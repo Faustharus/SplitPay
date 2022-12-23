@@ -17,12 +17,20 @@ struct CreateNewMessagesView: View {
     let didStartConversation: (SessionUserDetails) -> ()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List(sessionService.userArray, id: \.self) { item in
+        //NavigationView {
+        VStack(alignment: .center) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Cancel")
+                }
+                .padding(.leading, 10)
+            
+                List(sessionService.userArray, id: \.id) { item in
                     Button {
                         dismiss()
                         didStartConversation(item)
+                        let _ = print(item.id)
                     } label: {
                         HStack {
                             if item.profilePicture.isEmpty {
@@ -48,18 +56,18 @@ struct CreateNewMessagesView: View {
                     .buttonStyle(.plain)
                 }
                 .listStyle(.grouped)
-                .navigationTitle("Contact List").navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Cancel")
-                        }
-                    }
             }
-            }
-        }
+//            .navigationTitle("Contact List").navigationBarTitleDisplayMode(.inline)
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button {
+//                        dismiss()
+//                    } label: {
+//                        Text("Cancel")
+//                    }
+//                }
+//            }
+        //}
     }
 }
 

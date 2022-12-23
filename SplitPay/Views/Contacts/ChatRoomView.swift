@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ChatRoomView: View {
     
@@ -18,7 +19,7 @@ struct ChatRoomView: View {
     
     @State private var aNewMessage: Bool = false
     
-//    @State private var isToBeContacted: Bool = false
+    //    @State private var isToBeContacted: Bool = false
     
     let names = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
     
@@ -41,6 +42,7 @@ struct ChatRoomView: View {
                         .clipShape(Circle())
                         .scaledToFit()
                     }
+                    
                     VStack(spacing: 0) {
                         Text("\(sessionService.userDetails.firstName)")
                             .font(.title).bold()
@@ -62,47 +64,52 @@ struct ChatRoomView: View {
                         .environmentObject(sessionService)
                 }
                 
-                List(names, id: \.self) { item in
-                    VStack {
-                        NavigationLink {
-                            Text("Destination")
-                            //CurrentChatLogView(chatUser: chatUser)
-                        } label: {
-                            HStack {
-                                Image(systemName: "person.crop.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 56, height: 56)
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text("Jane Doe")
-                                            .font(.headline).bold()
-                                        
-                                        Spacer()
-                                        
-                                        Text("11/30/2022")
-                                            .font(.subheadline).italic()
-                                        
+                ScrollView {
+                    LazyVStack(alignment: .center, spacing: 5) {
+                        ForEach(sessionService.userArray, id: \.id) { user in
+                            NavigationLink {
+                                CurrentChatLogView(chatUser: user)
+                            } label: {
+                                ForEach(sessionService.chatMessageArray, id: \.toUid) { item in
+                                    if user.id == item.toUid {
+                                        HStack {
+                                            Image(systemName: "person.crop.circle")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 44, height: 44)
+                                            
+                                            VStack {
+                                                Text(user.extNickName)
+                                                Text(item.message)
+                                            }
+                                            
+                                            Text("\(item.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
+                                        }
+                                    } else {
+                                        // Putting a view in case of no messages sent or received
+                                        EmptyView()
                                     }
-                                    
-                                    Text("Hello, There ! :)")
                                 }
                             }
                         }
                     }
                 }
-                .listStyle(.inset)
+                .onAppear {
+                    self.sessionService.fetchLastMessage(with: Auth.auth().currentUser?.uid ?? "N/A User")
+                }
+                
                 ActionButtonView(title: "New Message", foreground: .white, background: .blue, sfSymbols: "plus") {
                     // TODO: More Code Later
-                    self.aNewMessage = true
+                    aNewMessage.toggle()
                 }
                 .padding([.horizontal, .vertical], 10)
+                
             }
             .navigationTitle("Chat Room").navigationBarTitleDisplayMode(.inline)
             .fullScreenCover(isPresented: $aNewMessage) {
                 CreateNewMessagesView(didStartConversation: { user in
                     print(user.email)
-                    self.shouldNavigateToChatLogView = true
+                    self.shouldNavigateToChatLogView.toggle()
                     self.chatUser = user
                 })
                 .environmentObject(sessionService)

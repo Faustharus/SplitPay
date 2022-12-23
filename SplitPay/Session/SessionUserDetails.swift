@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SessionUserDetails: Hashable {
+struct SessionUserDetails: Identifiable, Hashable {
     var id: String
     var email: String
     var firstName: String
@@ -18,4 +18,5 @@ struct SessionUserDetails: Hashable {
     var picture: UIImage?
     var profilePicture: String
     var withContact: Bool
+    var recentMessages: [SessionChatMessageDetails] = []
 }

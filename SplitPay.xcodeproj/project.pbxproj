@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119390284DF88700F67A62 /* NavigationButtonView.swift */; };
+		9E1C17A22953587B006FE390 /* BubbleMessageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C17A12953587B006FE390 /* BubbleMessageText.swift */; };
 		9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1DBFD927F9DF8500567931 /* DistributionView.swift */; };
 		9E2189C42912D84600792299 /* SessionRequestSent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2189C32912D84600792299 /* SessionRequestSent.swift */; };
 		9E23EAEA27F4453E00C8AA2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23EAE927F4453E00C8AA2D /* SignUpView.swift */; };
@@ -70,6 +71,7 @@
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E119390284DF88700F67A62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
+		9E1C17A12953587B006FE390 /* BubbleMessageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMessageText.swift; sourceTree = "<group>"; };
 		9E1DBFD927F9DF8500567931 /* DistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionView.swift; sourceTree = "<group>"; };
 		9E2189C32912D84600792299 /* SessionRequestSent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestSent.swift; sourceTree = "<group>"; };
 		9E23EAE927F4453E00C8AA2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				9EAFA61D289AAEAD00B5E19E /* InputDoubleWithoutIconTextFieldView.swift */,
 				9EAFA61F289AB04400B5E19E /* InputIntWithoutIconTextFieldView.swift */,
 				9EC25858293A63CD000DE0AF /* TextEditorWithPlaceholder.swift */,
+				9E1C17A12953587B006FE390 /* BubbleMessageText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				9E4E904828453C3500684F10 /* PictureProfileView.swift in Sources */,
 				9E5C342A28412E2900CA3847 /* ProfileChangeView.swift in Sources */,
 				9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */,
+				9E1C17A22953587B006FE390 /* BubbleMessageText.swift in Sources */,
 				9EDFF82927F36DBE00CDC228 /* EmailTextFieldView.swift in Sources */,
 				9EDFF82427F369D000CDC228 /* ActionButtonView.swift in Sources */,
 				9ED56EB0280D5DB0007ACFB2 /* SplitingService.swift in Sources */,
