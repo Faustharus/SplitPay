@@ -11,41 +11,52 @@ import FirebaseAuth
 import FirebaseFirestore
 
 enum RequestKeys: String {
-    case userUid
+    case id
+    case fromUid
+    case toUid
     case confirmation
-    case entryDate
+    case timestamp
 }
 
 protocol FriendRequestService {
-    func makeRequest(with details: FriendRequest?) -> AnyPublisher<Void, Error>
-    func deleteRequest(with details: FriendRequest?) -> AnyPublisher<Void, Error>
+    func makeRequest(with toUid: String?, with model: FriendRequest?) -> AnyPublisher<Void, Error>
+    func deleteRequest(with toUid: String?, with model: FriendRequest?) -> AnyPublisher<Void, Error>
 }
 
 final class FriendRequestServiceImpl: FriendRequestService {
+    let collectionId = Double.random(in: 0001 ..< 10000)
     
-    func makeRequest(with details: FriendRequest?) -> AnyPublisher<Void, Error> {
+    func makeRequest(with toUid: String?, with model: FriendRequest?) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
-                let uid = Auth.auth().currentUser?.uid
-                let toUid = details?.id
-                
-                if let uid {
-                    let db = Firestore.firestore()
-                    db.collection("users").document(uid).collection("requestSent").document(toUid!).setData([
-                        RequestKeys.userUid.rawValue: details?.id ?? "",
-                        RequestKeys.entryDate.rawValue: details?.entryDate ?? Timestamp(),
-                        RequestKeys.confirmation.rawValue: details?.confirmation ?? true
-                    ])
-                }
-                
-                if let toUid {
-                    let db = Firestore.firestore()
-                    db.collection("users").document(toUid).collection("requestReceived").document(uid!).setData([
-                        RequestKeys.userUid.rawValue: uid ?? "",
-                        RequestKeys.entryDate.rawValue: details?.entryDate ?? Timestamp(),
-                        RequestKeys.confirmation.rawValue: details?.confirmation ?? true
-                    ])
-                }
+//                let fromUid = Auth.auth().currentUser?.uid
+//                let toUid = toUid
+//
+//                if let fromUid {
+//                    let db = Firestore.firestore()
+//                    //db.collection("friendRequest").document(fromUid).collection(collectionId).document(toUid).setData([String : Any])
+//                    db.collection("friendRequest").document(fromUid).collection("\(self.collectionId)").document(toUid!).setData([
+//                        RequestKeys.id.rawValue: self.collectionId.description,
+//                        RequestKeys.fromUid.rawValue: fromUid,
+//                        RequestKeys.toUid.rawValue: toUid!,
+//                        RequestKeys.timestamp.rawValue: Timestamp(date: .now),
+//                        RequestKeys.confirmation.rawValue: model?.confirmation ?? false
+//                    ])
+//                    // RequestKeys.confirmation.rawValue: true - Linked with an @Binding or @Published
+//                }
+//
+//                if let toUid {
+//                    let db = Firestore.firestore()
+//                    //db.collection("friendRequest").document(toUid).collection(collectionId).document(fromUid).setData([String : Any])
+//                    db.collection("friendRequest").document(toUid).collection("\(self.collectionId)").document(fromUid!).setData([
+//                        RequestKeys.id.rawValue: self.collectionId.description,
+//                        RequestKeys.fromUid.rawValue: fromUid!,
+//                        RequestKeys.toUid.rawValue: toUid,
+//                        RequestKeys.timestamp.rawValue: Timestamp(date: .now),
+//                        RequestKeys.confirmation.rawValue: model?.confirmation ?? false
+//                    ])
+//                    // RequestKeys.confirmation.rawValue: false
+//                }
 
             }
         }
@@ -53,33 +64,33 @@ final class FriendRequestServiceImpl: FriendRequestService {
         .eraseToAnyPublisher()
     }
     
-    func deleteRequest(with details: FriendRequest?) -> AnyPublisher<Void, Error> {
+    func deleteRequest(with toUid: String?, with details: FriendRequest?) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
-                let uid = Auth.auth().currentUser?.uid
-                let toUid = details?.id
-                
-                if let uid {
-                    let db = Firestore.firestore()
-                    db.collection("users").document(uid).collection("requestSent").document(toUid!).delete { error in
-                        if let err = error {
-                            print("Error removing document: \(err.localizedDescription)")
-                        } else {
-                            print("Document Successfully removed !")
-                        }
-                    }
-                }
-                
-                if let toUid {
-                    let db = Firestore.firestore()
-                    db.collection("users").document(toUid).collection("requestReceived").document(uid!).delete { error in
-                        if let err = error {
-                            print("Error removing document: \(err.localizedDescription)")
-                        } else {
-                            print("Document Successfully removed !")
-                        }
-                    }
-                }
+//                let fromUid = Auth.auth().currentUser?.uid
+//                let toUid = toUid
+//
+//                if let fromUid {
+//                    let db = Firestore.firestore()
+//                    db.collection("friendRequest").document(fromUid).collection("\(self.collectionId)").document(toUid!).delete { error in
+//                        if let err = error {
+//                            print("Error removing document: \(err.localizedDescription)")
+//                        } else {
+//                            print("Document Successfully removed !")
+//                        }
+//                    }
+//                }
+//
+//                if let toUid {
+//                    let db = Firestore.firestore()
+//                    db.collection("friendRequest").document(toUid).collection("\(self.collectionId)").document(fromUid!).delete { error in
+//                        if let err = error {
+//                            print("Error removing document: \(err.localizedDescription)")
+//                        } else {
+//                            print("Document Successfully removed !")
+//                        }
+//                    }
+//                }
             }
         }
         .receive(on: RunLoop.main)

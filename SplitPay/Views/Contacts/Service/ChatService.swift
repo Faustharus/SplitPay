@@ -24,6 +24,8 @@ protocol ChatService {
 }
 
 final class ChatServiceImpl: ChatService {
+    let docId = Double.random(in: 0001 ..< 10000)
+    
     // MARK: - sendMessage Func
     func sendMessage(with toUid: String?, and model: ChatDetails) -> AnyPublisher<Void, Error> {
         Deferred {
@@ -32,7 +34,7 @@ final class ChatServiceImpl: ChatService {
                 let toUid = toUid
                 
                 if let fromUid {
-                    let db = Firestore.firestore().collection("messages").document(fromUid).collection(toUid!).document()
+                    let db = Firestore.firestore().collection("messages").document(fromUid).collection(toUid!).document("\(self.docId)")
                     db.setData([
                         ChatKeys.id.rawValue: db.documentID,
                         ChatKeys.fromUid.rawValue: fromUid,
@@ -51,7 +53,7 @@ final class ChatServiceImpl: ChatService {
                 }
                 
                 if let toUid {
-                    let db = Firestore.firestore().collection("messages").document(toUid).collection(fromUid!).document()
+                    let db = Firestore.firestore().collection("messages").document(toUid).collection(fromUid!).document("\(self.docId)")
                     db.setData([
                         ChatKeys.id.rawValue: db.documentID,
                         ChatKeys.fromUid.rawValue: fromUid!,
@@ -75,8 +77,6 @@ final class ChatServiceImpl: ChatService {
     }
     
     
-    
-    
     // MARK: - lastMessage Func
     func lastMessage(with toUid: String?, and model: ChatDetails) -> AnyPublisher<Void, Error> {
         Deferred {
@@ -85,9 +85,9 @@ final class ChatServiceImpl: ChatService {
                 let toUid = toUid
                 
                 if let fromUid {
-                    let db = Firestore.firestore().collection("users").document(fromUid).collection("lastMessage").document(toUid!)
+                    let db = Firestore.firestore().collection("messages").document(fromUid).collection("lastMessage").document(toUid!)
                     db.setData([
-                        ChatKeys.id.rawValue: toUid!,
+                        ChatKeys.id.rawValue: self.docId.description,
                         ChatKeys.fromUid.rawValue: fromUid,
                         ChatKeys.toUid.rawValue: toUid!,
                         ChatKeys.message.rawValue: model.message,
@@ -104,9 +104,9 @@ final class ChatServiceImpl: ChatService {
                 }
                 
                 if let toUid {
-                    let db = Firestore.firestore().collection("users").document(toUid).collection("lastMessage").document(fromUid!)
+                    let db = Firestore.firestore().collection("messages").document(toUid).collection("lastMessage").document(fromUid!)
                     db.setData([
-                        ChatKeys.id.rawValue: fromUid!,
+                        ChatKeys.id.rawValue: self.docId.description,
                         ChatKeys.fromUid.rawValue: fromUid!,
                         ChatKeys.toUid.rawValue: toUid,
                         ChatKeys.message.rawValue: model.message,

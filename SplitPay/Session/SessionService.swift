@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
@@ -15,12 +14,6 @@ import SwiftUI
 enum SessionState {
     case loggedIn
     case loggedOut
-}
-
-enum MessageKeys: String {
-    case id
-    case message
-    case timestamp
 }
 
 protocol SessionService {
@@ -34,6 +27,8 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
     @Published var userDetails: SessionUserDetails = SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
+    @Published var chatMessage: SessionChatMessageDetails = SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())
+    @Published var friendRequest: SessionRequestSent = SessionRequestSent(id: "", fromUid: "", toUid: "", confirmation: false, timestamp: Timestamp())
     @Published var userArray: [SessionUserDetails] = []
     @Published var splitArray: [SessionSplitUserDetails] = []
     @Published var chatMessageArray = [SessionChatMessageDetails]()
@@ -42,10 +37,19 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     private var handler: AuthStateDidChangeListenerHandle?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     let db = Firestore.firestore()
     
     init() {
         setupFirebaseAuthhandler()
+//        $chatMessageArray.map { items in
+//            items
+//                .sorted { $0.timestamp.seconds > $1.timestamp.seconds }
+//                .first
+//        }
+//        .assign(to: \.chatMessage, on: self)
+//        .store(in: &cancellables)
     }
     
     func logout() {
@@ -56,14 +60,18 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         self.userDetails.withContact.toggle()
     }
     
+    func friendRequestSendAway() {
+        self.friendRequest.confirmation.toggle()
+    }
+    
     func updatePassword(with newPassword: String) {
         guard let user = Auth.auth().currentUser else { return }
         let credential = EmailAuthProvider.credential(withEmail: user.email!, password: newPassword)
         
         user.updatePassword(to: newPassword) { error in
             if error != nil {
-                let authErr = AuthErrorCode(rawValue: 300)
-                if authErr == .requiresRecentLogin {
+                let authErr = AuthErrorCode(AuthErrorCode.Code(rawValue: 300) ?? .requiresRecentLogin)
+                if authErr == AuthErrorCode(AuthErrorCode.Code(rawValue: 300) ?? .requiresRecentLogin) {
                     user.reauthenticate(with: credential)
                 }
                 print("Some Error occured.. !")
@@ -84,26 +92,30 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                 for docSnapshot in snapshot!.documents {
                     docSnapshot.reference.delete { err in
                         if err == nil {
-                            DispatchQueue.main.async {
-                                self.splitArray.removeAll()
-                                pictureRef.delete()
-                                self.db.collection("users").document(uid).delete()
+                            Task {
+                                do {
+                                    self.splitArray.removeAll()
+                                    try await pictureRef.delete()
+                                    try await self.db.collection("users").document(uid).delete()
+                                } catch {
+                                    print("error")
+                                }
                             }
                         }
                     }
                 }
             } else {
-                DispatchQueue.main.async {
-                    pictureRef.delete()
-                    self.db.collection("users").document(uid).delete()
+                Task {
+                    try await pictureRef.delete()
+                    try await self.db.collection("users").document(uid).delete()
                 }
             }
         }
         
         user.delete { error in
             if error != nil {
-                let authErr = AuthErrorCode(rawValue: 300)
-                if authErr == .requiresRecentLogin {
+                let authErr = AuthErrorCode(AuthErrorCode.Code(rawValue: 300) ?? .requiresRecentLogin)
+                if authErr == AuthErrorCode(AuthErrorCode.Code(rawValue: 300) ?? .requiresRecentLogin) {
                     user.reauthenticate(with: credential)
                 }
                 print("Some Error Occured...")
@@ -204,7 +216,9 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         }
     }
     
-    
+    func messageDelete() {
+        // TODO: More Code Later
+    }
     
 }
 
@@ -277,7 +291,7 @@ extension SessionServiceImpl {
     }
     
     func fetchLastMessage(with uid: String) {
-        let docRef = db.collection("users").document(uid).collection("lastMessage")
+        let docRef = db.collection("messages").document(uid).collection("lastMessage").order(by: "timestamp")
 
         docRef.getDocuments() { (querySnapshot, error) in
             guard let snapshot = querySnapshot, error == nil else {
@@ -353,3 +367,37 @@ extension SessionServiceImpl {
 //        }
 //    }
 
+// MARK: - Read Last Message from Messages Collection
+//func readLastMessage(with fromUid: String, and toUid: String) {
+//    let fromDocRef = db.collection("messages").document(fromUid).collection(toUid).order(by: "timestamp", descending: true)
+//    let exfromDocRef = db.collection("messages").document(fromUid)
+//    // <- for each collection(toUid).order(by: ).limit(to: ) - Solutions Found = .listCollections() ServerSide Firebase Functions through Node.Js
+/** Delete Func doable only with the server-side coded */
+//
+//
+//    fromDocRef.getDocuments { (querySnapshot, error) in
+//        if let error = error {
+//            print("Error getting last message: \(error)")
+//            return
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.chatMessageArray = querySnapshot?.documents.map { item in
+//                return SessionChatMessageDetails(id: item.documentID, fromUid: item["fromUid"] as? String ?? "", toUid: item["toUid"] as? String ?? "", message: item["message"] as? String ?? "", timestamp: item["timestamp"] as? Timestamp ?? Timestamp())
+//            } ?? [SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())]
+//        }
+//
+//        if let doc = snapshot.documents.first {
+//            self.chatMessage.id = doc.documentID
+//            self.chatMessage.fromUid = doc.get("fromUid") as? String ?? ""
+//            self.chatMessage.toUid = doc.get("toUid") as? String ?? ""
+//            self.chatMessage.message = doc.get("message") as? String ?? ""
+//            self.chatMessage.timestamp = doc.get("timestamp") as? Timestamp ?? Timestamp()
+//            print(docID, fromUID, toUID, message, timestamp)
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.chatMessage = SessionChatMessageDetails(id: self.chatMessage.id, fromUid: self.chatMessage.fromUid, toUid: self.chatMessage.toUid, message: self.chatMessage.message, timestamp: self.chatMessage.timestamp)
+//        }
+//    }
+//}

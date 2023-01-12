@@ -1,6 +1,6 @@
 {
   "name": "FirebaseFirestore",
-  "version": "8.14.0",
+  "version": "9.4.0",
   "summary": "A replica Firebase Firestore podspec.",
   "description": "A replica Firebase Firestore podspec that provides pre-compiled binaries/frameworks instead",
   "homepage": "http://invertase.io",
@@ -11,9 +11,12 @@
   "cocoapods_version": ">= 1.10.0",
   "authors": "Invertase Limited",
   "pod_target_xcconfig": {
-    "OTHER_LDFLAGS": "-lObjC"
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386"
   },
   "static_framework": true,
+  "user_target_xcconfig": {
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386"
+  },
   "ios": {
     "frameworks": [
       "SystemConfiguration",
@@ -42,15 +45,19 @@
       "vendored_frameworks": [
         "FirebaseFirestore/FirebaseFirestore.xcframework",
         "FirebaseFirestore/gRPC-Core.xcframework",
+        "FirebaseFirestore/Libuv-gRPC.xcframework",
         "FirebaseFirestore/gRPC-C++.xcframework",
         "FirebaseFirestore/BoringSSL-GRPC.xcframework",
+        "FirebaseFirestore/FirebaseFirestoreSwift.xcframework",
         "FirebaseFirestore/abseil.xcframework"
       ],
       "preserve_paths": [
         "FirebaseFirestore/FirebaseFirestore.xcframework",
         "FirebaseFirestore/gRPC-Core.xcframework",
+        "FirebaseFirestore/Libuv-gRPC.xcframework",
         "FirebaseFirestore/gRPC-C++.xcframework",
         "FirebaseFirestore/BoringSSL-GRPC.xcframework",
+        "FirebaseFirestore/FirebaseFirestoreSwift.xcframework",
         "FirebaseFirestore/abseil.xcframework"
       ],
       "resources": "FirebaseFirestore/Resources/*.bundle"

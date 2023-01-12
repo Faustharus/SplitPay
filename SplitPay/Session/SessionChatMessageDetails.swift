@@ -14,4 +14,11 @@ struct SessionChatMessageDetails: Identifiable, Hashable {
     var toUid: String
     var message: String
     var timestamp: Timestamp
+    
+    var sinceLastMsg: String {
+        let date = timestamp.dateValue()
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        return formatter.localizedString(for: date, relativeTo: Date())
+    }
 }

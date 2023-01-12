@@ -8,6 +8,8 @@
 import Firebase
 import SwiftUI
 
+@available(iOS 13.0, *)
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()

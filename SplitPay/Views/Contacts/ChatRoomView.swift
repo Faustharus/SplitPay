@@ -70,36 +70,25 @@ struct ChatRoomView: View {
                             NavigationLink {
                                 CurrentChatLogView(chatUser: user)
                             } label: {
-                                ForEach(sessionService.chatMessageArray, id: \.toUid) { item in
-                                    if user.id == item.toUid {
-                                        HStack {
-                                            Image(systemName: "person.crop.circle")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 44, height: 44)
-                                            
-                                            VStack {
-                                                Text(user.extNickName)
-                                                Text(item.message)
-                                            }
-                                            
-                                            Text("\(item.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
-                                        }
-                                    } else {
-                                        // Putting a view in case of no messages sent or received
-                                        EmptyView()
+                                ForEach(sessionService.chatMessageArray, id: \.id) { item in
+                                    
+                                    if Auth.auth().currentUser?.uid == item.fromUid && user.id == item.toUid {
+                                        LastMessage(pictureBool: user.profilePicture.isEmpty, pictureString: user.profilePicture, firstName: user.firstName, surName: user.surName, textMessage: item.message, sinceLastMsg: item.sinceLastMsg)
+                                        
+                                    } else if Auth.auth().currentUser?.uid == item.toUid && user.id == item.fromUid  {
+                                        LastMessage(pictureBool: user.profilePicture.isEmpty, pictureString: user.profilePicture, firstName: user.firstName, surName: user.surName, textMessage: item.message, sinceLastMsg: item.sinceLastMsg)
                                     }
+                                    
                                 }
+                            }
+                            .onAppear {
+                                self.sessionService.fetchLastMessage(with: Auth.auth().currentUser?.uid ?? "N/A User")
                             }
                         }
                     }
                 }
-                .onAppear {
-                    self.sessionService.fetchLastMessage(with: Auth.auth().currentUser?.uid ?? "N/A User")
-                }
                 
                 ActionButtonView(title: "New Message", foreground: .white, background: .blue, sfSymbols: "plus") {
-                    // TODO: More Code Later
                     aNewMessage.toggle()
                 }
                 .padding([.horizontal, .vertical], 10)
@@ -132,5 +121,49 @@ struct ChatRoomView_Previews: PreviewProvider {
     static var previews: some View {
         ChatRoomView()
             .environmentObject(SessionServiceImpl())
+    }
+}
+
+
+// MARK: - View Components
+extension ChatRoomView {
+    struct LastMessage: View {
+        var pictureBool: Bool
+        var pictureString: String
+        var firstName: String
+        var surName: String
+        var textMessage: String
+        var sinceLastMsg: String
+        
+        var body: some View {
+            HStack {
+                if pictureBool {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44, height: 44)
+                } else {
+                    AsyncImage(url: URL(string: "\(pictureString)")) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.red.frame(width: 125)
+                    }
+                    .frame(width: 44, height: 44)
+                    .clipShape(Circle())
+                    .scaledToFit()
+                }
+                
+                LazyVStack(alignment: .leading, spacing: 6) {
+                    Text("\(firstName) \(surName)")
+                        .font(.headline)
+                    Text(textMessage)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.leading)
+                }
+                
+                Text("\(sinceLastMsg)")
+            }
+            .padding()
+        }
     }
 }

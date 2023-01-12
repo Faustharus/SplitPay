@@ -41,33 +41,33 @@ final class FriendRequestViewModelImpl: ObservableObject, FriendRequestViewModel
     }
     
     func makeNewRequest() {
-        service
-            .makeRequest(with: friendRequest)
-            .sink { [weak self] res in
-                switch res {
-                case .failure(let error):
-                    self?.state = .failed(error: error)
-                default: break
-                }
-            } receiveValue: { [weak self] in
-                self?.state = .sent
-            }
-            .store(in: &subscriptions)
+//        service
+//            .makeRequest(with: friendRequest)
+//            .sink { [weak self] res in
+//                switch res {
+//                case .failure(let error):
+//                    self?.state = .failed(error: error)
+//                default: break
+//                }
+//            } receiveValue: { [weak self] in
+//                self?.state = .sent
+//            }
+//            .store(in: &subscriptions)
     }
     
     func deleteNewRequest() {
-        service
-            .deleteRequest(with: friendRequest)
-            .sink { [weak self] res in
-                switch res {
-                case .failure(let error):
-                    self?.state = .failed(error: error)
-                default: break
-                }
-            } receiveValue: { [weak self] in
-                self?.state = .sent
-            }
-            .store(in: &subscriptions)
+//        service
+//            .deleteRequest(with: friendRequest)
+//            .sink { [weak self] res in
+//                switch res {
+//                case .failure(let error):
+//                    self?.state = .failed(error: error)
+//                default: break
+//                }
+//            } receiveValue: { [weak self] in
+//                self?.state = .sent
+//            }
+//            .store(in: &subscriptions)
     }
     
 }

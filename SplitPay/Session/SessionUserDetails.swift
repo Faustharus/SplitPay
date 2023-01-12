@@ -18,5 +18,4 @@ struct SessionUserDetails: Identifiable, Hashable {
     var picture: UIImage?
     var profilePicture: String
     var withContact: Bool
-    var recentMessages: [SessionChatMessageDetails] = []
 }

@@ -10,10 +10,15 @@ import Firebase
 
 struct BubbleMessageText: View {
     
-    @State private var postDate: Bool = false
+    @State private var postDateSent: Bool = false
+    @State private var postDateReceived: Bool = false
+    
+    @Binding var performDelete: Bool
     
     let uid: String
     let text: SessionChatMessageDetails
+    
+    //let performDelete: ()
     
     var body: some View {
         VStack(alignment: text.fromUid == uid ? .trailing : .leading) {
@@ -24,6 +29,12 @@ struct BubbleMessageText: View {
                         Text(text.message)
                             .font(.system(size: 18, weight: .medium, design: .serif))
                             .foregroundColor(.white)
+                            .multilineTextAlignment(.trailing)
+                        /** Delete Func doable only with the server-side coded */
+//                            .onTapGesture(count: 2) {
+//                                performDelete = true
+//                            }
+
                     }
                     .padding()
                     .background(Color.blue)
@@ -31,15 +42,16 @@ struct BubbleMessageText: View {
                 }
                 .onTapGesture {
                     withAnimation(.easeOut(duration: 0.35)) {
-                        self.postDate.toggle()
+                        self.postDateSent.toggle()
+                        self.postDateReceived = false
                     }
                 }
                 
                 HStack { Spacer() }
                 
-                if postDate {
+                if postDateSent {
                     VStack {
-                        Text("\(text.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
+                        Text("Send \(text.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -52,6 +64,7 @@ struct BubbleMessageText: View {
                         Text(text.message)
                             .font(.system(size: 18, weight: .medium, design: .serif))
                             .foregroundColor(.black)
+                            .multilineTextAlignment(.leading)
                     }
                     .padding()
                     .background(Color.white)
@@ -61,15 +74,16 @@ struct BubbleMessageText: View {
                 }
                 .onTapGesture {
                     withAnimation(.easeOut(duration: 0.35)) {
-                        self.postDate.toggle()
+                        self.postDateReceived.toggle()
+                        self.postDateSent = false
                     }
                 }
                 
                 HStack { Spacer() }
                 
-                if postDate {
+                if postDateReceived {
                     VStack {
-                        Text("\(text.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
+                        Text("Received \(text.timestamp.dateValue().formatted(date: .numeric, time: .shortened))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -84,6 +98,6 @@ struct BubbleMessageText: View {
 
 struct BubbleMessageText_Previews: PreviewProvider {
     static var previews: some View {
-        BubbleMessageText(uid: "", text: SessionChatMessageDetails.init(id: "", fromUid: "", toUid: "", message: "Test Message", timestamp: Timestamp()))
+        BubbleMessageText(performDelete: .constant(false), uid: "", text: SessionChatMessageDetails.init(id: "", fromUid: "", toUid: "", message: "Test Message", timestamp: Timestamp()))
     }
 }

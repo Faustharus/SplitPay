@@ -17,6 +17,8 @@ struct CurrentChatLogView: View {
     
     let chatUser: SessionUserDetails?
     
+    @State private var performDelete: Bool = false
+    
     static let stringForScrollToId = "Empty"
     
     init(chatUser: SessionUserDetails?) {
@@ -25,63 +27,73 @@ struct CurrentChatLogView: View {
     
     var body: some View {
         VStack {
-            ScrollView {
-                ScrollViewReader { proxy in
-                    VStack {
-                        ForEach(sessionService.chatMessageArray, id: \.id) { text in
-                            BubbleMessageText(uid: Auth.auth().currentUser?.uid ?? "N/A User", text: text)
+            GeometryReader { geo in
+                ScrollView {
+                    ScrollViewReader { proxy in
+                        VStack {
+                            ForEach(sessionService.chatMessageArray, id: \.id) { text in
+                                BubbleMessageText(performDelete: $performDelete, uid: Auth.auth().currentUser?.uid ?? "N/A User", text: text)
+                                    .padding([.horizontal, .vertical], 10)
+                                /** Delete Func doable only with the server-side coded */
+//                                    .confirmationDialog("Deleting this Message", isPresented: $performDelete) {
+//                                        Button(role: .destructive) {
+//                                            DispatchQueue.main.async {
+//                                                self.sessionService.messageDelete(with: Auth.auth().currentUser?.uid ?? "N/A User", and: chatUser?.id ?? "N/A Other User", finally: text.id)
+//                                            }
+//                                        } label: {
+//                                            Text("Confirm Deletion")
+//                                        }
+//                                    }
+                            }
+                            
+                            HStack { Spacer() }
+                                .id(Self.stringForScrollToId)
                         }
+                        .onReceive(vm.$count) { _ in
+                            withAnimation(.easeOut(duration: 0.5)) {
+                                proxy.scrollTo(Self.stringForScrollToId, anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+                .onAppear {
+                    self.sessionService.fetchMessages(with: Auth.auth().currentUser?.uid ?? "N/A User", and: chatUser?.id ?? "N/A Other User")
+                }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    HStack {
+                        //                    Button {
+                        //                        // TODO: More Code Later
+                        //                    } label: {
+                        //                        Image(systemName: "photo.on.rectangle.angled")
+                        //                            .resizable()
+                        //                            .scaledToFit()
+                        //                            .imageScale(.medium)
+                        //                    }
                         
-                        HStack { Spacer() }
-                            .id(Self.stringForScrollToId)
-                    }
-                    .onReceive(vm.$count) { _ in
-                        withAnimation(.easeOut(duration: 0.5)) {
-                            proxy.scrollTo(Self.stringForScrollToId, anchor: .bottom)
+                        TextEditorWithPlaceholder(text: $vm.chatMessage.message)
+                            .frame(width: geo.size.width / 1.4)
+                            .keyboardType(.default)
+                        
+                        Button {
+                            vm.sendNewMessage(with: chatUser!.id, and: vm.chatMessage)
+                            self.sessionService.fetchMessages(with: Auth.auth().currentUser?.uid ?? "N/A User", and: chatUser?.id ?? "N/A Other User")
+                            vm.newLastMessage(with: chatUser!.id, and: vm.chatMessage)
+                        } label: {
+                            Text("Send")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .frame(width: geo.size.width / 5, height: 45)
+                                .background(vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? Color.gray : Color.blue)
+                                .shadow(color: vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue, radius: 2, x: 0, y: 2)
+                                .clipShape(RoundedRectangle(cornerRadius: 7))
                         }
+                        .disabled(vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     }
+                    .frame(width: geo.size.width, height: 80)
+                    .offset(x: 0, y: -3)
+                    .padding([.horizontal, .vertical], 5)
+                    .background(Color(.systemBackground))
                 }
-            }
-            .onAppear {
-                self.sessionService.fetchMessages(with: Auth.auth().currentUser?.uid ?? "N/A User", and: chatUser?.id ?? "N/A Other User")
-            }
-            .safeAreaInset(edge: .bottom) {
-                HStack {
-                    Button {
-                        let _ = print(sessionService.chatMessageArray)
-                        let _ = print(sessionService.chatMessageArray.count)
-                        //let _ = print(sessionService.chatMessageArray[0].id)
-                        // TODO: More Code Later
-                    } label: {
-                        Image(systemName: "photo.on.rectangle.angled")
-                            .resizable()
-                            .scaledToFit()
-                            .imageScale(.medium)
-                    }
-                    
-                    TextEditorWithPlaceholder(text: $vm.chatMessage.message)
-                        .frame(width: 250)
-                        .keyboardType(.default)
-                    
-                    Button {
-                        vm.sendNewMessage(with: chatUser!.id, and: vm.chatMessage)
-                        self.sessionService.fetchMessages(with: Auth.auth().currentUser?.uid ?? "N/A User", and: chatUser?.id ?? "N/A Other User")
-                        vm.newLastMessage(with: chatUser!.id, and: vm.chatMessage)
-                    } label: {
-                        Text("Send")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .frame(width: 70, height: 45)
-                            .background(vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? Color.gray : Color.blue)
-                            .shadow(color: vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue, radius: 2, x: 0, y: 2)
-                            .clipShape(RoundedRectangle(cornerRadius: 7))
-                    }
-                    .disabled(vm.chatMessage.message.isEmpty || vm.chatMessage.message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }
-                .frame(height: 80)
-                .offset(x: 0, y: -3)
-                .padding([.horizontal, .vertical], 10)
-                .background(Color(.systemBackground))
             }
         }
         .navigationTitle("\(chatUser?.extNickName ?? "N/A")")

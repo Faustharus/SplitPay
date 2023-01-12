@@ -6,17 +6,17 @@
 //
 
 import Foundation
-import SwiftUI
-import FirebaseFirestore
 
-struct FriendRequest: Hashable {
+struct FriendRequest: Identifiable, Hashable {
     var id: String
+    var fromUid: String
+    var toUid: String
     var confirmation: Bool
-    var entryDate: Timestamp
+    var entryDate: Date
 }
 
 extension FriendRequest {
     
-    static var new: FriendRequest = FriendRequest(id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F", confirmation: false, entryDate: Timestamp())
+    static var new: FriendRequest = FriendRequest(id: "", fromUid: "", toUid: "", confirmation: false, entryDate: .now)
     
 }
