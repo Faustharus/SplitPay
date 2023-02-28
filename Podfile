@@ -12,5 +12,6 @@ target 'SplitPay' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '9.4.0'
+  pod 'Socket.IO-Client-Swift', '~> 15.1.0'
 
 end

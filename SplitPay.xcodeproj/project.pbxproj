@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119390284DF88700F67A62 /* NavigationButtonView.swift */; };
+		9E1355752974581D00CA57D0 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1355742974581D00CA57D0 /* SocketManager.swift */; };
 		9E15A262296B34C700F85011 /* FriendRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E15A261296B34C700F85011 /* FriendRequestView.swift */; };
 		9E1C17A22953587B006FE390 /* BubbleMessageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C17A12953587B006FE390 /* BubbleMessageText.swift */; };
 		9E1DBFDA27F9DF8500567931 /* DistributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1DBFD927F9DF8500567931 /* DistributionView.swift */; };
@@ -72,6 +73,8 @@
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E119390284DF88700F67A62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
+		9E1355742974581D00CA57D0 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		9E13557629745DE900CA57D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9E15A261296B34C700F85011 /* FriendRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestView.swift; sourceTree = "<group>"; };
 		9E1C17A12953587B006FE390 /* BubbleMessageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMessageText.swift; sourceTree = "<group>"; };
 		9E1DBFD927F9DF8500567931 /* DistributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionView.swift; sourceTree = "<group>"; };
@@ -379,12 +382,14 @@
 			children = (
 				9EC1054627EF070000012D48 /* SplitPayApp.swift */,
 				9E315E7427FDBB7F00D21680 /* MainView.swift */,
+				9E1355742974581D00CA57D0 /* SocketManager.swift */,
 				9E23EAED27F4514D00C8AA2D /* Views */,
 				9E3A571827FDEDF700D3F98A /* Session */,
 				9EDFF82527F369D500CDC228 /* Components */,
 				9E5C342D284135C700CA3847 /* Utilities */,
 				9EC1054A27EF070100012D48 /* Assets.xcassets */,
 				9E315E7827FDC63200D21680 /* GoogleService-Info.plist */,
+				9E13557629745DE900CA57D0 /* Info.plist */,
 				9EC1054C27EF070100012D48 /* Preview Content */,
 				9E6B3168293E05D400B3DBF8 /* Extension */,
 			);
@@ -596,6 +601,7 @@
 			files = (
 				9EFE1EBB2837F93000C5B9DB /* HistoricDetailsSplitView.swift in Sources */,
 				9E15A262296B34C700F85011 /* FriendRequestView.swift in Sources */,
+				9E1355752974581D00CA57D0 /* SocketManager.swift in Sources */,
 				9E4E904828453C3500684F10 /* PictureProfileView.swift in Sources */,
 				9E5C342A28412E2900CA3847 /* ProfileChangeView.swift in Sources */,
 				9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */,
@@ -786,6 +792,7 @@
 				DEVELOPMENT_TEAM = 3D4DRXPTLN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SplitPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -821,6 +828,7 @@
 				DEVELOPMENT_TEAM = 3D4DRXPTLN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SplitPay/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -8,39 +8,50 @@
 import SwiftUI
 import FirebaseAuth
 
+enum ActiveFriendSheet: Identifiable {
+    case first, second
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ChatRoomView: View {
     
     @StateObject var vm = ChatViewModelImpl(service: ChatServiceImpl())
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
+    var mSockets: () = SocketHandler.shared.establishConnection()
+    
     @State var chatUser: SessionUserDetails?
     @State var shouldNavigateToChatLogView: Bool = false
     
-    @State private var aNewMessage: Bool = false
-    
-    //    @State private var isToBeContacted: Bool = false
-    
-    let names = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+    @State private var seeChatDetails: ActiveFriendSheet?
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 HStack {
-                    if sessionService.userDetails.profilePicture.isEmpty {
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .scaledToFit()
+                    VStack {
+                        if sessionService.userDetails.profilePicture.isEmpty {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 56, height: 56)
+                        } else {
+                            AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
+                                image.resizable()
+                            } placeholder: {
+                                Color.red.frame(width: 125)
+                            }
                             .frame(width: 56, height: 56)
-                    } else {
-                        AsyncImage(url: URL(string: "\(sessionService.userDetails.profilePicture)")) { image in
-                            image.resizable()
-                        } placeholder: {
-                            Color.red.frame(width: 125)
+                            .clipShape(Circle())
+                            .scaledToFit()
                         }
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                        .scaledToFit()
+                    }
+                    .onTapGesture {
+                        self.seeChatDetails = .second
                     }
                     
                     VStack(spacing: 0) {
@@ -89,19 +100,24 @@ struct ChatRoomView: View {
                 }
                 
                 ActionButtonView(title: "New Message", foreground: .white, background: .blue, sfSymbols: "plus") {
-                    aNewMessage.toggle()
+                    seeChatDetails = .first
                 }
                 .padding([.horizontal, .vertical], 10)
                 
             }
             .navigationTitle("Chat Room").navigationBarTitleDisplayMode(.inline)
-            .fullScreenCover(isPresented: $aNewMessage) {
-                CreateNewMessagesView(didStartConversation: { user in
-                    print(user.email)
-                    self.shouldNavigateToChatLogView.toggle()
-                    self.chatUser = user
-                })
-                .environmentObject(sessionService)
+            .fullScreenCover(item: $seeChatDetails) { item in
+                switch item {
+                    case .first:
+                        CreateNewMessagesView(didStartConversation: { user in
+                            print(user.email)
+                            self.shouldNavigateToChatLogView.toggle()
+                            self.chatUser = user
+                        })
+                        .environmentObject(sessionService)
+                    case .second:
+                        FriendRequestView()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

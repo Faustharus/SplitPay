@@ -114,6 +114,9 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -122,6 +125,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `9.4.0`)
+  - Socket.IO-Client-Swift (~> 15.1.0)
 
 SPEC REPOS:
   trunk:
@@ -142,6 +146,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - Socket.IO-Client-Swift
+    - Starscream
 
 EXTERNAL SOURCES:
   FirebaseFirestore:
@@ -172,7 +178,9 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
-PODFILE CHECKSUM: 33910d44c238e2889ac664e6935eace7afb531a3
+PODFILE CHECKSUM: 35c3fd1a77a7a8d482ef0d470a8bbd8c4aa70dd9
 
 COCOAPODS: 1.11.3

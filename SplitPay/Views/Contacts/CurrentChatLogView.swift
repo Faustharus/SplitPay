@@ -61,15 +61,6 @@ struct CurrentChatLogView: View {
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     HStack {
-                        //                    Button {
-                        //                        // TODO: More Code Later
-                        //                    } label: {
-                        //                        Image(systemName: "photo.on.rectangle.angled")
-                        //                            .resizable()
-                        //                            .scaledToFit()
-                        //                            .imageScale(.medium)
-                        //                    }
-                        
                         TextEditorWithPlaceholder(text: $vm.chatMessage.message)
                             .frame(width: geo.size.width / 1.4)
                             .keyboardType(.default)

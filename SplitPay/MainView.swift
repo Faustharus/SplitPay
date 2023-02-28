@@ -15,6 +15,8 @@ struct MainView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
     
+    var mSocket = SocketHandler.shared.getSocket()
+    
     var body: some View {
         TabView {
             SplitView()
