@@ -28,7 +28,7 @@
 		9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */; };
 		9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */; };
 		9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A572127FDFAA300D3F98A /* RegistrationService.swift */; };
-		9E3CCD5829B4D35D00256481 /* SplitPayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CCD5729B4D35D00256481 /* SplitPayTests.swift */; };
+		9E3CCD6529B4E42300256481 /* SplitPayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CCD6429B4E42300256481 /* SplitPayTests.swift */; };
 		9E4092CB2815847200C4B3A4 /* SessionSplitUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */; };
 		9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46C4A227F34C3700A05950 /* LoginView.swift */; };
 		9E4E904828453C3500684F10 /* PictureProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E904728453C3500684F10 /* PictureProfileView.swift */; };
@@ -71,7 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9E3CCD5929B4D35D00256481 /* PBXContainerItemProxy */ = {
+		9E3CCD6629B4E42300256481 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9EC1053B27EF070000012D48 /* Project object */;
 			proxyType = 1;
@@ -105,8 +105,8 @@
 		9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldView.swift; sourceTree = "<group>"; };
 		9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDetails.swift; sourceTree = "<group>"; };
 		9E3A572127FDFAA300D3F98A /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
-		9E3CCD5529B4D35D00256481 /* SplitPayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitPayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E3CCD5729B4D35D00256481 /* SplitPayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayTests.swift; sourceTree = "<group>"; };
+		9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitPayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E3CCD6429B4E42300256481 /* SplitPayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayTests.swift; sourceTree = "<group>"; };
 		9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSplitUserDetails.swift; sourceTree = "<group>"; };
 		9E46C4A227F34C3700A05950 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9E4E904728453C3500684F10 /* PictureProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureProfileView.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9E3CCD5229B4D35D00256481 /* Frameworks */ = {
+		9E3CCD5F29B4E42300256481 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,10 +267,10 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		9E3CCD5629B4D35D00256481 /* SplitPayTests */ = {
+		9E3CCD6329B4E42300256481 /* SplitPayTests */ = {
 			isa = PBXGroup;
 			children = (
-				9E3CCD5729B4D35D00256481 /* SplitPayTests.swift */,
+				9E3CCD6429B4E42300256481 /* SplitPayTests.swift */,
 			);
 			path = SplitPayTests;
 			sourceTree = "<group>";
@@ -391,7 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC1054527EF070000012D48 /* SplitPay */,
-				9E3CCD5629B4D35D00256481 /* SplitPayTests */,
+				9E3CCD6329B4E42300256481 /* SplitPayTests */,
 				9EC1054427EF070000012D48 /* Products */,
 				21CB7B619F74841F6620373A /* Pods */,
 				A6D90A75CF2E5A8E603B3AD8 /* Frameworks */,
@@ -402,7 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC1054327EF070000012D48 /* SplitPay.app */,
-				9E3CCD5529B4D35D00256481 /* SplitPayTests.xctest */,
+				9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,22 +499,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E3CCD5429B4D35D00256481 /* SplitPayTests */ = {
+		9E3CCD6129B4E42300256481 /* SplitPayTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E3CCD5D29B4D35D00256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */;
+			buildConfigurationList = 9E3CCD6829B4E42300256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */;
 			buildPhases = (
-				9E3CCD5129B4D35D00256481 /* Sources */,
-				9E3CCD5229B4D35D00256481 /* Frameworks */,
-				9E3CCD5329B4D35D00256481 /* Resources */,
+				9E3CCD5E29B4E42300256481 /* Sources */,
+				9E3CCD5F29B4E42300256481 /* Frameworks */,
+				9E3CCD6029B4E42300256481 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9E3CCD5A29B4D35D00256481 /* PBXTargetDependency */,
+				9E3CCD6729B4E42300256481 /* PBXTargetDependency */,
 			);
 			name = SplitPayTests;
 			productName = SplitPayTests;
-			productReference = 9E3CCD5529B4D35D00256481 /* SplitPayTests.xctest */;
+			productReference = 9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		9EC1054227EF070000012D48 /* SplitPay */ = {
@@ -547,7 +547,7 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
-					9E3CCD5429B4D35D00256481 = {
+					9E3CCD6129B4E42300256481 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 9EC1054227EF070000012D48;
 					};
@@ -570,13 +570,13 @@
 			projectRoot = "";
 			targets = (
 				9EC1054227EF070000012D48 /* SplitPay */,
-				9E3CCD5429B4D35D00256481 /* SplitPayTests */,
+				9E3CCD6129B4E42300256481 /* SplitPayTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9E3CCD5329B4D35D00256481 /* Resources */ = {
+		9E3CCD6029B4E42300256481 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -655,11 +655,11 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9E3CCD5129B4D35D00256481 /* Sources */ = {
+		9E3CCD5E29B4E42300256481 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E3CCD5829B4D35D00256481 /* SplitPayTests.swift in Sources */,
+				9E3CCD6529B4E42300256481 /* SplitPayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,15 +729,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9E3CCD5A29B4D35D00256481 /* PBXTargetDependency */ = {
+		9E3CCD6729B4E42300256481 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9EC1054227EF070000012D48 /* SplitPay */;
-			targetProxy = 9E3CCD5929B4D35D00256481 /* PBXContainerItemProxy */;
+			targetProxy = 9E3CCD6629B4E42300256481 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		9E3CCD5B29B4D35D00256481 /* Debug */ = {
+		9E3CCD6929B4E42300256481 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -757,7 +757,7 @@
 			};
 			name = Debug;
 		};
-		9E3CCD5C29B4D35D00256481 /* Release */ = {
+		9E3CCD6A29B4E42300256481 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -976,11 +976,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9E3CCD5D29B4D35D00256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */ = {
+		9E3CCD6829B4E42300256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9E3CCD5B29B4D35D00256481 /* Debug */,
-				9E3CCD5C29B4D35D00256481 /* Release */,
+				9E3CCD6929B4E42300256481 /* Debug */,
+				9E3CCD6A29B4E42300256481 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
