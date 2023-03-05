@@ -28,7 +28,6 @@
 		9E3A571D27FDF72500D3F98A /* InputTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */; };
 		9E3A571F27FDFA1700D3F98A /* RegistrationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */; };
 		9E3A572227FDFAA300D3F98A /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A572127FDFAA300D3F98A /* RegistrationService.swift */; };
-		9E3CCD6529B4E42300256481 /* SplitPayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3CCD6429B4E42300256481 /* SplitPayTests.swift */; };
 		9E4092CB2815847200C4B3A4 /* SessionSplitUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */; };
 		9E46C4A327F34C3700A05950 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46C4A227F34C3700A05950 /* LoginView.swift */; };
 		9E4E904828453C3500684F10 /* PictureProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E904728453C3500684F10 /* PictureProfileView.swift */; };
@@ -70,16 +69,6 @@
 		A60F7679369A154E58595D81 /* Pods_SplitPay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368860DC998BA64E977AC799 /* Pods_SplitPay.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9E3CCD6629B4E42300256481 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9EC1053B27EF070000012D48 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9EC1054227EF070000012D48;
-			remoteInfo = SplitPay;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,8 +94,6 @@
 		9E3A571C27FDF72500D3F98A /* InputTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldView.swift; sourceTree = "<group>"; };
 		9E3A571E27FDFA1700D3F98A /* RegistrationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDetails.swift; sourceTree = "<group>"; };
 		9E3A572127FDFAA300D3F98A /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
-		9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitPayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E3CCD6429B4E42300256481 /* SplitPayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPayTests.swift; sourceTree = "<group>"; };
 		9E4092CA2815847200C4B3A4 /* SessionSplitUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSplitUserDetails.swift; sourceTree = "<group>"; };
 		9E46C4A227F34C3700A05950 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9E4E904728453C3500684F10 /* PictureProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureProfileView.swift; sourceTree = "<group>"; };
@@ -150,13 +137,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9E3CCD5F29B4E42300256481 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9EC1054027EF070000012D48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,14 +245,6 @@
 				9E3A572127FDFAA300D3F98A /* RegistrationService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		9E3CCD6329B4E42300256481 /* SplitPayTests */ = {
-			isa = PBXGroup;
-			children = (
-				9E3CCD6429B4E42300256481 /* SplitPayTests.swift */,
-			);
-			path = SplitPayTests;
 			sourceTree = "<group>";
 		};
 		9E5C342D284135C700CA3847 /* Utilities */ = {
@@ -391,7 +363,6 @@
 			isa = PBXGroup;
 			children = (
 				9EC1054527EF070000012D48 /* SplitPay */,
-				9E3CCD6329B4E42300256481 /* SplitPayTests */,
 				9EC1054427EF070000012D48 /* Products */,
 				21CB7B619F74841F6620373A /* Pods */,
 				A6D90A75CF2E5A8E603B3AD8 /* Frameworks */,
@@ -402,7 +373,6 @@
 			isa = PBXGroup;
 			children = (
 				9EC1054327EF070000012D48 /* SplitPay.app */,
-				9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,24 +469,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9E3CCD6129B4E42300256481 /* SplitPayTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9E3CCD6829B4E42300256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */;
-			buildPhases = (
-				9E3CCD5E29B4E42300256481 /* Sources */,
-				9E3CCD5F29B4E42300256481 /* Frameworks */,
-				9E3CCD6029B4E42300256481 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9E3CCD6729B4E42300256481 /* PBXTargetDependency */,
-			);
-			name = SplitPayTests;
-			productName = SplitPayTests;
-			productReference = 9E3CCD6229B4E42300256481 /* SplitPayTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		9EC1054227EF070000012D48 /* SplitPay */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9EC1055127EF070100012D48 /* Build configuration list for PBXNativeTarget "SplitPay" */;
@@ -547,10 +499,6 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
-					9E3CCD6129B4E42300256481 = {
-						CreatedOnToolsVersion = 14.2;
-						TestTargetID = 9EC1054227EF070000012D48;
-					};
 					9EC1054227EF070000012D48 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -570,19 +518,11 @@
 			projectRoot = "";
 			targets = (
 				9EC1054227EF070000012D48 /* SplitPay */,
-				9E3CCD6129B4E42300256481 /* SplitPayTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9E3CCD6029B4E42300256481 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9EC1054127EF070000012D48 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -655,14 +595,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9E3CCD5E29B4E42300256481 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9E3CCD6529B4E42300256481 /* SplitPayTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9EC1053F27EF070000012D48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -728,55 +660,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		9E3CCD6729B4E42300256481 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9EC1054227EF070000012D48 /* SplitPay */;
-			targetProxy = 9E3CCD6629B4E42300256481 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		9E3CCD6929B4E42300256481 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3D4DRXPTLN;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chailloleaudamien.SplitPayTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SplitPay.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SplitPay";
-			};
-			name = Debug;
-		};
-		9E3CCD6A29B4E42300256481 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3D4DRXPTLN;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chailloleaudamien.SplitPayTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SplitPay.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SplitPay";
-			};
-			name = Release;
-		};
 		9EC1054F27EF070100012D48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -976,15 +860,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9E3CCD6829B4E42300256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9E3CCD6929B4E42300256481 /* Debug */,
-				9E3CCD6A29B4E42300256481 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		9EC1053E27EF070000012D48 /* Build configuration list for PBXProject "SplitPay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
