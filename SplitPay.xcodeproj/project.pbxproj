@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D1B777C2D42908D65927888 /* Pods_SplitPay_SplitPayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B4E518B28050B45C835D0D /* Pods_SplitPay_SplitPayTests.framework */; };
 		9E119391284DF88700F67A62 /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E119390284DF88700F67A62 /* NavigationButtonView.swift */; };
 		9E1355752974581D00CA57D0 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1355742974581D00CA57D0 /* SocketManager.swift */; };
 		9E15A262296B34C700F85011 /* FriendRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E15A261296B34C700F85011 /* FriendRequestView.swift */; };
@@ -83,6 +84,8 @@
 /* Begin PBXFileReference section */
 		27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.release.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.release.xcconfig"; sourceTree = "<group>"; };
 		368860DC998BA64E977AC799 /* Pods_SplitPay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AE0594426141E064B2D0A84 /* Pods-SplitPay-SplitPayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay-SplitPayTests.release.xcconfig"; path = "Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests.release.xcconfig"; sourceTree = "<group>"; };
+		9371FB5C0C2438D222CFFCA8 /* Pods-SplitPayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPayTests.release.xcconfig"; path = "Target Support Files/Pods-SplitPayTests/Pods-SplitPayTests.release.xcconfig"; sourceTree = "<group>"; };
 		9E119390284DF88700F67A62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
 		9E1355742974581D00CA57D0 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		9E13557629745DE900CA57D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -146,7 +149,10 @@
 		9EF10E4F284B511C00835B4C /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
 		9EF35F012846955B0049B9FF /* ProfilePwdChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePwdChangeView.swift; sourceTree = "<group>"; };
 		9EFE1EBA2837F93000C5B9DB /* HistoricDetailsSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricDetailsSplitView.swift; sourceTree = "<group>"; };
+		A4739A87521FD44FA8AB5407 /* Pods-SplitPayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPayTests.debug.xcconfig"; path = "Target Support Files/Pods-SplitPayTests/Pods-SplitPayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AACDE003F0625D627277FA75 /* Pods-SplitPay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay.debug.xcconfig"; path = "Target Support Files/Pods-SplitPay/Pods-SplitPay.debug.xcconfig"; sourceTree = "<group>"; };
+		B1B4E518B28050B45C835D0D /* Pods_SplitPay_SplitPayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitPay_SplitPayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB94E55D9527FED72BFCB889 /* Pods-SplitPay-SplitPayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitPay-SplitPayTests.debug.xcconfig"; path = "Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D1B777C2D42908D65927888 /* Pods_SplitPay_SplitPayTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +180,10 @@
 			children = (
 				AACDE003F0625D627277FA75 /* Pods-SplitPay.debug.xcconfig */,
 				27D75BE03C31C6BC56D0E437 /* Pods-SplitPay.release.xcconfig */,
+				A4739A87521FD44FA8AB5407 /* Pods-SplitPayTests.debug.xcconfig */,
+				9371FB5C0C2438D222CFFCA8 /* Pods-SplitPayTests.release.xcconfig */,
+				EB94E55D9527FED72BFCB889 /* Pods-SplitPay-SplitPayTests.debug.xcconfig */,
+				7AE0594426141E064B2D0A84 /* Pods-SplitPay-SplitPayTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -492,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				368860DC998BA64E977AC799 /* Pods_SplitPay.framework */,
+				B1B4E518B28050B45C835D0D /* Pods_SplitPay_SplitPayTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -503,9 +515,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E3CCD7729B50F4800256481 /* Build configuration list for PBXNativeTarget "SplitPayTests" */;
 			buildPhases = (
+				35E32B42AC10A421010AC439 /* [CP] Check Pods Manifest.lock */,
 				9E3CCD6B29B50F4800256481 /* Sources */,
 				9E3CCD6C29B50F4800256481 /* Frameworks */,
 				9E3CCD6D29B50F4800256481 /* Resources */,
+				127C3DCC3BCC918BF6396A5E /* [CP] Embed Pods Frameworks */,
+				BD8C4A584A89A9176DE6B908 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -596,6 +611,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		127C3DCC3BCC918BF6396A5E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		26C9E78652FA037E4AD7D864 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,6 +648,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35E32B42AC10A421010AC439 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SplitPay-SplitPayTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD8C4A584A89A9176DE6B908 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SplitPay-SplitPayTests/Pods-SplitPay-SplitPayTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CBBC797F2DA06837FE8A3C31 /* [CP] Embed Pods Frameworks */ = {
@@ -739,6 +810,7 @@
 /* Begin XCBuildConfiguration section */
 		9E3CCD7529B50F4800256481 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB94E55D9527FED72BFCB889 /* Pods-SplitPay-SplitPayTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -746,7 +818,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D4DRXPTLN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chailloleaudamien.SplitPayTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -759,6 +832,7 @@
 		};
 		9E3CCD7629B50F4800256481 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AE0594426141E064B2D0A84 /* Pods-SplitPay-SplitPayTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -766,7 +840,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3D4DRXPTLN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chailloleaudamien.SplitPayTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

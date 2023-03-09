@@ -20,29 +20,32 @@ variant_for_slice()
   "FirebaseFirestore.xcframework/ios-arm64")
     echo ""
     ;;
-  "FirebaseFirestore.xcframework/macos-arm64_x86_64")
-    echo ""
+  "FirebaseFirestore.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "maccatalyst"
     ;;
   "FirebaseFirestore.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
     ;;
-  "FirebaseFirestore.xcframework/tvos-arm64_x86_64-simulator")
-    echo "simulator"
+  "FirebaseFirestore.xcframework/macos-arm64_x86_64")
+    echo ""
     ;;
   "FirebaseFirestore.xcframework/tvos-arm64")
     echo ""
     ;;
-  "FirebaseFirestore.xcframework/ios-arm64_x86_64-maccatalyst")
-    echo "maccatalyst"
+  "FirebaseFirestore.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   "gRPC-Core.xcframework/ios-arm64")
     echo ""
     ;;
-  "gRPC-Core.xcframework/macos-arm64_x86_64")
-    echo ""
-    ;;
   "gRPC-Core.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
+    ;;
+  "gRPC-Core.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "gRPC-Core.xcframework/macos-arm64_x86_64")
+    echo ""
     ;;
   "gRPC-Core.xcframework/tvos-arm64")
     echo ""
@@ -50,56 +53,71 @@ variant_for_slice()
   "gRPC-Core.xcframework/tvos-arm64_x86_64-simulator")
     echo "simulator"
     ;;
-  "gRPC-Core.xcframework/ios-arm64_x86_64-simulator")
-    echo "simulator"
+  "Libuv-gRPC.xcframework/ios-arm64")
+    echo ""
     ;;
   "Libuv-gRPC.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
     ;;
-  "Libuv-gRPC.xcframework/tvos-arm64")
-    echo ""
-    ;;
   "Libuv-gRPC.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
+    ;;
+  "Libuv-gRPC.xcframework/macos-arm64_x86_64")
+    echo ""
+    ;;
+  "Libuv-gRPC.xcframework/tvos-arm64")
+    echo ""
     ;;
   "Libuv-gRPC.xcframework/tvos-arm64_x86_64-simulator")
     echo "simulator"
     ;;
-  "Libuv-gRPC.xcframework/ios-arm64")
+  "FirebaseCoreExtension.xcframework/ios-arm64")
     echo ""
     ;;
-  "Libuv-gRPC.xcframework/macos-arm64_x86_64")
+  "FirebaseCoreExtension.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "maccatalyst"
+    ;;
+  "FirebaseCoreExtension.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "FirebaseCoreExtension.xcframework/macos-arm64_x86_64")
+    echo ""
+    ;;
+  "FirebaseCoreExtension.xcframework/tvos-arm64")
+    echo ""
+    ;;
+  "FirebaseCoreExtension.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "gRPC-C++.xcframework/ios-arm64")
     echo ""
     ;;
   "gRPC-C++.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
     ;;
-  "gRPC-C++.xcframework/tvos-arm64")
-    echo ""
-    ;;
-  "gRPC-C++.xcframework/ios-arm64")
-    echo ""
+  "gRPC-C++.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   "gRPC-C++.xcframework/macos-arm64_x86_64")
     echo ""
     ;;
-  "gRPC-C++.xcframework/ios-arm64_x86_64-simulator")
-    echo "simulator"
+  "gRPC-C++.xcframework/tvos-arm64")
+    echo ""
     ;;
   "gRPC-C++.xcframework/tvos-arm64_x86_64-simulator")
-    echo "simulator"
-    ;;
-  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
     ;;
   "BoringSSL-GRPC.xcframework/ios-arm64")
     echo ""
     ;;
-  "BoringSSL-GRPC.xcframework/macos-arm64_x86_64")
-    echo ""
-    ;;
   "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
+    ;;
+  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "BoringSSL-GRPC.xcframework/macos-arm64_x86_64")
+    echo ""
     ;;
   "BoringSSL-GRPC.xcframework/tvos-arm64")
     echo ""
@@ -107,28 +125,49 @@ variant_for_slice()
   "BoringSSL-GRPC.xcframework/tvos-arm64_x86_64-simulator")
     echo "simulator"
     ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "maccatalyst"
+    ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
+  "FirebaseSharedSwift.xcframework/macos-arm64_x86_64")
+    echo ""
+    ;;
+  "FirebaseSharedSwift.xcframework/tvos-arm64")
+    echo ""
+    ;;
+  "FirebaseSharedSwift.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
+    ;;
   "FirebaseFirestoreSwift.xcframework/ios-arm64")
     echo ""
-    ;;
-  "FirebaseFirestoreSwift.xcframework/tvos-arm64")
-    echo ""
-    ;;
-  "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-simulator")
-    echo "simulator"
     ;;
   "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "maccatalyst"
     ;;
-  "FirebaseFirestoreSwift.xcframework/tvos-arm64_x86_64-simulator")
+  "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
     ;;
   "FirebaseFirestoreSwift.xcframework/macos-arm64_x86_64")
     echo ""
     ;;
-  "abseil.xcframework/ios-arm64_x86_64-simulator")
+  "FirebaseFirestoreSwift.xcframework/tvos-arm64")
+    echo ""
+    ;;
+  "FirebaseFirestoreSwift.xcframework/tvos-arm64_x86_64-simulator")
     echo "simulator"
     ;;
-  "abseil.xcframework/tvos-arm64_x86_64-simulator")
+  "abseil.xcframework/ios-arm64")
+    echo ""
+    ;;
+  "abseil.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "maccatalyst"
+    ;;
+  "abseil.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
     ;;
   "abseil.xcframework/macos-arm64_x86_64")
@@ -137,11 +176,8 @@ variant_for_slice()
   "abseil.xcframework/tvos-arm64")
     echo ""
     ;;
-  "abseil.xcframework/ios-arm64_x86_64-maccatalyst")
-    echo "maccatalyst"
-    ;;
-  "abseil.xcframework/ios-arm64")
-    echo ""
+  "abseil.xcframework/tvos-arm64_x86_64-simulator")
+    echo "simulator"
     ;;
   esac
 }
@@ -152,28 +188,31 @@ archs_for_slice()
   "FirebaseFirestore.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "FirebaseFirestore.xcframework/macos-arm64_x86_64")
+  "FirebaseFirestore.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
   "FirebaseFirestore.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "FirebaseFirestore.xcframework/tvos-arm64_x86_64-simulator")
+  "FirebaseFirestore.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
   "FirebaseFirestore.xcframework/tvos-arm64")
     echo "arm64"
     ;;
-  "FirebaseFirestore.xcframework/ios-arm64_x86_64-maccatalyst")
+  "FirebaseFirestore.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   "gRPC-Core.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "gRPC-Core.xcframework/macos-arm64_x86_64")
+  "gRPC-Core.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
-  "gRPC-Core.xcframework/ios-arm64_x86_64-maccatalyst")
+  "gRPC-Core.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "gRPC-Core.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
   "gRPC-Core.xcframework/tvos-arm64")
@@ -182,55 +221,70 @@ archs_for_slice()
   "gRPC-Core.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "gRPC-Core.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "Libuv-gRPC.xcframework/ios-arm64")
+    echo "arm64"
     ;;
   "Libuv-gRPC.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "arm64 x86_64"
+    ;;
+  "Libuv-gRPC.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "Libuv-gRPC.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
   "Libuv-gRPC.xcframework/tvos-arm64")
     echo "arm64"
     ;;
-  "Libuv-gRPC.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
-    ;;
   "Libuv-gRPC.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "Libuv-gRPC.xcframework/ios-arm64")
+  "FirebaseCoreExtension.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "Libuv-gRPC.xcframework/macos-arm64_x86_64")
+  "FirebaseCoreExtension.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
-  "gRPC-C++.xcframework/ios-arm64_x86_64-maccatalyst")
+  "FirebaseCoreExtension.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "gRPC-C++.xcframework/tvos-arm64")
+  "FirebaseCoreExtension.xcframework/macos-arm64_x86_64")
+    echo "arm64 x86_64"
+    ;;
+  "FirebaseCoreExtension.xcframework/tvos-arm64")
     echo "arm64"
+    ;;
+  "FirebaseCoreExtension.xcframework/tvos-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
     ;;
   "gRPC-C++.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "gRPC-C++.xcframework/macos-arm64_x86_64")
+  "gRPC-C++.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
   "gRPC-C++.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "gRPC-C++.xcframework/tvos-arm64_x86_64-simulator")
+  "gRPC-C++.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
-  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-simulator")
+  "gRPC-C++.xcframework/tvos-arm64")
+    echo "arm64"
+    ;;
+  "gRPC-C++.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   "BoringSSL-GRPC.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "BoringSSL-GRPC.xcframework/macos-arm64_x86_64")
+  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
-  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-maccatalyst")
+  "BoringSSL-GRPC.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "BoringSSL-GRPC.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
   "BoringSSL-GRPC.xcframework/tvos-arm64")
@@ -239,28 +293,49 @@ archs_for_slice()
   "BoringSSL-GRPC.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "arm64 x86_64"
+    ;;
+  "FirebaseSharedSwift.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
+  "FirebaseSharedSwift.xcframework/macos-arm64_x86_64")
+    echo "arm64 x86_64"
+    ;;
+  "FirebaseSharedSwift.xcframework/tvos-arm64")
+    echo "arm64"
+    ;;
+  "FirebaseSharedSwift.xcframework/tvos-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
+    ;;
   "FirebaseFirestoreSwift.xcframework/ios-arm64")
     echo "arm64"
-    ;;
-  "FirebaseFirestoreSwift.xcframework/tvos-arm64")
-    echo "arm64"
-    ;;
-  "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
     ;;
   "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-maccatalyst")
     echo "arm64 x86_64"
     ;;
-  "FirebaseFirestoreSwift.xcframework/tvos-arm64_x86_64-simulator")
+  "FirebaseFirestoreSwift.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   "FirebaseFirestoreSwift.xcframework/macos-arm64_x86_64")
     echo "arm64 x86_64"
     ;;
-  "abseil.xcframework/ios-arm64_x86_64-simulator")
+  "FirebaseFirestoreSwift.xcframework/tvos-arm64")
+    echo "arm64"
+    ;;
+  "FirebaseFirestoreSwift.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
-  "abseil.xcframework/tvos-arm64_x86_64-simulator")
+  "abseil.xcframework/ios-arm64")
+    echo "arm64"
+    ;;
+  "abseil.xcframework/ios-arm64_x86_64-maccatalyst")
+    echo "arm64 x86_64"
+    ;;
+  "abseil.xcframework/ios-arm64_x86_64-simulator")
     echo "arm64 x86_64"
     ;;
   "abseil.xcframework/macos-arm64_x86_64")
@@ -269,11 +344,8 @@ archs_for_slice()
   "abseil.xcframework/tvos-arm64")
     echo "arm64"
     ;;
-  "abseil.xcframework/ios-arm64_x86_64-maccatalyst")
+  "abseil.xcframework/tvos-arm64_x86_64-simulator")
     echo "arm64 x86_64"
-    ;;
-  "abseil.xcframework/ios-arm64")
-    echo "arm64"
     ;;
   esac
 }
@@ -357,11 +429,13 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseFirestore.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-simulator" "ios-arm64_x86_64-maccatalyst"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseFirestore.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
 install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/gRPC-Core.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/Libuv-gRPC.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator" "ios-arm64"
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/gRPC-C++.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64_x86_64-maccatalyst" "ios-arm64" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/BoringSSL-GRPC.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64_x86_64-simulator" "ios-arm64" "ios-arm64_x86_64-maccatalyst"
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseFirestoreSwift.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-simulator" "ios-arm64_x86_64-maccatalyst"
-install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/abseil.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64_x86_64-simulator" "ios-arm64_x86_64-maccatalyst" "ios-arm64"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/Libuv-gRPC.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseCoreExtension.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/gRPC-C++.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/BoringSSL-GRPC.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseSharedSwift.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/FirebaseFirestoreSwift.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/FirebaseFirestore/FirebaseFirestore/abseil.xcframework" "FirebaseFirestore/Base" "framework" "ios-arm64" "ios-arm64_x86_64-maccatalyst" "ios-arm64_x86_64-simulator"
 

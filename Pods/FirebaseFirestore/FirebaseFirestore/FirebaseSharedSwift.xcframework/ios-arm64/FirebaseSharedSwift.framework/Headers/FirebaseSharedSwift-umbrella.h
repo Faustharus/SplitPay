@@ -10,3 +10,7 @@
 #endif
 #endif
 
+
+FOUNDATION_EXPORT double FirebaseSharedSwiftVersionNumber;
+FOUNDATION_EXPORT const unsigned char FirebaseSharedSwiftVersionString[];
+
