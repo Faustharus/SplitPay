@@ -161,8 +161,8 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                     let profileRef = self!.db.collection("users").document(uid)
                     // Update the data, if anything is altered
                     profileRef.updateData([
-                        "firstName": self!.userDetails.firstName,
-                        "surName": self!.userDetails.surName,
+                        //"firstName": self!.userDetails.firstName,
+                        //"surName": self!.userDetails.surName,
                         "profilePicture": metaImageUrl
                     ]) { error in
                         if let error = error {
@@ -290,41 +290,7 @@ extension SessionServiceImpl {
         }
     }
     
-    func fetchLastMessage(with uid: String) {
-        let docRef = db.collection("messages").document(uid).collection("lastMessage").order(by: "timestamp")
-
-        docRef.getDocuments() { (querySnapshot, error) in
-            guard let snapshot = querySnapshot, error == nil else {
-                print("Error getting last message detected ...")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.chatMessageArray = snapshot.documents.map { item in
-                    return SessionChatMessageDetails(id: item.documentID, fromUid: item["fromUid"] as? String ?? "", toUid: item["toUid"] as? String ?? "", message: item["message"] as? String ?? "", timestamp: item["timestamp"] as? Timestamp ?? Timestamp())
-                }
-            }
-        }
-    }
     
-    func fetchMessages(with fromUid: String, and toUid: String) {
-        let fromDocRef = db.collection("messages").document(fromUid).collection(toUid).order(by: "timestamp")
-        
-        fromDocRef.getDocuments { snapshot, error in
-            if let error = error {
-                print("Error detected getting messages: \(error)")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.count += 1
-                self.chatMessageArray = snapshot?.documents.map { item in
-                    return SessionChatMessageDetails(id: item.documentID, fromUid: item["fromUid"] as? String ?? "", toUid: item["toUid"] as? String ?? "", message: item["message"] as? String ?? "", timestamp: item["timestamp"] as? Timestamp ?? Timestamp())
-                } ?? [SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())]
-            }
-        }
-    }
-        
     func allUsersRefresh() {
         guard let user = Auth.auth().currentUser?.uid else { return }
         let docRef = db.collection("users").whereField("id", isNotEqualTo: user)
@@ -343,6 +309,44 @@ extension SessionServiceImpl {
                         return SessionUserDetails(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
                     }
                 }
+            }
+        }
+    }
+    
+    
+    // MARK: - Deactivated -> Contacts
+    func fetchLastMessage(with uid: String) {
+        let docRef = db.collection("messages").document(uid).collection("lastMessage").order(by: "timestamp")
+
+        docRef.getDocuments() { (querySnapshot, error) in
+            guard let snapshot = querySnapshot, error == nil else {
+                print("Error getting last message detected ...")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.chatMessageArray = snapshot.documents.map { item in
+                    return SessionChatMessageDetails(id: item.documentID, fromUid: item["fromUid"] as? String ?? "", toUid: item["toUid"] as? String ?? "", message: item["message"] as? String ?? "", timestamp: item["timestamp"] as? Timestamp ?? Timestamp())
+                }
+            }
+        }
+    }
+    
+    // MARK: - Deactivated -> Contacts
+    func fetchMessages(with fromUid: String, and toUid: String) {
+        let fromDocRef = db.collection("messages").document(fromUid).collection(toUid).order(by: "timestamp")
+
+        fromDocRef.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error detected getting messages: \(error)")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.count += 1
+                self.chatMessageArray = snapshot?.documents.map { item in
+                    return SessionChatMessageDetails(id: item.documentID, fromUid: item["fromUid"] as? String ?? "", toUid: item["toUid"] as? String ?? "", message: item["message"] as? String ?? "", timestamp: item["timestamp"] as? Timestamp ?? Timestamp())
+                } ?? [SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())]
             }
         }
     }

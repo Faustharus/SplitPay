@@ -7,6 +7,7 @@
 
 import Firebase
 import SwiftUI
+//import SocketIO
 
 @available(iOS 13.0, *)
 
@@ -22,6 +23,7 @@ struct SplitPayApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sessionService = SessionServiceImpl()
+    //@ObservedObject var socket = SocketMain() // Mauvais endroit <- A appliquer sur le login/signin et logout
     
     var body: some Scene {
         WindowGroup {
@@ -35,5 +37,9 @@ struct SplitPayApp: App {
                 }
             }
         }
+        //        WindowGroup {
+        //            //InscriptionView()
+        //            //ConnectionView()
+        //        }
     }
 }

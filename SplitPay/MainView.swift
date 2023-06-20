@@ -8,14 +8,13 @@
 import SwiftUI
 
 enum PageSelected: String {
-    case split, chat, review, profile
+    case split, review, profile
+    //case split, chat, review, profile
 }
 
 struct MainView: View {
     
     @EnvironmentObject var sessionService: SessionServiceImpl
-    
-    var mSocket = SocketHandler.shared.getSocket()
     
     var body: some View {
         TabView {
@@ -26,12 +25,12 @@ struct MainView: View {
                 }
                 .tag(PageSelected.split)
             
-            ChatRoomView()
-                .tabItem {
-                    Image(systemName: "person.3")
-                    Text("Chat")
-                }
-                .tag(PageSelected.chat)
+//            ChatRoomView()
+//                .tabItem {
+//                    Image(systemName: "person.3")
+//                    Text("Chat")
+//                }
+//                .tag(PageSelected.chat)
             
             HistoricSplitView()
                 .tabItem {
