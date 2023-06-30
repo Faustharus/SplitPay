@@ -11,7 +11,7 @@ struct SplitingDetails: Identifiable, Hashable {
     var id: String = UUID().uuidString
     var currencyCode: CurrencyDetails
     var percentages: PercentageDetails
-    var initialAmount: Double
+    var initialAmount: String
     var splitedAmount: Double
     var indexOfPersons: Int
     var entryDate: Date
@@ -33,7 +33,7 @@ struct CurrencyDetails: Identifiable, Hashable {
 
 extension SplitingDetails {
     
-    static var new: SplitingDetails = SplitingDetails(currencyCode: CurrencyDetails.init(names: "Euro", code: "EUR", symbols: "eurosign.circle", isSelected: false, position: 0), percentages: PercentageDetails.init(reelValue: 10, position: 1), initialAmount: 0.00, splitedAmount: 0.00, indexOfPersons: 0, entryDate: Date())
+    static var new: SplitingDetails = SplitingDetails(currencyCode: CurrencyDetails.init(names: "Euro", code: "EUR", symbols: "eurosign.circle", isSelected: false, position: 0), percentages: PercentageDetails.init(reelValue: 0, position: 0), initialAmount: "0.00", splitedAmount: 0.00, indexOfPersons: 1, entryDate: Date())
     
     static var percentArray: [PercentageDetails] = [
         PercentageDetails(reelValue: 0, position: 0),

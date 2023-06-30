@@ -21,7 +21,7 @@ struct ForgotPasswordView: View {
         GeometryReader { geo in
             NavigationStack {
                 ZStack {
-                    LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+                    backgroundGradient
                     
                     ScrollView {
                         Image("dollarIcon")
@@ -59,14 +59,7 @@ struct ForgotPasswordView: View {
                                 Spacer().frame(height: 40)
                                 
                                 ButtonActionView(tapButton: $tapButton, title: "Send Password", foreground: .black, background: [.blue, .purple], sfSymbols: "rectangle.portrait.and.arrow.right", width: 310, height: 45) {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                        withAnimation {
-                                            tapButton = false
-                                        }
-                                    }
-                                    withAnimation {
-                                        tapButton = true
-                                    }
+                                    animationButton(_tapButton)
                                     raiseAlert = true
                                     if checkValidEmail(newValue: vm.email) {
                                         vm.sendPasswordReset()
@@ -77,14 +70,7 @@ struct ForgotPasswordView: View {
                                 Spacer().frame(height: 16)
                                 
                                 ChevronButtonActionView(tapButton: $tapBackButton, title: "Back", foreground: .white, background: [.red.opacity(0.9), .red.opacity(0.6), .red.opacity(0.3)], leftSfSymbols: "chevron.left", rightSfSymbols: "", width: 310, height: 45) {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                        withAnimation {
-                                            tapBackButton = false
-                                        }
-                                    }
-                                    withAnimation {
-                                        tapBackButton = true
-                                    }
+                                    animationButton(_tapBackButton)
                                     self.dismiss()
                                 }
                             }
@@ -93,7 +79,7 @@ struct ForgotPasswordView: View {
                 }
                 .alert(isPresented: $raiseAlert, content: {
                     if checkValidEmail(newValue: vm.email) {
-                        return Alert(title: Text("Lost Password Request Sent"), message: Text("If you do have an account, you should see the request in your mail box - Check your Spam Inbox"), dismissButton: .default(Text("OK"), action: {
+                        return Alert(title: Text("Lost Password Request Sent"), message: Text("If you do have an account with \(vm.email), you should see the request in your Mailbox - Check your Spam Inbox"), dismissButton: .default(Text("OK"), action: {
                             raiseAlert = false
                         }))
                     } else {
@@ -127,6 +113,33 @@ extension ForgotPasswordView {
         }
         print("Email Format Invalid...")
         return false
+    }
+    
+}
+
+
+// MARK: - View Components
+extension ForgotPasswordView {
+    
+    var backgroundGradient: some View {
+        LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+    }
+    
+}
+
+
+// MARK: - Function & Computed Properties
+extension ForgotPasswordView {
+    
+    func animationButton(_ boolean: State<Bool>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation {
+                boolean.wrappedValue = false
+            }
+        }
+        withAnimation {
+            boolean.wrappedValue = true
+        }
     }
     
 }

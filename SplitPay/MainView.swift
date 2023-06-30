@@ -7,9 +7,13 @@
 
 import SwiftUI
 
-enum PageSelected: String {
-    case split, review, profile
+enum PageSelected: String, Identifiable {
+    case split, test, review, profile
     //case split, chat, review, profile
+    
+    var id: Int {
+        hashValue
+    }
 }
 
 struct MainView: View {
@@ -18,12 +22,14 @@ struct MainView: View {
     
     var body: some View {
         TabView {
-            SplitView()
-                .tabItem {
-                    Image(systemName: "banknote")
-                    Text("Split")
-                }
-                .tag(PageSelected.split)
+            NavigationStack {
+                SplitShareView()
+            }
+            .tabItem {
+                Image(systemName: "banknote")
+                Text("Split")
+            }
+            .tag(PageSelected.split)
             
 //            ChatRoomView()
 //                .tabItem {
@@ -32,19 +38,23 @@ struct MainView: View {
 //                }
 //                .tag(PageSelected.chat)
             
-            HistoricSplitView()
-                .tabItem {
-                    Image(systemName: "chart.bar.xaxis")
-                    Text("Review")
-                }
-                .tag(PageSelected.review)
+            NavigationStack {
+                HistoricSplitView()
+            }
+            .tabItem {
+                Image(systemName: "chart.bar.xaxis")
+                Text("Review")
+            }
+            .tag(PageSelected.review)
             
-            ProfileView()
-                .tabItem {
-                    Image(systemName: "gearshape.2")
-                    Text("Profile")
-                }
-                .tag(PageSelected.profile)
+            NavigationStack {
+                SettingProfileView()
+            }
+            .tabItem {
+                Image(systemName: "person")
+                Text("Profile")
+            }
+            .tag(PageSelected.profile)
             
         }
     }

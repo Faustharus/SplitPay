@@ -41,7 +41,7 @@ extension SessionSplitUserDetails: DocumentSerializable {
         let initialAmount = dictionary["initialAmount"] as? Double ?? 0.00
         let percentages = dictionary["percentages"] as? Int ?? 0
         let currencyCode = dictionary["currencyCode"] as? String ?? ""
-        let indexOfPersons = dictionary["indexOfPersons"] as? Int ?? 0
+        let indexOfPersons = dictionary["indexOfPersons"] as? Int ?? 1
         let splitedAmount = dictionary["splitedAmount"] as? Double ?? 0.00
         let entryDate = dictionary["entryDate"] as? Timestamp ?? Timestamp()
         

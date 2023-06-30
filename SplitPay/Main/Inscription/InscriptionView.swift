@@ -38,7 +38,7 @@ struct InscriptionView: View {
         GeometryReader { geo in
             NavigationStack {
                 ZStack {
-                    LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+                    backgroundGradient
                     
                     ScrollView {
                         Image("dollarIcon")
@@ -87,15 +87,7 @@ struct InscriptionView: View {
                                         if onBoardingState > 0 {
                                              // MARK: - Back Button
                                             ChevronButtonActionView(tapButton: $tapBackButton, title: "Back", foreground: .white, background: [Color(red: 0.4, green: 0, blue: 0), Color(red: 0.6, green: 0, blue: 0), Color(red: 0.8, green: 0, blue: 0), Color(red: 1, green: 0, blue: 0)], leftSfSymbols: "chevron.left", rightSfSymbols: "", width: 150, height: 45) {
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                                    withAnimation {
-                                                        tapBackButton = false
-                                                    }
-                                                }
-                                                withAnimation {
-                                                    tapBackButton = true
-                                                }
-                                                // TODO: More Code Later
+                                                animationButton(_tapBackButton)
                                                 withAnimation(.spring()) {
                                                     onBoardingState -= 1
                                                 }
@@ -104,14 +96,7 @@ struct InscriptionView: View {
                                         
                                         // MARK: - SignUp Button
                                         ChevronButtonActionView(tapButton: $tapButton, title: onBoardingState != 3 ? "Continue" : "SignUp", foreground: .white, background: [Color(red: 0.8, green: 0, blue: 1), Color(red: 0.6, green: 0, blue: 0.8), Color(red: 0.4, green: 0, blue: 0.6), Color(red: 0.2, green: 0, blue: 0.4)], leftSfSymbols: "", rightSfSymbols: "chevron.right", width: onBoardingState > 0 ? 150 : 300, height: 45) {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                                withAnimation {
-                                                    tapButton = false
-                                                }
-                                            }
-                                            withAnimation {
-                                                tapButton = true
-                                            }
+                                            animationButton(_tapButton)
                                             withAnimation(.spring()) {
                                                 if onBoardingState < 3 {
                                                     onBoardingState += 1
@@ -340,7 +325,7 @@ extension InscriptionView {
             
             Spacer().frame(height: 8)
             
-            SecureTextFieldView(password: $vm.userDetails.confirmPassword, toSeePassword: $toSeePassword, placeholder: "Confirm Password", sfSymbols: "lock", width: 310, height: 60)
+            SecureTextFieldView(password: $vm.userDetails.confirmPassword, toSeePassword: $toSeeConfirmPassword, placeholder: "Confirm Password", sfSymbols: "lock", width: 310, height: 60)
                 .focused($inputsActive, equals: .confirmPassword)
                 .toolbar {
                     ToolbarItem(placement: .keyboard) {
@@ -366,6 +351,33 @@ extension InscriptionView {
     
     func loadPicture() {
         picture = Image(uiImage: vm.userDetails.picture!)
+    }
+    
+}
+
+
+// MARK: - View Components
+extension InscriptionView {
+    
+    var backgroundGradient: some View {
+        LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+    }
+    
+}
+
+
+// MARK: - Function & Computed Properties
+extension InscriptionView {
+    
+    func animationButton(_ boolean: State<Bool>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation {
+                boolean.wrappedValue = false
+            }
+        }
+        withAnimation {
+            boolean.wrappedValue = true
+        }
     }
     
 }

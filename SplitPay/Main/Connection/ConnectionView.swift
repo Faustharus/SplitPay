@@ -30,7 +30,7 @@ struct ConnectionView: View {
         GeometryReader { geo in
             NavigationStack {
                 ZStack {
-                    LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+                    backgroundGradient
                     
                     ScrollView {
                         Image("dollarIcon")
@@ -110,14 +110,7 @@ struct ConnectionView: View {
                                     
                                 VStack {
                                     ButtonActionView(tapButton: $tapButton, title: "Login", foreground: .black, background: [.blue, .purple], sfSymbols: "rectangle.portrait.and.arrow.right", width: 310, height: 45) {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                            withAnimation {
-                                                tapButton = false
-                                            }
-                                        }
-                                        withAnimation {
-                                            tapButton = true
-                                        }
+                                        animationButton(_tapButton)
                                         if checkValidEmail(newValue: vm.credentials.email) {
                                             vm.login()
                                         }
@@ -185,6 +178,33 @@ extension ConnectionView {
         }
         print("Email Format Invalid...")
         return false
+    }
+    
+}
+
+
+// MARK: - View Components
+extension ConnectionView {
+    
+    var backgroundGradient: some View {
+        LinearGradient(colors: [Color(red: 0.2, green: 0, blue: 1).opacity(1), Color(red: 0.4, green: 0, blue: 1).opacity(0.8), Color(red: 0.3, green: 0, blue: 0.6).opacity(0.6), Color(red: 0.6, green: 0, blue: 0.8).opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+    }
+    
+}
+
+
+// MARK: - Function & Computed Properties
+extension ConnectionView {
+    
+    func animationButton(_ boolean: State<Bool>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation {
+                boolean.wrappedValue = false
+            }
+        }
+        withAnimation {
+            boolean.wrappedValue = true
+        }
     }
     
 }

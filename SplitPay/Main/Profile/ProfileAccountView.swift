@@ -10,6 +10,8 @@ import FirebaseAuth
 
 struct ProfileAccountView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     @State private var currentPassword: String = ""
@@ -28,7 +30,8 @@ struct ProfileAccountView: View {
         .padding(.all, 10)
         .alert(isPresented: $toDelete) {
             Alert(title: Text("⚠️ You're about to delete your account ! ⚠️"), message: Text("This operation can't be cancelled \n Are you sure ?"), primaryButton: .destructive(Text("Deleting"), action: {
-                sessionService.accountDeleting(with: Auth.auth().currentUser!.uid,  with: currentPassword)
+                sessionService.accountDeleting(with: Auth.auth().currentUser?.uid ?? "N/A",  with: currentPassword)
+                dismiss()
             }), secondaryButton: .default(Text("Cancel"), action: {
                 self.toDelete = false
             }))

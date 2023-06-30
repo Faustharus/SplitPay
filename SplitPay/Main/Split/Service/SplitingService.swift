@@ -33,8 +33,8 @@ final class SplitingServiceImpl: SplitingService {
                     let db = Firestore.firestore()
                     // Add a new document in the Collection named "review"
                     db.collection("users").document(uid).collection("review").addDocument(data: [
-                        SplitingKeys.initialAmount.rawValue: details.initialAmount,
-                        SplitingKeys.splitedAmount.rawValue: details.initialAmount / Double(details.indexOfPersons),
+                        SplitingKeys.initialAmount.rawValue: (details.initialAmount as NSString).doubleValue,
+                        SplitingKeys.splitedAmount.rawValue: (details.initialAmount as NSString).doubleValue / Double(details.indexOfPersons),
                         SplitingKeys.currencyCode.rawValue: currencyDetails[0].code,
                         SplitingKeys.percentages.rawValue: details.percentages.reelValue,
                         SplitingKeys.indexOfPersons.rawValue: details.indexOfPersons,

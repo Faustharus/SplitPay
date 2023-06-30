@@ -27,19 +27,14 @@ struct SplitPayApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                switch sessionService.state {
+            //NavigationStack {}
+            switch sessionService.state {
                 case .loggedIn:
                     MainView()
                         .environmentObject(sessionService)
                 case .loggedOut:
                     CredentialsView()
-                }
             }
         }
-        //        WindowGroup {
-        //            //InscriptionView()
-        //            //ConnectionView()
-        //        }
     }
 }

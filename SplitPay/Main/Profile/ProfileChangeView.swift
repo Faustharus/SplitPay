@@ -22,11 +22,20 @@ struct ProfileChangeView: View {
     
     var body: some View {
         VStack {
+            Image("ProfilePictureImage")
+                .resizable()
+                .scaledToFit()
+                .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.3)
+            
             Text("Test Profile Updating View")
-            //InputTextFieldView(text: $sessionService.userDetails.firstName, placeholder: "\(sessionService.userDetails.firstName)", sfSymbols: "1.circle")
-            //InputTextFieldView(text: $sessionService.userDetails.surName, placeholder: "\(sessionService.userDetails.surName)", sfSymbols: "2.circle")
             PictureProfileView(inputPicture: $sessionService.userDetails.picture, picture: $picture) {
                 showingPickerImage = true
+            }
+            
+            Button {
+                self.picture = nil
+            } label: {
+                Text("Delete Image")
             }
 
             

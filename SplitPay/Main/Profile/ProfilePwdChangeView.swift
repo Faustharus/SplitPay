@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfilePwdChangeView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     @State private var email: String = ""
@@ -30,6 +32,7 @@ struct ProfilePwdChangeView: View {
         
         ActionButtonView(title: "Confirm New Pwd", foreground: .white, background: oldPassword.isEmpty || newPassword.isEmpty || oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || newPassword.trimmingCharacters(in: .whitespaces).isEmpty ? .gray : .blue, sfSymbols: "pencil") {
             sessionService.updatePassword(with: newPassword)
+            dismiss()
         }
         .disabled(oldPassword.isEmpty || newPassword.isEmpty || oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || newPassword.trimmingCharacters(in: .whitespaces).isEmpty)
     }
