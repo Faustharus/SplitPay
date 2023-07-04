@@ -61,10 +61,10 @@ struct HistoricSplitView: View {
                 }
             }
             .onAppear {
-                sessionService.splitRefresh(with: Auth.auth().currentUser?.uid ?? "N/A")
+                sessionService.splitRefresh(with: Auth.auth().currentUser?.uid ?? "User not Authorized")
             }
             .refreshable {
-                sessionService.splitRefresh(with: Auth.auth().currentUser?.uid ?? "N/A")
+                sessionService.splitRefresh(with: Auth.auth().currentUser!.uid)
             }
             .alert(isPresented: $toDeleteAll) {
                 Alert(title: Text("Delete All"), message: Text("Are you sure ?"),
@@ -78,7 +78,7 @@ struct HistoricSplitView: View {
                         .destructive(
                             Text("Delete All"),
                         action: {
-                            sessionService.splitDeleteAll(with: Auth.auth().currentUser?.uid ?? "N/A")
+                            sessionService.splitDeleteAll(with: Auth.auth().currentUser!.uid)
                         })
                 )
             }

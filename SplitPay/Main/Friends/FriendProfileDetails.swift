@@ -9,37 +9,37 @@ import SwiftUI
 
 struct FriendProfileDetails: View {
     var body: some View {
-        VStack {
-            Image(systemName: "person.crop.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.main.bounds.width / 5, height: UIScreen.main.bounds.height / 5)
-            
-            Text("John Doe")
-                .font(.system(size: 24, weight: .bold, design: .serif))
-            
-            Spacer().frame(height: UIScreen.main.bounds
-                .height * 0.05)
-            
-            HStack {
-                Button {
-                    // TODO: More Code Later
-                } label: {
-                    Image(systemName: "checkmark.circle")
-                }
+        GeometryReader { geo in
+            VStack(alignment: .center) {
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: geo.size.width, height: geo.size.height * 0.2)
                 
-                Spacer().frame(width: UIScreen.main.bounds.width * 0.3)
+                Text("Rodney McKay")
+                    .font(.system(size: 24, weight: .bold, design: .serif))
                 
-                Button {
-                    // TODO: More Code Later
-                } label: {
-                    Image(systemName: "xmark.circle")
+                Text("Rod#5155")
+                    .font(.system(size: 18, weight: .medium, design: .serif))
+                
+                Spacer().frame(height: UIScreen.main.bounds
+                    .height * 0.05)
+                
+                VStack {
+                    ButtonActionView(tapButton: .constant(false), title: "Send Request", foreground: .white, background: [Color(red: 0.15, green: 0.6, blue: 1)], sfSymbols: "paperplane", width: geo.size.width * 0.9, height: 65) {
+                        // TODO: More Code Later
+                    }
+                    
+                    Spacer().frame(height: geo.size.height * 0.03)
+                    
+                    ButtonActionView(tapButton: .constant(false), title: "Block Rodney", foreground: .white, background: [.red], sfSymbols: "xmark", width: geo.size.width * 0.9, height: 65) {
+                        // TODO: More Code Later
+                    }
                 }
+                .font(.system(size: 24, weight: .semibold, design: .default))
+                .imageScale(.large)
+                .clipped()
             }
-            .font(.system(size: 24, weight: .semibold, design: .default))
-            .imageScale(.large)
-            .symbolRenderingMode(.multicolor)
-            .clipped()
         }
     }
 }

@@ -84,7 +84,7 @@ struct SplitShareView: View {
                                     }
                                 }
                             VStack {
-                                Text(vm.splitDetails.initialAmount.isEmpty ? "" : "")
+                                Text(vm.splitDetails.initialAmount.isEmpty ? "" : vm.splitDetails.initialAmount)
                                     .multilineTextAlignment(.center)
                             }
                         }

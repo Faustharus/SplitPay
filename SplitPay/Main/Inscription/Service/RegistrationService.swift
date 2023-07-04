@@ -19,7 +19,7 @@ enum RegistrationKeys: String {
     case extNickName
     case profilePicture
     case email
-    case withContact
+    case contacts
 }
 
 protocol RegistrationService {
@@ -54,14 +54,14 @@ final class RegistrationServiceImpl: RegistrationService {
                                 
                                 // Add the data in the DB for the new user created
                                 db.collection("users").document(uid).setData([
-                                    RegistrationKeys.id.rawValue: res?.user.uid ?? details.id,
+                                    RegistrationKeys.id.rawValue: uid,
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.surName.rawValue: details.surName,
                                     RegistrationKeys.nickName.rawValue: details.nickName,
                                     RegistrationKeys.extNickName.rawValue: "\(details.nickName)#\(Int.random(in: 1000..<10000))",
                                     //RegistrationKeys.profilePicture.rawValue: uploadImgURL,
                                     RegistrationKeys.email.rawValue: details.email,
-                                    RegistrationKeys.withContact.rawValue: details.withContact
+                                    //RegistrationKeys.contacts.rawValue: details.contacts
                                 ])
 //                                { error in
 //                                    if let err = error {
@@ -91,7 +91,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                     // Set the url from where the image can be downloaded by converting it as a String
                                     storageProfileRef.downloadURL { (url, error) in
                                         if let uploadImgURL = url?.absoluteString {
-                                            let profileRef = db.collection("users").document(res?.user.uid ?? "N/A")
+                                            let profileRef = db.collection("users").document(uid)
                                             
                                             profileRef.updateData([
                                                 RegistrationKeys.profilePicture.rawValue: uploadImgURL

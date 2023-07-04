@@ -17,5 +17,6 @@ struct SessionUserDetails: Identifiable, Hashable {
     var extNickName: String
     var picture: UIImage?
     var profilePicture: String
-    var withContact: Bool
+    //var contacts: [String]
+    //var withContact: Bool
 }

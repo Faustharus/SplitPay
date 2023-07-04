@@ -18,13 +18,13 @@ struct RegistrationDetails: Identifiable {
     var nickName: String
     var picture: UIImage?
     var profilePicture: String
-    var withContact: Bool
+    //var contacts: [String]
 }
 
 extension RegistrationDetails {
     
     static var new: RegistrationDetails {
-        RegistrationDetails(email: "", password: "", confirmPassword: "", firstName: "", surName: "", nickName: "", picture: nil, profilePicture: "", withContact: false)
+        RegistrationDetails(email: "", password: "", confirmPassword: "", firstName: "", surName: "", nickName: "", picture: nil, profilePicture: "")
     }
     
 }

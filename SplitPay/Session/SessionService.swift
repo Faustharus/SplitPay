@@ -26,21 +26,23 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     
     @Published var state: SessionState = .loggedOut
-    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
-    @Published var chatMessage: SessionChatMessageDetails = SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())
-    @Published var friendRequest: SessionRequestSent = SessionRequestSent(id: "", fromUid: "", toUid: "", confirmation: false, timestamp: Timestamp())
+    @Published var userDetails: SessionUserDetails = SessionUserDetails.init(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "")
     @Published var userArray: [SessionUserDetails] = []
     @Published var splitArray: [SessionSplitUserDetails] = []
     @Published var chatMessageArray = [SessionChatMessageDetails]()
-    
-    @Published var count: Int = 0 // Need to be used in order to have an ID for the scrollTo (ScrollViewReader)
-    
+
     private var handler: AuthStateDidChangeListenerHandle?
     
     private var cancellables = Set<AnyCancellable>()
     
     let db = Firestore.firestore()
     
+    // MARK: - @Published -> Deactivated
+    @Published var chatMessage: SessionChatMessageDetails = SessionChatMessageDetails(id: "", fromUid: "", toUid: "", message: "", timestamp: Timestamp())
+    @Published var friendRequest: SessionRequestSent = SessionRequestSent(id: "", fromUid: "", toUid: "", confirmation: false, timestamp: Timestamp())
+    @Published var count: Int = 0 // Need to be used in order to have an ID for the scrollTo (ScrollViewReader) */
+    
+    // MARK: - Init
     init() {
         setupFirebaseAuthhandler()
 //        $chatMessageArray.map { items in
@@ -54,10 +56,6 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func logout() {
         try? Auth.auth().signOut()
-    }
-    
-    func withOrWithoutContact() {
-        self.userDetails.withContact.toggle()
     }
     
     func friendRequestSendAway() {
@@ -86,7 +84,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         let credential = EmailAuthProvider.credential(withEmail: user.email!, password: password)
         
         let dbRef = db.collection("users").document(uid)
-        let pictureRef = Storage.storage().reference().child("profile").child(uid)
+        let pictureRef = Storage.storage().reference().child("profile").child("\(uid)")
         dbRef.collection("review").getDocuments() { snapshot, error in
             if snapshot!.count > 0 {
                 for docSnapshot in snapshot!.documents {
@@ -107,7 +105,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
             } else {
                 Task {
                     try await pictureRef.delete()
-                    try await self.db.collection("users").document(uid).delete()
+                    try await dbRef.delete()
                 }
             }
         }
@@ -158,11 +156,9 @@ final class SessionServiceImpl: ObservableObject, SessionService {
                 if let metaImageUrl = url?.absoluteString {
                     self!.userDetails.profilePicture = metaImageUrl
                     // Get the document of whom is currently connected
-                    let profileRef = self!.db.collection("users").document(uid)
+                    let profileRef = self!.db.collection("users").document("\(uid)")
                     // Update the data, if anything is altered
                     profileRef.updateData([
-                        //"firstName": self!.userDetails.firstName,
-                        //"surName": self!.userDetails.surName,
                         "profilePicture": metaImageUrl
                     ]) { error in
                         if let error = error {
@@ -178,7 +174,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func splitDelete(with uid: String, with details: SessionSplitUserDetails) {
         // Get the selected document through it's id for deleting
-        db.collection("users").document(uid).collection("review").document(details.id).delete { error in
+        db.collection("users").document("\(uid)").collection("review").document("\(details.id)").delete { error in
             if error == nil {
                 // Dispatch it on the main thread
                 DispatchQueue.main.async {
@@ -196,7 +192,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     func splitDeleteAll(with uid: String) {
         // Get the Collection "review"
-        let docRf = db.collection("users").document(uid).collection("review")
+        let docRf = db.collection("users").document("\(uid)").collection("review")
         docRf.getDocuments() { (querySnapshot, error) in
             // For all documents in "review"
             for docSnapshot in querySnapshot!.documents {
@@ -236,7 +232,7 @@ extension SessionServiceImpl {
                 if let uid = user?.uid {
                     self.handleRefresh(with: uid);
                     self.splitRefresh(with: uid);
-                    self.allUsersRefresh()
+                    //self.allUsersRefresh()
                 }
             })
     }
@@ -260,12 +256,12 @@ extension SessionServiceImpl {
                     self.userDetails.nickName = data["nickName"] as? String ?? "N/A"
                     self.userDetails.extNickName = data["extNickName"] as? String ?? "N/A"
                     self.userDetails.profilePicture = data["profilePicture"] as? String ?? "N/A"
-                    self.userDetails.withContact = data["withContact"] as? Bool ?? false // Need to be modified reguarlely if necessary
+                    //self.userDetails.contacts = data["contacts"] as? [String] ?? ["No Contacts Yet"]
                 }
             }
             
             DispatchQueue.main.async {
-                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture, withContact: self.userDetails.withContact)
+                self.userDetails = SessionUserDetails(id: self.userDetails.id, email: self.userDetails.email, firstName: self.userDetails.firstName, surName: self.userDetails.surName, nickName: self.userDetails.nickName, extNickName: self.userDetails.extNickName, profilePicture: self.userDetails.profilePicture)
             }
         }
     }
@@ -284,7 +280,7 @@ extension SessionServiceImpl {
             DispatchQueue.main.async {
                 self.splitArray = snapshot.documents.map { item in
                     // Correctly return each split in the correct format in "splitArray" Array
-                    return SessionSplitUserDetails(id: item.documentID, initialAmount: item["initialAmount"] as? Double ?? 0.00, percentages: item["percentages"] as? Int ?? 0, currencyCode: item["currencyCode"] as? String ?? "", indexOfPersons: item["indexOfPersons"] as? Int ?? 0, splitedAmount: item["splitedAmount"] as? Double ?? 0.00, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
+                    return SessionSplitUserDetails(id: item["id"] as? String ?? "", initialAmount: item["initialAmount"] as? Double ?? 0.00, percentages: item["percentages"] as? Int ?? 0, currencyCode: item["currencyCode"] as? String ?? "", indexOfPersons: item["indexOfPersons"] as? Int ?? 0, splitedAmount: item["splitedAmount"] as? Double ?? 0.00, entryDate: item["entryDate"] as? Timestamp ?? Timestamp())
                 }
             }
         }
@@ -303,10 +299,10 @@ extension SessionServiceImpl {
             DispatchQueue.main.async {
                 self.userArray = snapshot.documents.map { item in
                     if item.documentID != user {
-                        return SessionUserDetails(id: item.documentID, email: item["email"] as? String ?? "", firstName: item["firstName"] as? String ?? "", surName: item["surName"] as? String ?? "", nickName: item["nickName"] as? String ?? "", extNickName: item["extNickName"] as? String ?? "", profilePicture: item["profilePicture"] as? String ?? "", withContact: item["withContact"] as? Bool ?? false)
+                        return SessionUserDetails(id: item.documentID, email: item["email"] as? String ?? "", firstName: item["firstName"] as? String ?? "", surName: item["surName"] as? String ?? "", nickName: item["nickName"] as? String ?? "", extNickName: item["extNickName"] as? String ?? "", profilePicture: item["profilePicture"] as? String ?? "")
                         
                     } else {
-                        return SessionUserDetails(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "", withContact: false)
+                        return SessionUserDetails(id: "", email: "", firstName: "", surName: "", nickName: "", extNickName: "", profilePicture: "")
                     }
                 }
             }

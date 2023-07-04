@@ -30,7 +30,10 @@ struct ProfileAccountView: View {
         .padding(.all, 10)
         .alert(isPresented: $toDelete) {
             Alert(title: Text("⚠️ You're about to delete your account ! ⚠️"), message: Text("This operation can't be cancelled \n Are you sure ?"), primaryButton: .destructive(Text("Deleting"), action: {
-                sessionService.accountDeleting(with: Auth.auth().currentUser?.uid ?? "N/A",  with: currentPassword)
+//                if !sessionService.splitArray.isEmpty {
+//                    sessionService.splitDeleteAll(with: Auth.auth().currentUser?.uid ?? "N/A")
+//                }
+                sessionService.accountDeleting(with: "\(Auth.auth().currentUser!.uid)",  with: currentPassword)
                 dismiss()
             }), secondaryButton: .default(Text("Cancel"), action: {
                 self.toDelete = false

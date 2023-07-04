@@ -186,7 +186,7 @@ struct SettingProfileView: View {
                     
                 }
                 .onAppear {
-                    sessionService.handleRefresh(with: Auth.auth().currentUser?.uid ?? "N/A")
+                    sessionService.handleRefresh(with: Auth.auth().currentUser!.uid)
                 }
             }
         }

@@ -94,7 +94,7 @@ struct CurrentChatLogView: View {
 
 struct CurrentChatLogView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentChatLogView(chatUser: SessionUserDetails(id: "", email: "Example@email.com", firstName: "Rodney", surName: "McKay", nickName: "Rod", extNickName: "Rod#5355", profilePicture: "", withContact: false))
+        CurrentChatLogView(chatUser: SessionUserDetails(id: "", email: "Example@email.com", firstName: "Rodney", surName: "McKay", nickName: "Rod", extNickName: "Rod#5355", profilePicture: ""))
             .environmentObject(SessionServiceImpl())
     }
 }
