@@ -1,5 +1,5 @@
 # SplitPay
-New App
+New App - Currently in reworking of it's design and functionnality
 
 ![Simulator Screen Shot - iPhone 14 Pro - 2023-02-28 at 09 02 31](https://user-images.githubusercontent.com/48592115/221793253-ced03249-a1b3-481d-8dc6-4cc05503817d.png)
 
