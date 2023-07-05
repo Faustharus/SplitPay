@@ -61,6 +61,7 @@ struct HistoricSplitView: View {
                 }
             }
             .onAppear {
+                // Must stay with nil-coalescing => Replace the uid by User not Authorized if logout or acc. deleted
                 sessionService.splitRefresh(with: Auth.auth().currentUser?.uid ?? "User not Authorized")
             }
             .refreshable {

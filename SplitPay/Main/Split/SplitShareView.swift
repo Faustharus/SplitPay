@@ -181,10 +181,11 @@ struct SplitShareView: View {
                 VStack {
                     // MARK: - Button Bottom Page
                     
-                    ButtonActionView(tapButton: $tapButtonAdd, title: "Add", foreground: .white, background: [Color.blue.opacity(0.9), Color.blue.opacity(0.6), Color.purple.opacity(0.45)], sfSymbols: "plus", width: geo.size.width * 0.9, height: 65) {
+                    ButtonActionView(tapButton: $tapButtonAdd, title: "Add", foreground: .white, background: [vm.splitDetails.initialAmount.isEmpty || vm.splitDetails.initialAmount == "0.00" ? Color.gray : Color.blue.opacity(0.9), Color.blue.opacity(0.6), Color.purple.opacity(0.45)], sfSymbols: "plus", width: geo.size.width * 0.9, height: 65) {
                         animationButton(_tapButtonAdd)
                         vm.addSplitToReview()
                     }
+                    .disabled(vm.splitDetails.initialAmount.isEmpty || vm.splitDetails.initialAmount == "0.00")
                 }
                 
             }
